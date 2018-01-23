@@ -13,4 +13,8 @@ Game.spawns['Spawn1'].spawnCreep( [WORK, CARRY, MOVE], 'Builder1',
 Game.spawns['Spawn1'].spawnCreep( [WORK,WORK,WORK,WORK,CARRY,MOVE,MOVE],
     'HarvesterBig',
     { memory: { role: 'harvester' } } );
+    
+    
+Game.spawns['Spawn1'].room.controller.activateSafeMode();
+Game.spawns['Spawn1'].room.createConstructionSite( 23, 22, STRUCTURE_TOWER );
  */
