@@ -13,8 +13,8 @@ module.exports.loop = function () {
 
     var numberOfCreeps = {
         harvester: {
-            min: 3,
-            max: 4
+            min: 2,
+            max: 3
         },
         upgrader: 0,
         builder: 5
@@ -42,7 +42,7 @@ function spawnCreeps(numberOfCreeps, harvesters, upgraders, builders) {
         creepSpawning('builder', 'upgrader');
     } else if (upgraders < numberOfCreeps.upgrader) {
         creepSpawning('upgrader');
-    } else if (harvesters < numberOfCreeps.harvester.max - 1) {
+    } else if (harvesters < numberOfCreeps.harvester.max) {
         creepSpawning('harvester');
     }
 }
@@ -91,10 +91,16 @@ function setCreepRole() {
         var targets = creep.room.find(FIND_CONSTRUCTION_SITES).length;
 
         if(creep.memory.role === 'harvester') {
+            // harvester -> builder -> upgrader
             var energyIsFull = creep.room.energyAvailable === creep.room.energyCapacityAvailable;
-            energyIsFull ? roleBuilder.run(creep) : roleHarvester.run(creep);
+            if (!energyIsFull) {
+                roleHarvester.run(creep)
+            } else {
+                targets ? roleBuilder.run(creep) : roleUpgrader.run(creep);
+            }
         }
         if(creep.memory.role === 'builder') {
+            // builder -> upgrader
             targets ? roleBuilder.run(creep) : roleUpgrader.run(creep);
         }
         if(creep.memory.role === 'upgrader') {
