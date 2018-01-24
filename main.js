@@ -16,8 +16,8 @@ module.exports.loop = function () {
             min: 3,
             max: 5
         },
-        upgrader: 3,
-        builder: 3
+        upgrader: 1,
+        builder: 5
     };
 
     spawningInfo();
@@ -39,7 +39,7 @@ function spawnCreeps(numberOfCreeps, harvesters, upgraders, builders) {
     if (harvesters < numberOfCreeps.harvester.min) {
         creepSpawning('harvester');
     } else if (builders < numberOfCreeps.builder) {
-        creepSpawning('builder', 'upgrader');
+        creepSpawning('builder');
     } else if (upgraders < numberOfCreeps.upgrader) {
         creepSpawning('upgrader');
     } else if (harvesters < numberOfCreeps.harvester.max) {
@@ -56,7 +56,7 @@ function creepMemoryClearing() {
     }
 }
 
-function creepSpawning(role, secondRole) {
+function creepSpawning(role) {
     var bigCreep = false;
 
     for(var name in Game.rooms) {
@@ -68,8 +68,7 @@ function creepSpawning(role, secondRole) {
     Game.spawns['Spawn1'].spawnCreep(creepParams, newName,
         {memory: {
             role: role,
-            bigCreep: bigCreep,
-            secondRole : secondRole
+            bigCreep: bigCreep
         }});
 }
 
