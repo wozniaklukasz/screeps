@@ -17,4 +17,7 @@ Game.spawns['Spawn1'].spawnCreep( [WORK,WORK,WORK,WORK,CARRY,MOVE,MOVE],
     
 Game.spawns['Spawn1'].room.controller.activateSafeMode();
 Game.spawns['Spawn1'].room.createConstructionSite( 23, 22, STRUCTURE_TOWER );
+
+
+Game.creeps['Harvester1'].suicide()
  */
