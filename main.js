@@ -42,7 +42,7 @@ function spawnCreeps(numberOfCreeps, harvesters, upgraders, builders) {
         creepSpawning('builder', 'upgrader');
     } else if (upgraders < numberOfCreeps.upgrader) {
         creepSpawning('upgrader');
-    } else if (harvesters < numberOfCreeps.harvester.max) {
+    } else if (harvesters < numberOfCreeps.harvester.max - 1) {
         creepSpawning('harvester');
     }
 }
@@ -88,17 +88,17 @@ function setCreepRole() {
     // todo: better control change
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];
+        var targets = creep.room.find(FIND_CONSTRUCTION_SITES).length;
+
         if(creep.memory.role === 'harvester') {
-            roleHarvester.run(creep);
-            // roleBuilder.run(creep);
+            var energyIsFull = creep.room.energyAvailable === creep.room.energyCapacityAvailable;
+            energyIsFull ? roleBuilder.run(creep) : roleHarvester.run(creep);
         }
         if(creep.memory.role === 'builder') {
-            var targets = creep.room.find(FIND_CONSTRUCTION_SITES).length;
             targets ? roleBuilder.run(creep) : roleUpgrader.run(creep);
         }
         if(creep.memory.role === 'upgrader') {
-            // roleUpgrader.run(creep);
-            roleBuilder.run(creep);
+            roleUpgrader.run(creep);
         }
     }
 }
