@@ -4,8 +4,10 @@ var roleUpgrader = require('role.upgrader');
 
 module.exports.loop = function () {
     creepMemoryClearing();
+    
+    var spawnName = 'Thor';
 
-    var enableLog = false;
+    var enableLog = true;
 
     var harvesters = getNumberOfCreeps('harvester', enableLog);
     var upgraders = getNumberOfCreeps('upgrader', enableLog);
@@ -13,16 +15,16 @@ module.exports.loop = function () {
 
     var numberOfCreeps = {
         harvester: {
-            min: 4,
-            max: 4
+            min: 5,
+            max: 5
         },
         upgrader: 1,
-        builder: 2
+        builder: 3
     };
 
-    spawningInfo();
+    spawningInfo(spawnName);
 
-    spawnCreeps(numberOfCreeps, harvesters, upgraders, builders);
+    spawnCreeps(spawnName, numberOfCreeps, harvesters, upgraders, builders);
 
     setCreepRole();
 
@@ -35,15 +37,15 @@ function consoleLog(logEnable) {
     }
 }
 
-function spawnCreeps(numberOfCreeps, harvesters, upgraders, builders) {
+function spawnCreeps(spawnName, numberOfCreeps, harvesters, upgraders, builders) {
     if (harvesters < numberOfCreeps.harvester.min) {
-        creepSpawning('harvester');
+        creepSpawning(spawnName, 'harvester');
     } else if (builders < numberOfCreeps.builder) {
-        creepSpawning('builder');
+        creepSpawning(spawnName, 'builder');
     } else if (upgraders < numberOfCreeps.upgrader) {
-        creepSpawning('upgrader');
+        creepSpawning(spawnName, 'upgrader');
     } else if (harvesters < numberOfCreeps.harvester.max) {
-        creepSpawning('harvester');
+        creepSpawning(spawnName, 'harvester');
     }
 }
 
@@ -56,7 +58,7 @@ function creepMemoryClearing() {
     }
 }
 
-function creepSpawning(role) {
+function creepSpawning(spawnName, role) {
     var bigCreep = false;
     var bigBigCreep = false;
 
@@ -70,20 +72,20 @@ function creepSpawning(role) {
     var creepParams = bigCreep ? [WORK,WORK,WORK,WORK,CARRY,MOVE,MOVE] : [WORK,WORK,CARRY,MOVE];
     creepParams = bigBigCreep ? [WORK,WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE] : creepParams;
     var newName = bigCreep ? role + 'Big' + Game.time : role + Game.time;
-    Game.spawns['Spawn1'].spawnCreep(creepParams, newName,
+    Game.spawns[spawnName].spawnCreep(creepParams, newName,
         {memory: {
             role: role,
             bigCreep: bigCreep
         }});
 }
 
-function spawningInfo() {
-    if(Game.spawns['Spawn1'].spawning) {
-        var spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
-        Game.spawns['Spawn1'].room.visual.text(
+function spawningInfo(spawnName) {
+    if(Game.spawns[spawnName].spawning) {
+        var spawningCreep = Game.creeps[Game.spawns[spawnName].spawning.name];
+        Game.spawns[spawnName].room.visual.text(
             '🛠️' + spawningCreep.memory.role,
-            Game.spawns['Spawn1'].pos.x + 1,
-            Game.spawns['Spawn1'].pos.y,
+            Game.spawns[spawnName].pos.x + 1,
+            Game.spawns[spawnName].pos.y,
             {align: 'left', opacity: 0.8});
     }
 }
