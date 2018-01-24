@@ -5,9 +5,11 @@ var roleUpgrader = require('role.upgrader');
 module.exports.loop = function () {
     creepMemoryClearing();
 
-    var harvesters = getNumberOfCreeps('harvester');
-    var upgraders = getNumberOfCreeps('upgrader');
-    var builders = getNumberOfCreeps('builder');
+    var enableLog = true;
+
+    var harvesters = getNumberOfCreeps('harvester', enableLog);
+    var upgraders = getNumberOfCreeps('upgrader', enableLog);
+    var builders = getNumberOfCreeps('builder', enableLog);
 
     var numberOfCreeps = {
         harvester: 3,
@@ -15,35 +17,32 @@ module.exports.loop = function () {
         builder: 1
     };
 
-    firstSpawn(numberOfCreeps, harvesters, upgraders, builders);
-
-    spawnBigUpgraders();
-
     spawningInfo();
 
-    logRoomsAvailableEnergy();
+    spawnCreeps(numberOfCreeps, harvesters, upgraders, builders);
+
     setCreepRole();
+
+    consoleLog(enableLog);
 };
 
-function firstSpawn(numberOfCreeps, harvesters, upgraders, builders) {
-    if(harvesters.length < numberOfCreeps.harvester) {
-        creepSpawning('harvester', false);
-    }
-
-    if(upgraders.length < numberOfCreeps.upgrader && harvesters.length) {
-        creepSpawning('upgrader', false);
-    }
-
-    if(builders.length < numberOfCreeps.builder && harvesters.length && upgraders.length) {
-        creepSpawning('builder', false, 'upgrader');
+function consoleLog(logEnable) {
+    if (logEnable) {
+        logRoomsAvailableEnergy();
     }
 }
 
-function spawnBigUpgraders() {
-    for(var name in Game.rooms) {
-        if (Game.rooms[name].energyAvailable >= 550) {
-            creepSpawning('upgrader', true);
-        }
+function spawnCreeps(numberOfCreeps, harvesters, upgraders, builders) {
+    if(harvesters.length < numberOfCreeps.harvester) {
+        creepSpawning('harvester');
+    }
+
+    if(upgraders.length < numberOfCreeps.upgrader && harvesters.length) {
+        creepSpawning('upgrader');
+    }
+
+    if(builders.length < numberOfCreeps.builder && harvesters.length && upgraders.length) {
+        creepSpawning('builder', 'upgrader');
     }
 }
 
@@ -56,10 +55,15 @@ function creepMemoryClearing() {
     }
 }
 
-function creepSpawning(role, bigCreep, secondRole) {
+function creepSpawning(role, secondRole) {
+    var bigCreep = false;
+
+    for(var name in Game.rooms) {
+        bigCreep = Game.rooms[name].energyCapacityAvailable >= 550;
+    }
+
     var creepParams = bigCreep ? [WORK,WORK,WORK,WORK,CARRY,MOVE,MOVE] : [WORK,CARRY,MOVE];
     var newName = bigCreep ? role + 'Big' + Game.time : role + Game.time;
-    console.log('Spawning new ' + role + ': ' + newName);
     Game.spawns['Spawn1'].spawnCreep(creepParams, newName,
         {memory: {
             role: role,
@@ -94,20 +98,23 @@ function setCreepRole() {
     }
 }
 
-function getNumberOfCreeps(role) {
+function getNumberOfCreeps(role, enableLog) {
     var count = _.filter(Game.creeps, (creep) => creep.memory.role == role && !creep.memory.bigCreep);
     var countBig = _.filter(Game.creeps, (creep) => creep.memory.role == role && creep.memory.bigCreep);
-    console.log('[CREEP INFO]   ' + role + 's: small-' + count.length + ' || big-' + countBig.length);
+
+    if (enableLog) {
+        console.log('[CREEP INFO]   ' + role + 's: small-' + count.length + ' || big-' + countBig.length);
+    }
 
     return count;
 }
 
 function logRoomsAvailableEnergy() {
     for(var name in Game.rooms) {
-        console.log('[ENERGY INFO]   ' + 'Room "'+name+'" has '+Game.rooms[name].energyAvailable+' energy');
+        console.log('[ENERGY INFO]   ' + 'Room "'+name+'" has '+Game.rooms[name].energyAvailable+'/'+Game.rooms[name].energyCapacityAvailable
+            +' energy');
     }
 }
-
 /**/
 
 function killAllCreeps() {
