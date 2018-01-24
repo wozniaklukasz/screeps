@@ -12,9 +12,12 @@ module.exports.loop = function () {
     var builders = getNumberOfCreeps('builder', enableLog);
 
     var numberOfCreeps = {
-        harvester: 5,
-        upgrader: 5,
-        builder: 1
+        harvester: {
+            min: 3,
+            max: 4
+        },
+        upgrader: 0,
+        builder: 5
     };
 
     spawningInfo();
@@ -33,15 +36,14 @@ function consoleLog(logEnable) {
 }
 
 function spawnCreeps(numberOfCreeps, harvesters, upgraders, builders) {
-    if(harvesters < numberOfCreeps.harvester) {
+    if (harvesters < numberOfCreeps.harvester.min) {
         creepSpawning('harvester');
-    } else {
-        if (upgraders < numberOfCreeps.upgrader) {
-            creepSpawning('upgrader');
-        }
-        if (builders < numberOfCreeps.builder) {
-            creepSpawning('builder', 'upgrader');
-        }
+    } else if (builders < numberOfCreeps.builder) {
+        creepSpawning('builder', 'upgrader');
+    } else if (upgraders < numberOfCreeps.upgrader) {
+        creepSpawning('upgrader');
+    } else if (harvesters < numberOfCreeps.harvester.max) {
+        creepSpawning('harvester');
     }
 }
 
@@ -91,10 +93,12 @@ function setCreepRole() {
             // roleBuilder.run(creep);
         }
         if(creep.memory.role === 'builder') {
-            roleBuilder.run(creep);
+            var targets = creep.room.find(FIND_CONSTRUCTION_SITES).length;
+            targets ? roleBuilder.run(creep) : roleUpgrader.run(creep);
         }
         if(creep.memory.role === 'upgrader') {
-            roleUpgrader.run(creep);
+            // roleUpgrader.run(creep);
+            roleBuilder.run(creep);
         }
     }
 }
