@@ -5,7 +5,7 @@ var roleUpgrader = require('role.upgrader');
 module.exports.loop = function () {
     creepMemoryClearing();
 
-    var enableLog = false;
+    var enableLog = true;
 
     var harvesters = getNumberOfCreeps('harvester', enableLog);
     var upgraders = getNumberOfCreeps('upgrader', enableLog);
@@ -58,12 +58,17 @@ function creepMemoryClearing() {
 
 function creepSpawning(role) {
     var bigCreep = false;
+    var bigBigCreep = false;
 
     for(var name in Game.rooms) {
-        bigCreep = Game.rooms[name].energyCapacityAvailable >= 550;
+        var energyCapacityAvailable = Game.rooms[name].energyCapacityAvailable;
+        bigCreep = energyCapacityAvailable >= 550 && energyCapacityAvailable < 800;
+        bigBigCreep = energyCapacityAvailable >= 800;
     }
 
-    var creepParams = bigCreep ? [WORK,WORK,WORK,WORK,CARRY,MOVE,MOVE] : [WORK,CARRY,MOVE];
+    // todo: working on stage 3 (800)
+    var creepParams = bigCreep ? [WORK,WORK,WORK,WORK,CARRY,MOVE,MOVE] : [WORK,WORK,CARRY,MOVE];
+    creepParams = bigBigCreep ? [WORK,WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE] : creepParams;
     var newName = bigCreep ? role + 'Big' + Game.time : role + Game.time;
     Game.spawns['Spawn1'].spawnCreep(creepParams, newName,
         {memory: {
