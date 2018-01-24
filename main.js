@@ -12,8 +12,8 @@ module.exports.loop = function () {
     var builders = getNumberOfCreeps('builder', enableLog);
 
     var numberOfCreeps = {
-        harvester: 3,
-        upgrader: 2,
+        harvester: 5,
+        upgrader: 5,
         builder: 1
     };
 
@@ -33,16 +33,15 @@ function consoleLog(logEnable) {
 }
 
 function spawnCreeps(numberOfCreeps, harvesters, upgraders, builders) {
-    if(harvesters.length < numberOfCreeps.harvester) {
+    if(harvesters < numberOfCreeps.harvester) {
         creepSpawning('harvester');
-    }
-
-    if(upgraders.length < numberOfCreeps.upgrader && harvesters.length) {
-        creepSpawning('upgrader');
-    }
-
-    if(builders.length < numberOfCreeps.builder && harvesters.length && upgraders.length) {
-        creepSpawning('builder', 'upgrader');
+    } else {
+        if (upgraders < numberOfCreeps.upgrader) {
+            creepSpawning('upgrader');
+        }
+        if (builders < numberOfCreeps.builder) {
+            creepSpawning('builder', 'upgrader');
+        }
     }
 }
 
@@ -84,10 +83,12 @@ function spawningInfo() {
 }
 
 function setCreepRole() {
+    // todo: better control change
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];
         if(creep.memory.role === 'harvester') {
             roleHarvester.run(creep);
+            // roleBuilder.run(creep);
         }
         if(creep.memory.role === 'builder') {
             roleBuilder.run(creep);
@@ -101,12 +102,16 @@ function setCreepRole() {
 function getNumberOfCreeps(role, enableLog) {
     var count = _.filter(Game.creeps, (creep) => creep.memory.role == role && !creep.memory.bigCreep);
     var countBig = _.filter(Game.creeps, (creep) => creep.memory.role == role && creep.memory.bigCreep);
+    var numOfCreeps = 0;
 
     if (enableLog) {
         console.log('[CREEP INFO]   ' + role + 's: small-' + count.length + ' || big-' + countBig.length);
     }
 
-    return count;
+    numOfCreeps = countBig ? countBig.length : 0;
+    numOfCreeps += count ? count.length : 0;
+
+    return numOfCreeps;
 }
 
 function logRoomsAvailableEnergy() {
