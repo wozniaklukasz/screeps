@@ -25,6 +25,9 @@ var roleBuilder = {
             if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa00'}});
             }
+            if(creep.transfer(sources[0], RESOURCE_ENERGY) == ERR_NO_PATH) {
+                creep.moveTo(sources[1], {visualizePathStyle: {stroke: '#ffffff'}});
+            }
         }
     }
 };

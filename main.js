@@ -5,7 +5,7 @@ var roleUpgrader = require('role.upgrader');
 module.exports.loop = function () {
     creepMemoryClearing();
 
-    var enableLog = true;
+    var enableLog = false;
 
     var harvesters = getNumberOfCreeps('harvester', enableLog);
     var upgraders = getNumberOfCreeps('upgrader', enableLog);
@@ -13,11 +13,11 @@ module.exports.loop = function () {
 
     var numberOfCreeps = {
         harvester: {
-            min: 2,
-            max: 3
+            min: 3,
+            max: 5
         },
-        upgrader: 0,
-        builder: 5
+        upgrader: 3,
+        builder: 3
     };
 
     spawningInfo();
