@@ -65,16 +65,19 @@ function creepMemoryClearing() {
 function creepSpawning(spawnName, role) {
     var bigCreep = false;
     var bigBigCreep = false;
+    var bigBigBigCreep = false;
 
     for(var name in Game.rooms) {
         var energyCapacityAvailable = Game.rooms[name].energyCapacityAvailable;
         bigCreep = energyCapacityAvailable >= 550 && energyCapacityAvailable < 800;
-        bigBigCreep = energyCapacityAvailable >= 800;
+        bigBigCreep = energyCapacityAvailable >= 800 && energyCapacityAvailable < 1050;
+        bigBigBigCreep = energyCapacityAvailable >= 1050;
     }
 
     // todo: working on stage 3 (800)
     var creepParams = bigCreep ? [WORK,WORK,WORK,WORK,CARRY,MOVE,MOVE] : [WORK,WORK,CARRY,MOVE];
     creepParams = bigBigCreep ? [WORK,WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE] : creepParams;
+    creepParams = bigBigBigCreep ? [WORK,WORK,WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE] : creepParams;
     var newName = bigCreep ? role + 'Big' + Game.time : role + Game.time;
     Game.spawns[spawnName].spawnCreep(creepParams, newName,
         {memory: {
