@@ -30,6 +30,8 @@ module.exports.loop = function () {
     
     roadMaintance();
 
+    wallMaintance();
+
     consoleLog(enableLog);
 };
 
@@ -197,6 +199,21 @@ function roadMaintance() {
     ];
 
     roadPos.map((pos) => Game.rooms["E32S12"].createConstructionSite(pos.x, pos.y, STRUCTURE_ROAD));
+}
+
+function wallMaintance() {
+    var wallPos = [
+        {x: 35, y: 35},
+        {x: 35, y: 34},
+        {x: 34, y: 33},
+        {x: 33, y: 32},
+        {x: 22, y: 23},
+        {x: 23, y: 24},
+        {x: 24, y: 25},
+        {x: 25, y: 26}
+    ];
+
+    wallPos.map((pos) => Game.rooms["E32S12"].createConstructionSite(pos.x, pos.y, STRUCTURE_WALL));
 }
 /**/
 
