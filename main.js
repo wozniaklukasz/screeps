@@ -15,8 +15,8 @@ module.exports.loop = function () {
 
     var numberOfCreeps = {
         harvester: {
-            min: 5,
-            max: 5
+            min: 4,
+            max: 4
         },
         upgrader: 1,
         builder: 3
@@ -27,6 +27,8 @@ module.exports.loop = function () {
     spawnCreeps(spawnName, numberOfCreeps, harvesters, upgraders, builders);
 
     setCreepRole();
+    
+    roadMaintance();
 
     consoleLog(enableLog);
 };
@@ -99,10 +101,17 @@ function setCreepRole() {
         if(creep.memory.role === 'harvester') {
             // harvester -> builder -> upgrader
             var energyIsFull = creep.room.energyAvailable === creep.room.energyCapacityAvailable;
-            if (!energyIsFull) {
+            // todo: redundand var from harvester role
+            var targets = creep.room.find(FIND_STRUCTURES, {
+                    filter: (structure) => {
+                    return (structure.structureType == STRUCTURE_EXTENSION ||
+                structure.structureType == STRUCTURE_SPAWN ||
+                structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;}});
+            if (targets.length) {
                 roleHarvester.run(creep)
             } else {
-                targets ? roleBuilder.run(creep) : roleUpgrader.run(creep);
+                // targets ? roleBuilder.run(creep) : roleUpgrader.run(creep);
+                roleUpgrader.run(creep);
             }
         }
         if(creep.memory.role === 'builder') {
@@ -135,6 +144,59 @@ function logRoomsAvailableEnergy() {
         console.log('[ENERGY INFO]   ' + 'Room "'+name+'" has '+Game.rooms[name].energyAvailable+'/'+Game.rooms[name].energyCapacityAvailable
             +' energy');
     }
+}
+
+function roadMaintance() {
+    var roadPos = [
+      {x: 13, y: 24},
+      {x: 14, y: 24},
+      {x: 15, y: 24},
+      {x: 16, y: 24},
+      {x: 17, y: 24},
+      {x: 18, y: 24},
+      {x: 19, y: 24},
+      {x: 13, y: 25},
+      {x: 14, y: 25},
+      {x: 15, y: 25},
+      {x: 16, y: 25},
+      {x: 17, y: 25},
+      {x: 18, y: 25},
+      {x: 19, y: 25},
+      {x: 13, y: 22},
+      {x: 14, y: 22},
+      {x: 15, y: 22},
+      {x: 13, y: 23},
+      {x: 14, y: 23},
+      {x: 15, y: 23},
+      {x: 13, y: 21},
+      {x: 20, y: 25},
+      {x: 21, y: 26},
+      {x: 22, y: 27},
+      {x: 23, y: 28},
+      {x: 24, y: 29},
+      {x: 24, y: 30},
+      {x: 25, y: 31},
+      {x: 25, y: 32},
+      {x: 26, y: 32},
+      {x: 27, y: 32},
+      {x: 28, y: 32},
+      {x: 29, y: 32},
+      {x: 30, y: 32},
+      {x: 26, y: 33},
+      {x: 27, y: 33},
+      {x: 28, y: 33},
+      {x: 29, y: 33},
+      {x: 30, y: 33},
+      {x: 31, y: 33},
+      {x: 32, y: 33},
+      {x: 25, y: 30},
+      {x: 20, y: 26},
+      {x: 21, y: 27},
+      {x: 22, y: 28},
+      {x: 23, y: 29}
+    ];
+
+    roadPos.map((pos) => Game.rooms["E32S12"].createConstructionSite(pos.x, pos.y, STRUCTURE_ROAD));
 }
 /**/
 

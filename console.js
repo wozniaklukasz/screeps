@@ -20,4 +20,6 @@ Game.spawns['Spawn1'].room.createConstructionSite( 23, 22, STRUCTURE_TOWER );
 
 
 Game.creeps['Harvester1'].suicide()
+
+Game.rooms["E32S12"].createConstructionSite(30, 36, STRUCTURE_ROAD);
  */
