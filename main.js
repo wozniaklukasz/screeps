@@ -198,7 +198,8 @@ function roadMaintance() {
       {x: 20, y: 26},
       {x: 21, y: 27},
       {x: 22, y: 28},
-      {x: 23, y: 29}
+      {x: 23, y: 29},
+      {x: 24, y: 31}
     ];
 
     roadPos.map((pos) => Game.rooms["E32S12"].createConstructionSite(pos.x, pos.y, STRUCTURE_ROAD));
@@ -210,10 +211,17 @@ function wallMaintance() {
         {x: 35, y: 34},
         {x: 34, y: 33},
         {x: 33, y: 32},
+        {x: 33, y: 33},
+        {x: 34, y: 34},
         {x: 22, y: 23},
         {x: 23, y: 24},
         {x: 24, y: 25},
-        {x: 25, y: 26}
+        {x: 25, y: 26},
+        {x: 21, y: 23},
+        {x: 22, y: 24},
+        {x: 23, y: 25},
+        {x: 24, y: 26},
+        {x: 25, y: 27}
     ];
 
     wallPos.map((pos) => Game.rooms["E32S12"].createConstructionSite(pos.x, pos.y, STRUCTURE_WALL));

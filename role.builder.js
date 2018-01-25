@@ -29,3 +29,12 @@ var roleBuilder = {
 };
 
 module.exports = roleBuilder;
+
+
+    /*
+    var target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+filter: (s) => s.structureType == STRUCTURE_WALL &&
+s.hits / s.hitsMax < percentage
+});
+
+     */
