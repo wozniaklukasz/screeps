@@ -6,15 +6,15 @@ var spawnMain = {
         if (creeps.filter(function (creep) {
                 return creep.memory.role === 'harvester'
             }).length < numberOfCreeps.harvester) {
-            this.creepSpawning(mySpawns, 'harvester', room.name);
+            this.creepSpawning(mySpawns, 'harvester', room);
         } else if (creeps.filter(function (creep) {
                 return creep.memory.role === 'builder'
             }).length < numberOfCreeps.builder) {
-            this.creepSpawning(mySpawns, 'builder', room.name);
+            this.creepSpawning(mySpawns, 'builder', room);
         } else if (creeps.filter(function (creep) {
                 return creep.memory.role === 'upgrader'
             }).length < numberOfCreeps.upgrader) {
-            this.creepSpawning(mySpawns, 'upgrader', room.name);
+            this.creepSpawning(mySpawns, 'upgrader', room);
         }
     },
     spawningInfo: function (mySpawns) {
@@ -29,15 +29,22 @@ var spawnMain = {
             }
         });
     },
-    creepSpawning: function (mySpawns, role, roomName) {
+    creepSpawning: function (mySpawns, role, room) {
         var name = role + Game.time;
         var body = [WORK, WORK, CARRY, MOVE];
+        var energy = room.energyCapacityAvailable;
+
+        // todo: calculate energy
+        if (energy >= 550) {
+            body = [WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE];
+        }
+
         //todo mySpawns <- iterate over array, pick first available
         mySpawns[0].spawnCreep(body, name,
             {
                 memory: {
                     role: role,
-                    firstRoom: roomName,
+                    firstRoom: room.name,
                     secondRoom: null
                 }
             });

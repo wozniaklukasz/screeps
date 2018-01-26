@@ -37,7 +37,7 @@ module.exports.loop = function () {
 
     // wallMaintance();
 
-    // extensionMaintance();
+    extensionMaintance();
 
 
 };
@@ -136,8 +136,15 @@ function wallMaintance() {
 }
 
 function extensionMaintance() {
-
-
+    var pos = [
+        {x: 13, y: 24},
+        {x: 12, y: 23},
+        {x: 13, y: 22},
+        {x: 14, y: 21},
+        {x: 12, y: 22},
+        {x: 13, y: 21}
+    ];
+    pos.map((pos) => Game.rooms["E28S28"].createConstructionSite(pos.x, pos.y, STRUCTURE_EXTENSION));
 }
 
 /**/
