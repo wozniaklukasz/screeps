@@ -29,4 +29,6 @@ if(creep.room.controller) {
         creep.moveTo(creep.room.controller);
     }
 }
+
+Game.creeps['builder2939663'].claimController(Game.rooms.controller);
  */

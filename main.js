@@ -15,11 +15,11 @@ module.exports.loop = function () {
 
     var numberOfCreeps = {
         harvester: {
-            min: 4,
-            max: 4
+            min: 2,
+            max: 3
         },
         upgrader: 1,
-        builder: 3
+        builder: 1
     };
 
     spawningInfo(spawnName);
@@ -31,6 +31,8 @@ module.exports.loop = function () {
     roadMaintance();
 
     wallMaintance();
+    
+    extensionMaintance();
 
     consoleLog(enableLog);
 };
@@ -71,13 +73,15 @@ function creepSpawning(spawnName, role) {
         var energyCapacityAvailable = Game.rooms[name].energyCapacityAvailable;
         bigCreep = energyCapacityAvailable >= 550 && energyCapacityAvailable < 800;
         bigBigCreep = energyCapacityAvailable >= 800 && energyCapacityAvailable < 1050;
-        bigBigBigCreep = energyCapacityAvailable >= 1050;
+        bigBigBigCreep = energyCapacityAvailable >= 1050 && energyCapacityAvailable < 1300;
+        bigBigBigBigCreep = energyCapacityAvailable >= 1300;
     }
 
     // todo: working on stage 3 (800)
     var creepParams = bigCreep ? [WORK,WORK,WORK,WORK,CARRY,MOVE,MOVE] : [WORK,WORK,CARRY,MOVE];
     creepParams = bigBigCreep ? [WORK,WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE] : creepParams;
     creepParams = bigBigBigCreep ? [WORK,WORK,WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE] : creepParams;
+    creepParams = bigBigBigBigCreep ? [WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE] : creepParams;
     var newName = bigCreep ? role + 'Big' + Game.time : role + Game.time;
     Game.spawns[spawnName].spawnCreep(creepParams, newName,
         {memory: {
@@ -115,8 +119,8 @@ function setCreepRole() {
             if (targets.length) {
                 roleHarvester.run(creep)
             } else {
-                // targets ? roleBuilder.run(creep) : roleUpgrader.run(creep);
-                roleUpgrader.run(creep);
+                targets ? roleBuilder.run(creep) : roleUpgrader.run(creep);
+                //roleUpgrader.run(creep);
             }
         }
         if(creep.memory.role === 'builder') {
@@ -225,6 +229,18 @@ function wallMaintance() {
     ];
 
     wallPos.map((pos) => Game.rooms["E32S12"].createConstructionSite(pos.x, pos.y, STRUCTURE_WALL));
+}
+
+function extensionMaintance() {
+    var extPos = [
+        {x: 20, y: 31},
+        {x: 20, y: 32},
+        {x: 20, y: 33},
+        {x: 20, y: 34},
+        {x: 19, y: 35}
+    ];
+
+    extPos.map((pos) => Game.rooms["E32S12"].createConstructionSite(pos.x, pos.y, STRUCTURE_EXTENSION));
 }
 /**/
 
