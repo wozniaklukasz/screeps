@@ -17,12 +17,11 @@ var creepMain = {
     },
 
     spawnCreep: function () {
+
     },
 
     setCreepsRole: function (room, creeps) {
         creeps.forEach(function (creep) {
-            console.log(creep);
-            console.log(room);
 
             /**************************************/
             var targets = room.constructions;

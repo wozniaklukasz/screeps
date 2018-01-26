@@ -1,159 +1,62 @@
 var roomMain = require('room.main');
 var roomInstance = require('room.instance');
 var creepMain = require('creep.main');
+var spawnMain = require('spawn.main');
 
 module.exports.loop = function () {
     creepMemoryClearing();
 
-    /**/
+    var numberOfCreeps = {
+        harvester: 5,
+        builder: 5,
+        upgrader: 1
+    };
     var rooms = roomMain.getRooms();
 
     rooms.forEach(function (room) {
-        var creeps = creepMain.getCreeps(room.myCreeps);
+        var creeps = room.find(FIND_MY_CREEPS);
+        var mySpawns = room.find(FIND_MY_SPAWNS);
 
-            creepMain.setCreepsRole(room, creeps);
+        spawnMain.spawnCreep(room, mySpawns, creeps, numberOfCreeps);
+        creepMain.setCreepsRole(room, creeps);
 
         if (1) {
             console.log(
                 roomInstance.infoLog(room) +
                 creepMain.infoLog(creeps)
             );
-    }});
-
+        }
+        spawnMain.spawningInfo(mySpawns);
+    });
 
 
     /**/
 
-    var spawnName = 'Thor';
 
-    var enableLog = false;
+    // roadMaintance();
 
-    var harvesters = getNumberOfCreeps('harvester', enableLog);
-    var upgraders = getNumberOfCreeps('upgrader', enableLog);
-    var builders = getNumberOfCreeps('builder', enableLog);
+    // wallMaintance();
 
-    var numberOfCreeps = {
-        harvester: 3,
-        upgrader: 1,
-        builder: 2
-    };
-
-    spawningInfo(spawnName);
-
-    spawnCreeps(spawnName, numberOfCreeps, harvesters, upgraders, builders);
-
-    roadMaintance();
-
-    wallMaintance();
-
-    extensionMaintance();
+    // extensionMaintance();
 
 
 };
 
-function spawnCreeps(spawnName, numberOfCreeps, harvesters, upgraders, builders) {
-    if (harvesters < numberOfCreeps.harvester) {
-        creepSpawning(spawnName, 'harvester');
-    } else if (builders < numberOfCreeps.builder) {
-        creepSpawning(spawnName, 'builder');
-    } else if (upgraders < numberOfCreeps.upgrader) {
-        creepSpawning(spawnName, 'upgrader');
-    }
-}
 
 function creepMemoryClearing() {
-    for(var name in Memory.creeps) {
-        if(!Game.creeps[name]) {
+    for (var name in Memory.creeps) {
+        if (!Game.creeps[name]) {
             delete Memory.creeps[name];
             console.log('Clearing non-existing creep memory:', name);
         }
     }
 }
 
-function creepSpawning(spawnName, role) {
-    var bigCreep = false;
-    var bigBigCreep = false;
-    var bigBigBigCreep = false;
-
-    for(var name in Game.rooms) {
-        var energyCapacityAvailable = Game.rooms[name].energyCapacityAvailable;
-        bigCreep = energyCapacityAvailable >= 550 && energyCapacityAvailable < 800;
-        bigBigCreep = energyCapacityAvailable >= 800 && energyCapacityAvailable < 1050;
-        bigBigBigCreep = energyCapacityAvailable >= 1050 && energyCapacityAvailable < 1300;
-        bigBigBigBigCreep = energyCapacityAvailable >= 1300;
-    }
-
-    // todo: working on stage 3 (800)
-    var creepParams = bigCreep ? [WORK,WORK,WORK,WORK,CARRY,MOVE,MOVE] : [WORK,WORK,CARRY,MOVE];
-    creepParams = bigBigCreep ? [WORK,WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE] : creepParams;
-    creepParams = bigBigBigCreep ? [WORK,WORK,WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE] : creepParams;
-    creepParams = bigBigBigBigCreep ? [WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE] : creepParams;
-    var newName = bigCreep ? role + 'Big' + Game.time : role + Game.time;
-    Game.spawns[spawnName].spawnCreep(creepParams, newName,
-        {memory: {
-                role: role,
-                bigCreep: bigCreep
-            }});
-}
-
-function spawningInfo(spawnName) {
-    if(Game.spawns[spawnName].spawning) {
-        var spawningCreep = Game.creeps[Game.spawns[spawnName].spawning.name];
-        Game.spawns[spawnName].room.visual.text(
-            '🛠️' + spawningCreep.memory.role,
-            Game.spawns[spawnName].pos.x + 1,
-            Game.spawns[spawnName].pos.y,
-            {align: 'left', opacity: 0.8});
-    }
-}
-
-// function setCreepRole() {
-//     // todo: better control change
-//     for(var name in Game.creeps) {
-//         var creep = Game.creeps[name];
-//         var targets = creep.room.find(FIND_CONSTRUCTION_SITES).length;
-//
-//         if(creep.memory.role === 'harvester') {
-//             // harvester -> builder -> upgrader
-//             var energyIsFull = creep.room.energyAvailable === creep.room.energyCapacityAvailable;
-//             // todo: redundand var from harvester role
-//             var targets = creep.room.find(FIND_STRUCTURES, {
-//                     filter: (structure) => {
-//                     return (structure.structureType == STRUCTURE_EXTENSION ||
-//                 structure.structureType == STRUCTURE_SPAWN ||
-//                 structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;}});
-//             if (targets.length) {
-//                 roleHarvester.run(creep)
-//             } else {
-//                 targets ? roleBuilder.run(creep) : roleUpgrader.run(creep);
-//                 //roleUpgrader.run(creep);
-//             }
-//         }
-//         if(creep.memory.role === 'builder') {
-//             // builder -> upgrader
-//             targets ? roleBuilder.run(creep) : roleUpgrader.run(creep);
-//         }
-//         if(creep.memory.role === 'upgrader') {
-//             roleUpgrader.run(creep);
-//         }
-//     }
-// }
-
-
-function getNumberOfCreeps(role, enableLog) {
-    var count = _.filter(Game.creeps, (creep) => creep.memory.role == role && !creep.memory.bigCreep);
-    var countBig = _.filter(Game.creeps, (creep) => creep.memory.role == role && creep.memory.bigCreep);
-    var numOfCreeps = 0;
-
-    if (enableLog) {
-        console.log('[CREEP INFO]   ' + role + 's: small-' + count.length + ' || big-' + countBig.length);
-    }
-
-    numOfCreeps = countBig ? countBig.length : 0;
-    numOfCreeps += count ? count.length : 0;
-
-    return numOfCreeps;
-}
+// todo: working on stage 3 (800)
+// var creepParams = bigCreep ? [WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE] : [WORK, WORK, CARRY, MOVE];
+// creepParams = bigBigCreep ? [WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE] : creepParams;
+// creepParams = bigBigBigCreep ? [WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE] : creepParams;
+// creepParams = bigBigBigBigCreep ? [WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE] : creepParams;
 
 
 function roadMaintance() {
@@ -207,7 +110,7 @@ function roadMaintance() {
         {x: 24, y: 31}
     ];
 
-    roadPos.map((pos) => Game.rooms["E32S12"].createConstructionSite(pos.x, pos.y, STRUCTURE_ROAD));
+    // roadPos.map((pos) = > Game.rooms["E32S12"].createConstructionSite(pos.x, pos.y, STRUCTURE_ROAD));
 }
 
 function wallMaintance() {
@@ -229,12 +132,13 @@ function wallMaintance() {
         {x: 25, y: 27}
     ];
 
-    wallPos.map((pos) => Game.rooms["E32S12"].createConstructionSite(pos.x, pos.y, STRUCTURE_WALL));
+    // wallPos.map((pos) = > Game.rooms["E32S12"].createConstructionSite(pos.x, pos.y, STRUCTURE_WALL));
 }
 
 function extensionMaintance() {
 
 
 }
+
 /**/
 
