@@ -4,6 +4,7 @@ var roleUpgrader = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
+        creep = Game.creeps[creep.name];
 
         if(creep.memory.upgrading && creep.carry.energy == 0) {
             creep.memory.upgrading = false;

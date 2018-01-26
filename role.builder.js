@@ -4,6 +4,7 @@ var roleBuilder = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
+        creep = Game.creeps[creep.name];
 
         if(creep.memory.building && creep.carry.energy == 0) {
             creep.memory.building = false;

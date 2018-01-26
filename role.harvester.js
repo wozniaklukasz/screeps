@@ -3,7 +3,9 @@ var taskSources = require('task.sources');
 var roleHarvester = {
 
     /** @param {Creep} creep **/
-    run: function(creep, sources) {
+    run: function(creep) {
+        creep = Game.creeps[creep.name];
+
         if(creep.carry.energy < creep.carryCapacity) {
             taskSources(creep);
         }
