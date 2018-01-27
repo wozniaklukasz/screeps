@@ -49,6 +49,9 @@ var spawnMain = {
         if (energy >= 800) {
             body = [WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE];
         }
+        if (energy >= 1300) {
+            body = [WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE];
+        }
 
         //todo mySpawns <- iterate over array, pick first available
         if (mySpawns.length) {

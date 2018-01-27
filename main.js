@@ -8,9 +8,9 @@ module.exports.loop = function () {
 
     var numberOfCreeps = {
         harvester: 5,
-        builder: 1,
+        builder: 2,
         upgrader: 1,
-        longDistanceHarvester: 1,
+        longDistanceHarvester: 3,
         repairer: 1
     };
     var rooms = roomMain.getRooms();
@@ -30,6 +30,8 @@ module.exports.loop = function () {
         }
         spawnMain.spawningInfo(mySpawns);
     });
+
+    extensionMaintance();
 };
 
 
@@ -40,4 +42,20 @@ function creepMemoryClearing() {
             console.log('Clearing non-existing creep memory:', name);
         }
     }
+}
+
+function extensionMaintance() {
+    var pos = [
+        {x: 13, y: 30},
+        {x: 14, y: 29},
+        {x: 15, y: 28},
+        {x: 16, y: 27},
+        {x: 17, y: 26},
+        {x: 13, y: 29},
+        {x: 14, y: 28},
+        {x: 15, y: 27},
+        {x: 16, y: 26},
+        {x: 17, y: 25}
+    ];
+    pos.map((pos) => Game.rooms["E28S28"].createConstructionSite(pos.x, pos.y, STRUCTURE_EXTENSION));
 }
