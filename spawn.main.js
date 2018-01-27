@@ -45,7 +45,8 @@ var spawnMain = {
                 memory: {
                     role: role,
                     firstRoom: room.name,
-                    secondRoom: null
+                    secondRoom: null,
+                    working: false
                 }
             });
     }
