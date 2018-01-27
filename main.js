@@ -8,8 +8,10 @@ module.exports.loop = function () {
 
     var numberOfCreeps = {
         harvester: 5,
-        builder: 6,
-        upgrader: 1
+        builder: 1,
+        upgrader: 1,
+        longDistanceHarvester: 1,
+        repairer: 1
     };
     var rooms = roomMain.getRooms();
 
@@ -23,21 +25,11 @@ module.exports.loop = function () {
         if (1) {
             console.log(
                 roomInstance.infoLog(room) +
-                creepMain.infoLog(creeps)
+                creepMain.infoLog(creeps, numberOfCreeps)
             );
         }
         spawnMain.spawningInfo(mySpawns);
     });
-
-
-    /**/
-
-
-    roadMaintance();
-
-    // wallMaintance();
-
-    extensionMaintance();
 };
 
 
@@ -49,70 +41,3 @@ function creepMemoryClearing() {
         }
     }
 }
-
-function roadMaintance() {
-    var x = Game.rooms["E28S28"].find(FIND_MY_STRUCTURES, {
-        filter: { structureType: STRUCTURE_EXTENSION }
-    }).length;
-    if (x >= 10) {
-        var roadPos = [
-            {x: 8, y: 36},
-            {x: 9, y: 35},
-            {x: 10, y: 34},
-            {x: 11, y: 33},
-            {x: 12, y: 32},
-            {x: 12, y: 31},
-            {x: 12, y: 30},
-            {x: 12, y: 29},
-            {x: 12, y: 28},
-            {x: 12, y: 27},
-            {x: 12, y: 26},
-            {x: 12, y: 25},
-            {x: 12, y: 24},
-            {x: 13, y: 23},
-            {x: 14, y: 22},
-            {x: 15, y: 21},
-            {x: 16, y: 21},
-            {x: 17, y: 21},
-            {x: 18, y: 20},
-            {x: 18, y: 19},
-            {x: 18, y: 18},
-            {x: 18, y: 17},
-            {x: 18, y: 16},
-            {x: 18, y: 15},
-            {x: 18, y: 14},
-            {x: 18, y: 13},
-            {x: 18, y: 12},
-            {x: 18, y: 11},
-            {x: 18, y: 10},
-            {x: 18, y: 9},
-            {x: 19, y: 13},
-            {x: 20, y: 14},
-            {x: 21, y: 15},
-            {x: 22, y: 16},
-            {x: 23, y: 17},
-            {x: 24, y: 18},
-            {x: 25, y: 19},
-            {x: 26, y: 20}
-
-        ];
-
-        roadPos.map((pos) => Game.rooms["E28S28"].createConstructionSite(pos.x, pos.y, STRUCTURE_ROAD));
-    }
-
-}
-
-function extensionMaintance() {
-    var pos = [
-        {x: 13, y: 24},
-        {x: 12, y: 23},
-        {x: 13, y: 22},
-        {x: 14, y: 21},
-        {x: 12, y: 22},
-        {x: 13, y: 21}
-    ];
-    pos.map((pos) => Game.rooms["E28S28"].createConstructionSite(pos.x, pos.y, STRUCTURE_EXTENSION));
-}
-
-/**/
-

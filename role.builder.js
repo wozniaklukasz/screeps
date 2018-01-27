@@ -1,41 +1,53 @@
-var taskSources = require('task.sources');
+const roleUpgrader = require('role.upgrader');
+const creepInstance = require('creep.instance');
 
-var roleBuilder = {
+module.exports = {
+    /** @param {Creep} creep */
+    run: function (creep) {
+        creepInstance.showCreepRole(creep);
 
-    /** @param {Creep} creep **/
-    run: function(creep) {
-        creep = Game.creeps[creep.name];
+            // if target is defined and creep is not in target room
+            if (creep.memory.target != undefined && creep.room.name != creep.memory.target) {
+                // find exit to target room
+                var exit = creep.room.findExitTo(creep.memory.target);
+                // move to exit
+                creep.moveTo(creep.pos.findClosestByRange(exit));
+                // return the function to not do anything else
+                return;
+            }
 
-        if(creep.memory.building && creep.carry.energy == 0) {
-            creep.memory.building = false;
-            creep.say('🔄 harvest');
-        }
-        if(!creep.memory.building && creep.carry.energy == creep.carryCapacity) {
-            creep.memory.building = true;
-            creep.say('🚧 build');
-        }
+            // if creep is trying to complete a constructionSite but has no energy left
+            if (creep.memory.working == true && creep.carry.energy == 0) {
+                // switch state
+                creep.memory.working = false;
+            }
+            // if creep is harvesting energy but is full
+            else if (creep.memory.working == false && creep.carry.energy == creep.carryCapacity) {
+                // switch state
+                creep.memory.working = true;
+            }
 
-        if(creep.memory.building) {
-            var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-            if(targets.length) {
-                if(creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ffffff'}});
+            // if creep is supposed to complete a constructionSite
+            if (creep.memory.working == true) {
+                // find closest constructionSite
+                var constructionSite = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
+                // if one is found
+                if (constructionSite != undefined) {
+                    // try to build, if the constructionSite is not in range
+                    if (creep.build(constructionSite) == ERR_NOT_IN_RANGE) {
+                        // move towards the constructionSite
+                        creep.moveTo(constructionSite);
+                    }
+                }
+                // if no constructionSite is found
+                else {
+                    // go upgrading the controller
+                    roleUpgrader.run(creep);
                 }
             }
+            // if creep is supposed to get energy
+            else {
+                creepInstance.getEnergy(creep,true, true);
+            }
         }
-        else {
-            taskSources(creep);
-        }
-    }
 };
-
-module.exports = roleBuilder;
-
-
-    /*
-    var target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-filter: (s) => s.structureType == STRUCTURE_WALL &&
-s.hits / s.hitsMax < percentage
-});
-
-     */

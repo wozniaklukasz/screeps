@@ -15,6 +15,14 @@ var spawnMain = {
                 return creep.memory.role === 'upgrader'
             }).length < numberOfCreeps.upgrader) {
             this.creepSpawning(mySpawns, 'upgrader', room);
+        } else if (creeps.filter(function (creep) {
+                return creep.memory.role === 'repairer'
+            }).length < numberOfCreeps.repairer) {
+            this.creepSpawning(mySpawns, 'repairer', room);
+        } else if (creeps.filter(function (creep) {
+                return creep.memory.role === 'longDistanceHarvester'
+            }).length < numberOfCreeps.longDistanceHarvester) {
+            this.creepSpawning(mySpawns, 'longDistanceHarvester', room);
         }
     },
     spawningInfo: function (mySpawns) {
@@ -38,17 +46,23 @@ var spawnMain = {
         if (energy >= 550) {
             body = [WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE];
         }
+        if (energy >= 800) {
+            body = [WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE];
+        }
 
         //todo mySpawns <- iterate over array, pick first available
-        mySpawns[0].spawnCreep(body, name,
-            {
-                memory: {
-                    role: role,
-                    firstRoom: room.name,
-                    secondRoom: null,
-                    working: false
-                }
-            });
+        if (mySpawns.length) {
+            mySpawns[0].spawnCreep(body, name,
+                {
+                    memory: {
+                        role: role,
+                        homeRoom: room.name,
+                        secondRoom: "E29S28",
+                        working: false
+                    }
+                });
+        }
+
     }
 };
 
