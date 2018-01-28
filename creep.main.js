@@ -20,11 +20,9 @@ let creepMain = {
                     targets.length ? roleBuilder.run(creep) : roleUpgrader.run(creep);
                 }
             }
-            // builder -> upgrader
             if(creep.memory.role === EnumRoles.Builder) {
-                targets.length ? roleBuilder.run(creep) : roleUpgrader.run(creep);
+                roleBuilder.run(creep);
             }
-            // upgrader
             if(creep.memory.role === EnumRoles.Upgrader) {
                 roleUpgrader.run(creep);
             }
