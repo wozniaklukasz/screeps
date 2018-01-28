@@ -11,14 +11,8 @@ let creepMain = {
     setCreepsRole: function (room, creeps) {
         creeps.forEach(function (creep) {
             //todo: FIND_CONSTRUCTION_SITES / FIND_MY_CONSTRUCTION_SITES
-            var targets = room.find(FIND_CONSTRUCTION_SITES);
-            // harvester -> builder -> upgrader
             if (creep.memory.role === EnumRoles.Harvester) {
-                if(room.energyAvailable !== room.energyCapacityAvailable) {
-                    roleHarvester.run(creep);
-                } else {
-                    targets.length ? roleBuilder.run(creep) : roleUpgrader.run(creep);
-                }
+                roleHarvester.run(creep);
             }
             if(creep.memory.role === EnumRoles.Builder) {
                 roleBuilder.run(creep);

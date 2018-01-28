@@ -7,10 +7,10 @@ module.exports.loop = function () {
     creepMemoryClearing();
 
     var numberOfCreeps = {
-        harvester: 5,
+        harvester: 3,
         builder: 2,
         upgrader: 1,
-        longDistanceHarvester: 3,
+        longDistanceHarvester: 4,
         repairer: 1
     };
     var rooms = roomMain.getRooms();
@@ -31,7 +31,7 @@ module.exports.loop = function () {
         spawnMain.spawningInfo(mySpawns);
     });
 
-    extensionMaintance();
+    // extensionMaintance();
 };
 
 

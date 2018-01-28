@@ -1,4 +1,6 @@
 const creepInstance = require('creep.instance');
+const roleBuilder = require('role.builder');
+
 const roleHarvester = {
 
     run: function (creep) {
@@ -18,14 +20,12 @@ const roleHarvester = {
                     && s.energy < s.energyCapacity
             });
 
-            if (structure === undefined) {
-                structure = creep.room.storage;
-            }
-
             if (structure) {
                 if (creep.transfer(structure, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
                     creep.moveTo(structure);
                 }
+            } else {
+                roleBuilder.run(creep);
             }
         }
         else {
