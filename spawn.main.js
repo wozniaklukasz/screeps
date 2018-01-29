@@ -53,6 +53,9 @@ var spawnMain = {
             body = [WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE];
         }
 
+        // todo: spawn harvester if harvesters===0) - first do calculate energy
+        // if() ...
+
         //todo mySpawns <- iterate over array, pick first available
         if (mySpawns.length) {
             mySpawns[0].spawnCreep(body, name,

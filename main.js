@@ -22,6 +22,7 @@ module.exports.loop = function () {
         spawnMain.spawnCreep(room, mySpawns, creeps, numberOfCreeps);
         creepMain.setCreepsRole(room, creeps);
 
+        tower(room);
         if (1) {
             console.log(
                 roomInstance.infoLog(room) +
@@ -29,9 +30,9 @@ module.exports.loop = function () {
             );
         }
         spawnMain.spawningInfo(mySpawns);
-    });
 
-    // extensionMaintance();
+        // buildStructuresOnFlags(room);
+    });
 };
 
 
@@ -44,18 +45,22 @@ function creepMemoryClearing() {
     }
 }
 
-function extensionMaintance() {
-    var pos = [
-        {x: 13, y: 30},
-        {x: 14, y: 29},
-        {x: 15, y: 28},
-        {x: 16, y: 27},
-        {x: 17, y: 26},
-        {x: 13, y: 29},
-        {x: 14, y: 28},
-        {x: 15, y: 27},
-        {x: 16, y: 26},
-        {x: 17, y: 25}
-    ];
-    pos.map((pos) => Game.rooms["E28S28"].createConstructionSite(pos.x, pos.y, STRUCTURE_EXTENSION));
+function buildStructuresOnFlags(room) {
+    room.find(FIND_FLAGS).map(f => {
+        Game.rooms[f.pos.roomName].createConstructionSite(f.pos.x, f.pos.y, STRUCTURE_EXTENSION)
+    })
+
+}
+
+function tower(room) {
+    let tower = room.find(FIND_STRUCTURES).filter(function(s) {
+        return s.structureType === STRUCTURE_TOWER;
+    });
+
+    tower.map(t => {
+        let target = t.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+        if (target) {
+            t.attack(target);
+        }
+    });
 }
