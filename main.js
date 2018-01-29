@@ -5,19 +5,14 @@ var spawnMain = require('spawn.main');
 
 module.exports.loop = function () {
     creepMemoryClearing();
-
-    var numberOfCreeps = {
-        harvester: 3,
-        builder: 2,
-        upgrader: 1,
-        longDistanceHarvester: 4,
-        repairer: 1
-    };
-    var rooms = roomMain.getRooms();
+    let rooms = roomMain.getRooms();
 
     rooms.forEach(function (room) {
-        var creeps = room.find(FIND_MY_CREEPS);
-        var mySpawns = room.find(FIND_MY_SPAWNS);
+
+        let numberOfCreeps = setNumberOfCreepsByRoomName(room.name);
+
+        let creeps = room.find(FIND_MY_CREEPS);
+        let mySpawns = room.find(FIND_MY_SPAWNS);
 
         spawnMain.spawnCreep(room, mySpawns, creeps, numberOfCreeps);
         creepMain.setCreepsRole(room, creeps);
@@ -35,6 +30,34 @@ module.exports.loop = function () {
     });
 };
 
+function setNumberOfCreepsByRoomName(roomName) {
+    let numberOfCreeps = {
+        harvester: 4,
+        builder: 3,
+        upgrader: 1,
+        longDistanceHarvester: 0,
+        repairer: 1
+    };
+    if (roomName === 'E28S28') {
+        numberOfCreeps = {
+            harvester: 3,
+            builder: 2,
+            upgrader: 1,
+            longDistanceHarvester: 4,
+            repairer: 1
+        };
+    } else if (roomName === 'E29S28') {
+        numberOfCreeps = {
+            harvester: 4,
+            builder: 4,
+            upgrader: 1,
+            longDistanceHarvester: 0,
+            repairer: 1
+        };
+    }
+
+    return numberOfCreeps;
+}
 
 function creepMemoryClearing() {
     for (var name in Memory.creeps) {

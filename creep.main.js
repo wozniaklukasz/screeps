@@ -15,21 +15,15 @@ let creepMain = {
             //todo: FIND_CONSTRUCTION_SITES / FIND_MY_CONSTRUCTION_SITES
             if (creep.memory.role === EnumRoles.Harvester) {
                 roleHarvester.run(creep);
-            }
-            if(creep.memory.role === EnumRoles.Builder) {
+            } else if(creep.memory.role === EnumRoles.Builder) {
                 roleBuilder.run(creep);
-            }
-            if(creep.memory.role === EnumRoles.Upgrader) {
+            } else if(creep.memory.role === EnumRoles.Upgrader) {
                 roleUpgrader.run(creep);
-            }
-            if(creep.memory.role === EnumRoles.Repairer) {
+            } else if(creep.memory.role === EnumRoles.Repairer) {
                 roleRepairer.run(creep);
-            }
-            if(creep.memory.role === EnumRoles.LongDistanceHarvester) {
+            } else if(creep.memory.role === EnumRoles.LongDistanceHarvester) {
                 roleLongDistanceHarvester.run(creep);
-            }
-
-            if(creep.memory.role === 'signer') {
+            } else if(creep.memory.role === 'signer') {
                 roleSigner.run(creep);
             }
         })
