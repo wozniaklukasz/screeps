@@ -31,7 +31,7 @@ module.exports.loop = function () {
         }
         spawnMain.spawningInfo(mySpawns);
 
-        // buildStructuresOnFlags(room);
+        buildStructuresOnFlags(room);
     });
 };
 
@@ -46,10 +46,31 @@ function creepMemoryClearing() {
 }
 
 function buildStructuresOnFlags(room) {
+    if(room.controller.level !== 5) {
+        return;
+    }
+
+    /*
+    * Build structures by flag colors.
+    * */
     room.find(FIND_FLAGS).map(f => {
-        Game.rooms[f.pos.roomName].createConstructionSite(f.pos.x, f.pos.y, STRUCTURE_EXTENSION)
+        let structure = '';
+
+        if (f.color === 10) {
+            structure = STRUCTURE_ROAD // white flag
+        } else if (f.color === 6) {
+            structure = STRUCTURE_EXTENSION // yellow flag
+        } else if (f.color === 1) {
+            structure = STRUCTURE_TOWER // red flag
+        }
+
+        buildStructure(f.pos.roomName, f.pos.x, f.pos.y, structure)
     })
 
+}
+
+function buildStructure(roomName, x, y, structure) {
+    Game.rooms[roomName].createConstructionSite(x, y, structure);
 }
 
 function tower(room) {
