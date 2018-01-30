@@ -18,7 +18,7 @@ module.exports.loop = function () {
         creepMain.setCreepsRole(room, creeps);
 
         tower(room);
-        if (1) {
+        if (0) {
             console.log(
                 roomInstance.infoLog(room) +
                 creepMain.infoLog(creeps, numberOfCreeps)
@@ -26,7 +26,7 @@ module.exports.loop = function () {
         }
         spawnMain.spawningInfo(mySpawns);
 
-        buildStructuresOnFlags(room);
+        // buildStructuresOnFlags(room);
     });
 };
 
@@ -41,9 +41,9 @@ function setNumberOfCreepsByRoomName(roomName) {
     if (roomName === 'E28S28') {
         numberOfCreeps = {
             harvester: 3,
-            builder: 2,
+            builder: 1,
             upgrader: 1,
-            longDistanceHarvester: 4,
+            longDistanceHarvester: 2,
             repairer: 1
         };
     } else if (roomName === 'E29S28') {
@@ -69,13 +69,16 @@ function creepMemoryClearing() {
 }
 
 function buildStructuresOnFlags(room) {
-    if(room.controller.level !== 5) {
+    if (room.find(FIND_STRUCTURES).filter(s => {
+            return s.structureType === STRUCTURE_EXTENSION
+        }).length < 30) {
         return;
     }
 
     /*
     * Build structures by flag colors.
     * */
+
     room.find(FIND_FLAGS).map(f => {
         let structure = '';
 

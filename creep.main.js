@@ -8,6 +8,7 @@ const roleUpgrader = require('role.upgrader');
 const roleRepairer = require('role.repairer');
 
 const roleSigner = require('role.signer');
+const roleClaimer = require('role.claimer');
 
 let creepMain = {
     setCreepsRole: function (room, creeps) {
@@ -25,6 +26,8 @@ let creepMain = {
                 roleLongDistanceHarvester.run(creep);
             } else if(creep.memory.role === 'signer') {
                 roleSigner.run(creep);
+            } else if(creep.memory.role === 'claimer') {
+                roleClaimer.run(creep);
             }
         })
     },

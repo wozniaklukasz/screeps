@@ -1,7 +1,7 @@
 /*
 
-Game.spawns['Spawn1'].spawnCreep( [WORK, CARRY, MOVE], 'Harvester1',
-    { memory: { role: 'harvester' } } );
+Game.spawns['Thor'].spawnCreep( [MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], 'Claimer',
+    { memory: { role: 'claimer', targetRoom: "E29S28" } } );
 
     
 Game.spawns['Spawn1'].room.controller.activateSafeMode();

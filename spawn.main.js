@@ -67,6 +67,7 @@ var spawnMain = {
                         role: role,
                         homeRoom: room.name,
                         secondRoom: "E29S28",
+                        targetRoom: "E29S28",
                         working: false
                     }
                 });

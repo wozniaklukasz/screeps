@@ -19,5 +19,5 @@ module.exports = {
 
 Game.spawns['Thor'].spawnCreep([MOVE, MOVE, MOVE, MOVE, MOVE, MOVE],
     'signer',
-    { memory: { role: 'signer', target: '' } } );
+    { memory: { role: 'signer', targetRoom: '' } } );
 */
