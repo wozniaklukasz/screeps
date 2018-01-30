@@ -14,32 +14,22 @@ var creepInstance = {
         return creepTmp;
     },
     getEnergy: function (creep, useContainer, useSource) {
-            /** @type {StructureContainer} */
             let container;
-            // if the Creep should look for containers
             if (useContainer) {
-                // find closest container
                 container = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-                        filter: s => (s.structureType == STRUCTURE_CONTAINER || s.structureType == STRUCTURE_STORAGE) &&
+                        filter: s => (s.structureType === STRUCTURE_CONTAINER || s.structureType === STRUCTURE_STORAGE) &&
                     s.store[RESOURCE_ENERGY] > 0
             });
-                // if one was found
-                if (container != undefined) {
-                    // try to withdraw energy, if the container is not in range
-                    if (creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        // move towards it
+                if (!container) {
+                    if (creep.withdraw(container, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
                         creep.moveTo(container);
                     }
                 }
             }
-            // if no container was found and the Creep should look for Sources
-            if (container == undefined && useSource) {
-                // find closest source
-                var source = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
+            if (!container && useSource) {
+                let source = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
 
-                // try to harvest energy, if the source is not in range
-                if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
-                    // move towards it
+                if (creep.harvest(source) === ERR_NOT_IN_RANGE) {
                     creep.moveTo(source);
                 }
             }},
