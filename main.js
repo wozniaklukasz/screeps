@@ -18,7 +18,7 @@ module.exports.loop = function () {
         creepMain.setCreepsRole(room, creeps);
 
         tower(room);
-        if (0) {
+        if (1) {
             console.log(
                 roomInstance.infoLog(room) +
                 creepMain.infoLog(creeps, numberOfCreeps)
@@ -43,14 +43,14 @@ function setNumberOfCreepsByRoomName(roomName) {
             harvester: 3,
             builder: 1,
             upgrader: 1,
-            longDistanceHarvester: 2,
+            longDistanceHarvester: 3,
             repairer: 1
         };
     } else if (roomName === 'E29S28') {
         numberOfCreeps = {
-            harvester: 4,
-            builder: 4,
-            upgrader: 1,
+            harvester: 1,
+            builder: 0,
+            upgrader: 0,
             longDistanceHarvester: 0,
             repairer: 1
         };
@@ -60,7 +60,7 @@ function setNumberOfCreepsByRoomName(roomName) {
 }
 
 function creepMemoryClearing() {
-    for (var name in Memory.creeps) {
+    for (let name in Memory.creeps) {
         if (!Game.creeps[name]) {
             delete Memory.creeps[name];
             console.log('Clearing non-existing creep memory:', name);

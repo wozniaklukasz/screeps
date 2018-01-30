@@ -3,6 +3,20 @@
 var spawnMain = {
     spawnCreep: function (room, mySpawns, creeps, numberOfCreeps) {
         // todo: refactor if
+        // console.log(Game.creeps.filter(function (creep) {
+        //     return creep.memory.role === 'longDistanceHarvester'
+        // }).length)
+
+        let x = 0;
+        for (let r in Game.rooms) {
+            x += Game.rooms[r].find(FIND_MY_CREEPS).filter(function (c) {
+                return c.memory.role === 'longDistanceHarvester'
+            }).length;
+        }
+
+        // console.log(x);
+
+
         if (creeps.filter(function (creep) {
                 return creep.memory.role === 'harvester'
             }).length < numberOfCreeps.harvester) {
@@ -19,16 +33,14 @@ var spawnMain = {
                 return creep.memory.role === 'repairer'
             }).length < numberOfCreeps.repairer) {
             this.creepSpawning(mySpawns, 'repairer', room);
-        } else if (creeps.filter(function (creep) {
-                return creep.memory.role === 'longDistanceHarvester'
-            }).length < numberOfCreeps.longDistanceHarvester) {
+        } else if (x < numberOfCreeps.longDistanceHarvester) {
             this.creepSpawning(mySpawns, 'longDistanceHarvester', room);
         }
     },
     spawningInfo: function (mySpawns) {
         mySpawns.forEach(function (spawn) {
             if (spawn.spawning) {
-                var spawningCreep = Game.creeps[spawn.spawning.name];
+                let spawningCreep = Game.creeps[spawn.spawning.name];
                 spawn.room.visual.text(
                     '🛠️' + spawningCreep.memory.role,
                     spawn.pos.x + 1,
@@ -38,9 +50,9 @@ var spawnMain = {
         });
     },
     creepSpawning: function (mySpawns, role, room) {
-        var name = role + Game.time;
-        var body = [WORK, WORK, CARRY, MOVE];
-        var energy = room.energyCapacityAvailable;
+        let name = role + Game.time;
+        let body = [WORK, WORK, CARRY, MOVE];
+        let energy = room.energyCapacityAvailable;
 
         // todo: calculate energy
         if (energy >= 550) {
