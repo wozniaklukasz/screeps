@@ -29,7 +29,7 @@ const roleHarvester = {
             }
         }
         else {
-            creepInstance.getEnergy(creep, false, true);
+            creep.getEnergy(false, true);
         }
     }
 };

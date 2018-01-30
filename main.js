@@ -3,6 +3,8 @@ var roomInstance = require('room.instance');
 var creepMain = require('creep.main');
 var spawnMain = require('spawn.main');
 
+require('prototype.creep');
+
 module.exports.loop = function () {
     creepMemoryClearing();
     let rooms = roomMain.getRooms();
@@ -26,7 +28,7 @@ module.exports.loop = function () {
         }
         spawnMain.spawningInfo(mySpawns);
 
-        // buildStructuresOnFlags(room);
+        buildStructuresOnFlags(room);
     });
 };
 
@@ -40,10 +42,10 @@ function setNumberOfCreepsByRoomName(roomName) {
     };
     if (roomName === 'E28S28') {
         numberOfCreeps = {
-            harvester: 3,
+            harvester: 2,
             builder: 1,
-            upgrader: 1,
-            longDistanceHarvester: 3,
+            upgrader: 0,
+            longDistanceHarvester: 2,
             repairer: 1
         };
     } else if (roomName === 'E29S28') {
@@ -68,14 +70,7 @@ function creepMemoryClearing() {
     }
 }
 
-function buildStructuresOnFlags(room) {
-    if (room.find(FIND_STRUCTURES).filter(s => {
-            return s.structureType === STRUCTURE_EXTENSION
-        }).length < 30) {
-        return;
-    }
-
-    /*
+function buildStructuresOnFlags(room) {/*
     * Build structures by flag colors.
     * */
 
