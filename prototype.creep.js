@@ -1,3 +1,10 @@
+const config = require('config');
+
+Creep.prototype.runRole = function () {
+    let roles = config.getRoles();
+    roles[this.memory.role].run(this);
+};
+
 Creep.prototype.getEnergy = function (useContainer, useSource) {
     let container;
     if (useContainer) {

@@ -4,10 +4,24 @@ var creepMain = require('creep.main');
 var spawnMain = require('spawn.main');
 
 require('prototype.creep');
+require('prototype.room');
+const config = require('config');
 
 module.exports.loop = function () {
     creepMemoryClearing();
     let rooms = roomMain.getRooms();
+
+    // Creeps
+    for (let name in Game.creeps) {
+        Game.creeps[name].runRole();
+    }
+
+    // Spawn
+
+    // Room
+    for (let room in Game.rooms) {
+        Game.rooms[room].buildStructuresOnFlags(config.booleans.enableBuildingByFlagsColors);
+    }
 
     rooms.forEach(function (room) {
 
@@ -17,7 +31,8 @@ module.exports.loop = function () {
         let mySpawns = room.find(FIND_MY_SPAWNS);
 
         spawnMain.spawnCreep(room, mySpawns, creeps, numberOfCreeps);
-        creepMain.setCreepsRole(room, creeps);
+
+
 
         tower(room);
         if (1) {
@@ -28,7 +43,6 @@ module.exports.loop = function () {
         }
         spawnMain.spawningInfo(mySpawns);
 
-        buildStructuresOnFlags(room);
     });
 };
 
@@ -44,15 +58,15 @@ function setNumberOfCreepsByRoomName(roomName) {
         numberOfCreeps = {
             harvester: 2,
             builder: 1,
-            upgrader: 0,
-            longDistanceHarvester: 2,
+            upgrader: 1,
+            longDistanceHarvester: 0,
             repairer: 1
         };
     } else if (roomName === 'E29S28') {
         numberOfCreeps = {
-            harvester: 1,
-            builder: 0,
-            upgrader: 0,
+            harvester: 2,
+            builder: 1,
+            upgrader: 1,
             longDistanceHarvester: 0,
             repairer: 1
         };
@@ -68,30 +82,6 @@ function creepMemoryClearing() {
             console.log('Clearing non-existing creep memory:', name);
         }
     }
-}
-
-function buildStructuresOnFlags(room) {/*
-    * Build structures by flag colors.
-    * */
-
-    room.find(FIND_FLAGS).map(f => {
-        let structure = '';
-
-        if (f.color === 10) {
-            structure = STRUCTURE_ROAD // white flag
-        } else if (f.color === 6) {
-            structure = STRUCTURE_EXTENSION // yellow flag
-        } else if (f.color === 1) {
-            structure = STRUCTURE_TOWER // red flag
-        }
-
-        buildStructure(f.pos.roomName, f.pos.x, f.pos.y, structure)
-    })
-
-}
-
-function buildStructure(roomName, x, y, structure) {
-    Game.rooms[roomName].createConstructionSite(x, y, structure);
 }
 
 function tower(room) {
