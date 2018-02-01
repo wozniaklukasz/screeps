@@ -14,7 +14,7 @@ const config = {
                 upgrader: 0,
                 repairer: 1,
                 longDistanceHarvester: 0,
-                wallRepairer: 1
+                wallRepairer: 2
             };
         } else if (roomName === 'E29S28') {
             numberOfCreeps = {
