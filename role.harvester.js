@@ -1,10 +1,8 @@
-const creepInstance = require('creep.instance');
 const roleBuilder = require('role.builder');
 
 const roleHarvester = {
 
     run: function (creep) {
-        creepInstance.showCreepRole(creep);
         if (creep.memory.working === true && creep.carry.energy === 0) {
             creep.memory.working = false;
         }

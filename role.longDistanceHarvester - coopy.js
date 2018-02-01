@@ -1,9 +1,7 @@
-const creepInstance = require('creep.instance');
-const roleBuilder = require('role.builder');
+const roleHarvester = require('role.harvester');
 
 module.exports = {
     run: function(creep) {
-        creepInstance.showCreepRole(creep);
 
         if (creep.memory.working === true && creep.carry.energy === 0) {
             creep.memory.working = false;
@@ -13,16 +11,13 @@ module.exports = {
         }
 
         if (creep.memory.working === true) {
-            if (creep.room.name === creep.memory.homeRoom) {
-                // ROLE
-                // todo: add role in memory
-                // todo: change name from lDH to importer[ROLE]
-                roleBuilder.run(creep);
-            }
-            else {
-                let exit = creep.room.findExitTo(creep.memory.homeRoom);
-                creep.moveTo(creep.pos.findClosestByRange(exit));
-            }
+
+            // ROLE
+            // todo: add role in memory
+            // todo: change name from lDH to importer[ROLE]
+            roleHarvester.run(creep);
+
+
         }
         else {
             if (creep.room.name === creep.memory.secondRoom) {

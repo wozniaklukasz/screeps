@@ -1,9 +1,7 @@
 const roleUpgrader = require('role.upgrader');
-const creepInstance = require('creep.instance');
 
 module.exports = {
     run: function (creep) {
-        creepInstance.showCreepRole(creep);
 
             if (creep.memory.target && creep.room.name !== creep.memory.target) {
                 var exit = creep.room.findExitTo(creep.memory.target);

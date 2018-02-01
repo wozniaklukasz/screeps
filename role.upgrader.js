@@ -1,8 +1,5 @@
-const creepInstance = require('creep.instance');
 module.exports = {
     run: function(creep) {
-        creepInstance.showCreepRole(creep);
-
         if (creep.memory.working && creep.carry.energy === 0) {
             creep.memory.working = false;
         }

@@ -1,12 +1,8 @@
 var roleBuilder = require('role.builder');
-const creepInstance = require('creep.instance');
 
-// todo: find the most damaged structure to repair
 // REPAIRER -> BUILDER
 module.exports = {
     run: function(creep) {
-        creepInstance.showCreepRole(creep);
-
         if (creep.memory.working === true && creep.carry.energy === 0) {
             creep.memory.working = false;
         }

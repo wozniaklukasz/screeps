@@ -26,3 +26,23 @@ Creep.prototype.getEnergy = function (useContainer, useSource) {
         }
     }
 };
+
+Creep.prototype.showCreepRole = function () {
+    if (this.memory.role === 'harvester') {
+        text = '♻';
+    } else if (this.memory.role === 'builder') {
+        text = '🚧';
+    } else if (this.memory.role === 'upgrader') {
+        text = '🗲';
+    } else if (this.memory.role === 'repairer') {
+        text = '⚒';
+    } else if (this.memory.role === 'longDistanceHarvester') {
+        text = '🚀';
+    }
+    // this.room.visual.text(
+    //     text,
+    //     this.pos.x + .4,
+    //     this.pos.y,
+    //     {align: 'left', opacity: 0.8})
+    this.say(text);
+};
