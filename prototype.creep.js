@@ -39,10 +39,5 @@ Creep.prototype.showCreepRole = function () {
     } else if (this.memory.role === 'longDistanceHarvester') {
         text = '🚀';
     }
-    // this.room.visual.text(
-    //     text,
-    //     this.pos.x + .4,
-    //     this.pos.y,
-    //     {align: 'left', opacity: 0.8})
     this.say(text);
 };

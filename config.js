@@ -5,27 +5,23 @@ const config = {
     },
     getNumberOfCreepsToDo: function (roomName) {
         let numberOfCreeps = {
-            harvester: 3,
-            builder: 1,
-            upgrader: 1,
-            longDistanceHarvester: 0,
-            repairer: 1
+            harvester: 4
         };
         if (roomName === 'E28S28') {
             numberOfCreeps = {
                 harvester: 3,
                 builder: 1,
                 upgrader: 0,
-                longDistanceHarvester: 0,
-                repairer: 1
+                repairer: 1,
+                longDistanceHarvester: 0
             };
         } else if (roomName === 'E29S28') {
             numberOfCreeps = {
                 harvester: 2,
                 builder: 1,
                 upgrader: 1,
-                longDistanceHarvester: 2,
-                repairer: 1
+                repairer: 1,
+                longDistanceHarvester: 2
             };
         }
 

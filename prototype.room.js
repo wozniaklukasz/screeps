@@ -42,4 +42,4 @@ Room.prototype.getNumberOfCreepsByRoomName = function () {
         });
     });
     return roleCounter;
-}
+};
