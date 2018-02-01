@@ -1,7 +1,7 @@
 const config = require('config');
 
-Room.prototype.buildStructuresOnFlags = function (enabled) {
-    if (!enabled) {
+Room.prototype.buildStructuresOnFlags = function () {
+    if (config.booleans.enableBuildingByFlagsColors) {
         return;
     }
 
@@ -17,11 +17,15 @@ Room.prototype.logPopulation = function () {
     if (config.booleans.enableConsoleLog && this.controller.my) {
         let log = '';
         let creeps = this.getNumberOfCreepsByRoomName(this.name);
+        let requiredCreeps = config.getNumberOfCreepsToDo(this.name);
+
         log += '[' + this.name + ': (lvl: ' + this.controller.level + ')(xp: ' + Number.parseFloat(this.controller.progress * 100 / this.controller.progressTotal).toPrecision(3) + '%)(ene: ' + this.energyAvailable + '/' + this.energyCapacityAvailable + ')]';
 
+            // console.log(requiredCreeps['harvester'])
+
         creeps.map(c => {
-                if (c.number) {
-                    log += '(' + c.role + ':' + c.number + ')'
+                if (requiredCreeps[c.role]) {
+                    log += '(' + c.role + ':' + c.number + '/' + requiredCreeps[c.role] + ')'
                 }
             }
         );

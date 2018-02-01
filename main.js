@@ -1,7 +1,7 @@
 require('prototype.creep');
 require('prototype.room');
 require('prototype.spawn');
-const config = require('config');
+require('prototype.tower');
 
 module.exports.loop = function () {
     creepMemoryClearing();
@@ -12,16 +12,18 @@ module.exports.loop = function () {
     }
 
     for (let room in Game.rooms) {
-        Game.rooms[room].buildStructuresOnFlags(config.booleans.enableBuildingByFlagsColors);
+        Game.rooms[room].buildStructuresOnFlags();
         Game.rooms[room].logPopulation();
-
-        //todo:
-        tower(Game.rooms[room]);
     }
 
     for (let spawn in Game.spawns) {
         Game.spawns[spawn].spawnCreepsIfNecessary();
         Game.spawns[spawn].spawningInfo();
+    }
+
+    let towers = _.filter(Game.structures, s => s.structureType === STRUCTURE_TOWER);
+    for (let tower of towers) {
+        tower.defend();
     }
 };
 
@@ -32,18 +34,4 @@ function creepMemoryClearing() {
             console.log('Clearing non-existing creep memory:', name);
         }
     }
-}
-
-// todo: tower.prototype
-function tower(room) {
-    let tower = room.find(FIND_STRUCTURES).filter(function (s) {
-        return s.structureType === STRUCTURE_TOWER;
-    });
-
-    tower.map(t => {
-        let target = t.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-        if (target) {
-            t.attack(target);
-        }
-    });
 }
