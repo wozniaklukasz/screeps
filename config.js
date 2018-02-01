@@ -13,7 +13,8 @@ const config = {
                 builder: 1,
                 upgrader: 0,
                 repairer: 1,
-                longDistanceHarvester: 0
+                longDistanceHarvester: 0,
+                wallRepairer: 1
             };
         } else if (roomName === 'E29S28') {
             numberOfCreeps = {
@@ -35,6 +36,8 @@ const config = {
             upgrader: require('role.upgrader'),
             longDistanceHarvester: require('role.longDistanceHarvester'),
             claimer: require('role.claimer'),
+            signer: require('role.signer'),
+            wallRepairer: require('role.wallRepairer')
         };
     },
     getRolesArray: function () {
@@ -44,7 +47,7 @@ const config = {
             'repairer',
             'upgrader',
             'longDistanceHarvester',
-            'claimer'
+            'wallRepairer'
         ];
     },
     getBuildingByFlagColor: function (flag) {

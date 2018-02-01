@@ -29,15 +29,17 @@ Creep.prototype.getEnergy = function (useContainer, useSource) {
 
 Creep.prototype.showCreepRole = function () {
     if (this.memory.role === 'harvester') {
-        text = '♻';
+        text = '♻️';
     } else if (this.memory.role === 'builder') {
         text = '🚧';
     } else if (this.memory.role === 'upgrader') {
-        text = '🗲';
+        text = '⚡';
     } else if (this.memory.role === 'repairer') {
-        text = '⚒';
+        text = '⚙️';
     } else if (this.memory.role === 'longDistanceHarvester') {
-        text = '🚀';
+        text = '🔻';
+    } else if (this.memory.role === 'wallRepairer') {
+        text = '🏗️'
     }
     this.say(text);
 };
