@@ -3,14 +3,9 @@ const roleBuilder = require('role.builder');
 const roleHarvester = {
 
     run: function (creep) {
-        if (creep.memory.working === true && creep.carry.energy === 0) {
-            creep.memory.working = false;
-        }
-        else if (creep.memory.working === false && creep.carry.energy === creep.carryCapacity) {
-            creep.memory.working = true;
-        }
+        creep.isCreepAbleToWork();
 
-        if (creep.memory.working === true) {
+        if (creep.memory.working) {
             let structure = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
                 filter: (s) => (s.structureType === STRUCTURE_SPAWN
                     || s.structureType === STRUCTURE_EXTENSION

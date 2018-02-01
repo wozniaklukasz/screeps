@@ -2,15 +2,9 @@ const roleBuilder = require('role.builder');
 
 module.exports = {
     run: function(creep) {
+        creep.isCreepAbleToWork();
 
-        if (creep.memory.working === true && creep.carry.energy === 0) {
-            creep.memory.working = false;
-        }
-        else if (creep.memory.working === false && creep.carry.energy === creep.carryCapacity) {
-            creep.memory.working = true;
-        }
-
-        if (creep.memory.working === true) {
+        if (creep.memory.working) {
             if (creep.room.name === creep.memory.homeRoom) {
                 // ROLE
                 // todo: add role in memory

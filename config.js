@@ -17,11 +17,11 @@ const config = {
             };
         } else if (roomName === 'E29S28') {
             numberOfCreeps = {
-                harvester: 2,
+                harvester: 3,
                 builder: 1,
-                upgrader: 1,
+                upgrader: 0,
                 repairer: 1,
-                longDistanceHarvester: 2
+                longDistanceHarvester: 4
             };
         }
 

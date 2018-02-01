@@ -41,3 +41,12 @@ Creep.prototype.showCreepRole = function () {
     }
     this.say(text);
 };
+
+Creep.prototype.isCreepAbleToWork = function () {
+    if (this.memory.working === true && this.carry.energy === 0) {
+        this.memory.working = false;
+    }
+    else if (this.memory.working === false && this.carry.energy === this.carryCapacity) {
+        this.memory.working = true;
+    }
+};
