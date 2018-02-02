@@ -19,7 +19,7 @@ Room.prototype.logPopulation = function () {
         let creeps = this.getNumberOfCreepsByRoomName(this.name);
         let requiredCreeps = config.getNumberOfCreepsToDo(this.name);
 
-        log += '[' + this.name + ': (lvl: ' + this.controller.level + ')(xp: ' + Number.parseFloat(this.controller.progress * 100 / this.controller.progressTotal).toPrecision(3) + '%)(ene: ' + this.energyAvailable + '/' + this.energyCapacityAvailable + ')]';
+        log += '[' + this.name + ': (lvl: ' + this.controller.level + ')(xp: ' + Number.parseFloat(this.controller.progress * 100 / this.controller.progressTotal).toPrecision(3) + '%)(ene: ' + this.energyAvailable + '/' + this.energyCapacityAvailable + ')][Creeps: ';
 
         creeps.map(c => {
                 if (requiredCreeps[c.role]) {
@@ -27,6 +27,7 @@ Room.prototype.logPopulation = function () {
                 }
             }
         );
+        log += ']';
         console.log(log);
     }
 };
