@@ -1,15 +1,22 @@
 const roleBuilder = require('role.builder');
 
-const HIT_WALL_TO_REPAIR = 1000001;
 module.exports = {
     run: function(creep) {
         creep.isCreepAbleToWork();
 
-        // TODO: !
         if (creep.memory.working) {
-            let walls = creep.room.find(FIND_STRUCTURES, {
-                filter: (s) => s.structureType === STRUCTURE_WALL && s.hits < HIT_WALL_TO_REPAIR
-            });
+            // care with this constants (CPU limit)
+            const WALL_MAX_HITPOINTS = 10000000;
+            const hitpointsIncrementation = 1000000;
+            let walls = [];
+            let hitsWallToRepair = 0;
+
+            while (!walls.length && hitsWallToRepair < WALL_MAX_HITPOINTS) {
+                hitsWallToRepair += hitpointsIncrementation;
+                walls = creep.room.find(FIND_STRUCTURES, {
+                    filter: (s) => s.structureType === STRUCTURE_WALL && s.hits < hitsWallToRepair
+                });
+            }
 
             if (walls) {
                 let wall = creep.pos.findClosestByRange(walls);
