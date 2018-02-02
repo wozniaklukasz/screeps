@@ -1,3 +1,5 @@
+const config = require('config');
+
 require('prototype.creep');
 require('prototype.room');
 require('prototype.spawn');
@@ -5,6 +7,7 @@ require('prototype.tower');
 
 module.exports.loop = function () {
     creepMemoryClearing();
+    logGlobalInfo();
 
     for (let creep in Game.creeps) {
         Game.creeps[creep].runRole();
@@ -33,5 +36,12 @@ function creepMemoryClearing() {
             delete Memory.creeps[name];
             console.log('Clearing non-existing creep memory:', name);
         }
+    }
+}
+
+function logGlobalInfo() {
+    if(config.booleans.enableConsoleLog) {
+        let gcl = Game.gcl;
+        console.log('[GCL: ' + gcl.level + ' (xp: ' + Number.parseFloat(gcl.progress * 100 / gcl.progressTotal).toPrecision(3) + '%)]')
     }
 }

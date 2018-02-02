@@ -31,6 +31,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
                     {
                         memory: {
                             role: role,
+                            secondRole: null,
                             homeRoom: room.name,
                             targetRoom: 'E29S27',
                             working: false
