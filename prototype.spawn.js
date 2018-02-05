@@ -27,6 +27,11 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
                     body = [WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE];
                 }
 
+                // todo!!!
+                if(role === 'harvester' && creepsLiving.number === 0) {
+                    body = [WORK, CARRY, CARRY, CARRY, MOVE];
+                }
+
                 this.spawnCreep(body, name,
                     {
                         memory: {
