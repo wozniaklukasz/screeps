@@ -10,7 +10,7 @@ const config = {
         if (roomName === 'E28S28') {
             numberOfCreeps = {
                 harvester: 3,
-                builder: 2,
+                builder: 1,
                 upgrader: 1,
                 repairer: 1,
                 longDistanceHarvester: 0,
