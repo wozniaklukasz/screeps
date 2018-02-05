@@ -12,8 +12,8 @@ module.exports = {
                 // ROLE
                 // todo: add role in memory
                 // todo: change name from lDH to importer[ROLE]
-                // roleBuilder.run(creep);
-                roleHarvester.run(creep);
+                roleBuilder.run(creep);
+                // roleHarvester.run(creep);
             }
             else {
                 let exit = creep.room.findExitTo(creep.memory.homeRoom);

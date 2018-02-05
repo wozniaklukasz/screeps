@@ -6,8 +6,9 @@ module.exports = {
         creep.isCreepAbleToWork();
 
         if (creep.memory.working) {
+            // add if necessary && s.structureType !== STRUCTURE_RAMPART
             let structure = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-                filter: (s) => s.hits < s.hitsMax && s.structureType !== STRUCTURE_WALL && s.structureType !== STRUCTURE_RAMPART
+                filter: (s) => s.hits < s.hitsMax && s.structureType !== STRUCTURE_WALL
             });
 
             if (structure) {

@@ -1,4 +1,5 @@
 const config = require('config');
+const utilsSpawn = require('utils.spawn');
 
 StructureSpawn.prototype.spawnCreepsIfNecessary =
     function () {
@@ -17,21 +18,8 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
 
             if (creepsLiving.number < numberOfCreepsToDo[role]) {
                 let name = role + Game.time;
-                let body = [WORK, WORK, CARRY, MOVE];
                 let energy = room.energyCapacityAvailable;
-
-                if (energy >= 550) {
-                    body = [WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE];
-                }
-                if (energy >= 800) {
-                    body = [WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE];
-                }
-                if (energy >= 1300) {
-                    body = [WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE];
-                }
-                if (energy >= 1800) {
-                    body = [WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE];
-                }
+                let body = utilsSpawn.getSpawnedCreepBody(energy, role);
 
                 this.spawnCreep(body, name,
                     {
