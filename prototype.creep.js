@@ -2,7 +2,12 @@ const config = require('config');
 
 Creep.prototype.runRole = function () {
     let roles = config.getRoles();
-    roles[this.memory.role].run(this);
+
+    if (!this.room.memory.noHarvestersAlert) {
+        roles[this.memory.role].run(this);
+    } else {
+        roles['harvester'].run(this);
+    }
 };
 
 Creep.prototype.getEnergy = function (useContainer, useSource) {

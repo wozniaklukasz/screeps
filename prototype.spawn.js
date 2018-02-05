@@ -9,6 +9,12 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
         numberOfCreepsLiving.forEach(creepsLiving => {
             let role = creepsLiving.role;
 
+            if (role === 'harvester' && creepsLiving.number === 0) {
+                this.room.memory.noHarvestersAlert = true;
+            } else {
+                this.room.memory.noHarvestersAlert = false;
+            }
+
             if (creepsLiving.number < numberOfCreepsToDo[role]) {
                 let name = role + Game.time;
                 let body = [WORK, WORK, CARRY, MOVE];
@@ -25,11 +31,6 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
                 }
                 if (energy >= 1800) {
                     body = [WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE];
-                }
-
-                // todo!!!
-                if(role === 'harvester' && creepsLiving.number === 0) {
-                    body = [WORK, CARRY, CARRY, CARRY, MOVE];
                 }
 
                 this.spawnCreep(body, name,
