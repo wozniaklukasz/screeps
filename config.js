@@ -1,7 +1,7 @@
 const config = {
     booleans: {
         enableConsoleLog: true,
-        enableBuildingByFlagsColors: true
+        enableBuildingByFlagsColors: false
     },
     getNumberOfCreepsToDo: function (roomName) {
         let numberOfCreeps = {
@@ -15,7 +15,7 @@ const config = {
                 repairer: 1,
                 longDistanceHarvester: 0,
                 wallRepairer: 0,
-                rampartRepairer: 0
+                rampartRepairer: 1
             };
         } else if (roomName === 'E29S28') {
             numberOfCreeps = {
@@ -23,7 +23,7 @@ const config = {
                 builder: 1,
                 upgrader: 1,
                 repairer: 1,
-                longDistanceHarvester: 3
+                longDistanceHarvester: 0
             };
         }
 
@@ -61,6 +61,8 @@ const config = {
             structure = STRUCTURE_EXTENSION // yellow flag
         } else if (flag.color === 1) {
             structure = STRUCTURE_TOWER // red flag
+        } else if (flag.color === 2) {
+            structure = STRUCTURE_EXTRACTOR // purple flag
         }
         return structure;
     }

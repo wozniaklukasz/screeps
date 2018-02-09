@@ -10,12 +10,6 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
         numberOfCreepsLiving.forEach(creepsLiving => {
             let role = creepsLiving.role;
 
-            if (role === 'harvester' && creepsLiving.number === 0) {
-                this.room.memory.noHarvestersAlert = true;
-            } else {
-                this.room.memory.noHarvestersAlert = false;
-            }
-
             if (creepsLiving.number < numberOfCreepsToDo[role]) {
                 let name = role + Game.time;
                 let energy = room.energyCapacityAvailable;
@@ -33,6 +27,15 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
                     });
             }
         });
+
+        let numberOfHarvesters = numberOfCreepsLiving.filter(creep => creep.role === 'harvester').map(creep => creep.number);
+
+        if (numberOfHarvesters < 1) {
+            console.log('*** Harvesters alert - room: ' + this.room.name + '!');
+            this.room.memory.noHarvestersAlert = true;
+        } else {
+            this.room.memory.noHarvestersAlert = false;
+        }
 
     };
 

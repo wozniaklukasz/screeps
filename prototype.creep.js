@@ -6,11 +6,11 @@ Creep.prototype.runRole = function () {
     if (!this.room.memory.noHarvestersAlert) {
         roles[this.memory.role].run(this);
     } else {
-        if (creep.room.name === creep.memory.targetRoom) {
+        if (this.room.name === this.memory.homeRoom) {
             roles['harvester'].run(this);
         } else {
-            let exit = creep.room.findExitTo(creep.memory.targetRoom);
-            creep.moveTo(creep.pos.findClosestByRange(exit));
+            let exit = this.room.findExitTo(this.memory.homeRoom);
+            this.moveTo(this.pos.findClosestByRange(exit));
         }
     }
 };
