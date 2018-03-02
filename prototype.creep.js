@@ -6,6 +6,7 @@ Creep.prototype.runRole = function () {
     if (!this.room.memory.noHarvestersAlert) {
         roles[this.memory.role].run(this);
     } else {
+        // todo: nie dziala, alert jest w innym pokoju
         if (this.room.name === this.memory.homeRoom) {
             roles['harvester'].run(this);
         } else {
@@ -51,6 +52,10 @@ Creep.prototype.showCreepRole = function () {
         text = '🔻';
     } else if (this.memory.role === 'wallRepairer') {
         text = '🚧'
+    } else if (this.memory.role === 'rampartRepairer') {
+        text = 'rampart'
+    } else if (this.memory.role === 'mineralHarvester') {
+        text = 'mineral'
     }
     this.say(text);
 };

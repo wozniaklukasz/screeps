@@ -10,18 +10,20 @@ module.exports.loop = function () {
     logGlobalInfo();
 
     for (let creep in Game.creeps) {
-        Game.creeps[creep].runRole();
-        Game.creeps[creep].showCreepRole();
+        let cr = Game.creeps[creep];
+        cr.runRole();
+        cr.showCreepRole();
     }
 
     for (let room in Game.rooms) {
-        Game.rooms[room].buildStructuresOnFlags();
+        //Game.rooms[room].buildStructuresOnFlags();
         Game.rooms[room].logPopulation();
     }
 
     for (let spawn in Game.spawns) {
-        Game.spawns[spawn].spawnCreepsIfNecessary();
-        Game.spawns[spawn].spawningInfo();
+        let sp = Game.spawns[spawn];
+        sp.spawnCreepsIfNecessary();
+        sp.spawningInfo();
     }
 
     let towers = _.filter(Game.structures, s => s.structureType === STRUCTURE_TOWER);

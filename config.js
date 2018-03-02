@@ -1,7 +1,7 @@
 const config = {
     booleans: {
         enableConsoleLog: true,
-        enableBuildingByFlagsColors: false
+        enableBuildingByFlagsColors: true
     },
     getNumberOfCreepsToDo: function (roomName) {
         let numberOfCreeps = {
@@ -9,13 +9,14 @@ const config = {
         };
         if (roomName === 'E28S28') {
             numberOfCreeps = {
-                harvester: 3,
-                builder: 1,
+                harvester: 2,
+                builder: 0,
                 upgrader: 1,
                 repairer: 1,
                 longDistanceHarvester: 0,
-                wallRepairer: 0,
-                rampartRepairer: 1
+                wallRepairer: 2,
+                rampartRepairer: 1,
+                mineralHarvester: 0
             };
         } else if (roomName === 'E29S28') {
             numberOfCreeps = {
@@ -23,7 +24,17 @@ const config = {
                 builder: 1,
                 upgrader: 1,
                 repairer: 1,
-                longDistanceHarvester: 0
+                longDistanceHarvester: 2,
+                mineralHarvester: 0
+            };
+        } else if (roomName === 'E29S27') {
+            numberOfCreeps = {
+                harvester: 3,
+                builder: 0,
+                upgrader: 1,
+                repairer: 1,
+                rampartRepairer: 1,
+                wallRepairer: 0
             };
         }
 
@@ -39,6 +50,7 @@ const config = {
             claimer: require('role.claimer'),
             signer: require('role.signer'),
             wallRepairer: require('role.wallRepairer'),
+            mineralHarvester: require('role.mineralHarvester'),
             rampartRepairer: require('role.rampartRepairer')
         };
     },
@@ -50,7 +62,8 @@ const config = {
             'upgrader',
             'longDistanceHarvester',
             'wallRepairer',
-            'rampartRepairer'
+            'rampartRepairer',
+            'mineralHarvester'
         ];
     },
     getBuildingByFlagColor: function (flag) {

@@ -8,15 +8,15 @@ module.exports = {
         creep.isCreepAbleToWork();
 
         if (creep.memory.working) {
-            if (creep.room.name === creep.memory.homeRoom) {
+            if (creep.room.name === creep.memory.targetRoom) {
                 // ROLE
                 // todo: add role in memory
                 // todo: change name from lDH to importer[ROLE]
-                roleBuilder.run(creep);
-                // roleHarvester.run(creep);
+                // roleBuilder.run(creep);
+                roleHarvester.run(creep);
             }
             else {
-                let exit = creep.room.findExitTo(creep.memory.homeRoom);
+                let exit = creep.room.findExitTo(creep.memory.targetRoom);
                 creep.moveTo(creep.pos.findClosestByRange(exit));
             }
         }

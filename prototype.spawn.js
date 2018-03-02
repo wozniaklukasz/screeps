@@ -21,7 +21,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
                             role: role,
                             secondRole: null,
                             homeRoom: room.name,
-                            targetRoom: 'E29S27',
+                            targetRoom: 'E28S28',
                             working: false
                         }
                     });
@@ -32,7 +32,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
 
         if (numberOfHarvesters < 1) {
             console.log('*** Harvesters alert - room: ' + this.room.name + '!');
-            this.room.memory.noHarvestersAlert = true;
+            this.room.memory.noHarvestersAlert = false;
         } else {
             this.room.memory.noHarvestersAlert = false;
         }
