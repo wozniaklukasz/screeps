@@ -32,7 +32,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
 
         if (numberOfHarvesters < 1) {
             console.log('*** Harvesters alert - room: ' + this.room.name + '!');
-            this.room.memory.noHarvestersAlert = false;
+            this.room.memory.noHarvestersAlert = true;
         } else {
             this.room.memory.noHarvestersAlert = false;
         }

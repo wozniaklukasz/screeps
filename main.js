@@ -34,10 +34,6 @@ module.exports.loop = function () {
         tower.repairStructures();
     }
 
-    // let links = _.filter(Game.structures, s => s.structureType === STRUCTURE_LINK);
-    // for (let link of links) {
-    //     link.test();
-    // }
     utilsLink.linksTransfers();
 };
 

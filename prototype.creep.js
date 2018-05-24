@@ -3,16 +3,10 @@ const config = require('config');
 Creep.prototype.runRole = function () {
     let roles = config.getRoles();
 
-    if (!this.room.memory.noHarvestersAlert) {
-        roles[this.memory.role].run(this);
+    if (this.room.memory.noHarvestersAlert) {
+        roles['harvester'].run(this);
     } else {
-        // todo: nie dziala, alert jest w innym pokoju
-        if (this.room.name === this.memory.homeRoom) {
-            roles['harvester'].run(this);
-        } else {
-            let exit = this.room.findExitTo(this.memory.homeRoom);
-            this.moveTo(this.pos.findClosestByRange(exit));
-        }
+        roles[this.memory.role].run(this);
     }
 };
 
