@@ -1,31 +1,35 @@
 const config = {
     booleans: {
         enableConsoleLog: true,
-        enableBuildingByFlagsColors: true
+        enableBuildingByFlagsColors: false
     },
     getNumberOfCreepsToDo: function (roomName) {
         let numberOfCreeps = {
             harvester: 4
         };
-        if (roomName === 'E28S28') {
+        if (roomName === 'W64S28') {
             numberOfCreeps = {
-                harvester: 2,
+                harvester: 1,
                 builder: 0,
-                upgrader: 1,
-                repairer: 1,
+                upgrader: 0,
+                repairer: 0,
                 longDistanceHarvester: 0,
-                wallRepairer: 2,
-                rampartRepairer: 1,
-                mineralHarvester: 0
+                wallRepairer: 0,
+                rampartRepairer: 0,
+                mineralHarvester: 0,
+                linkHarvester: 1,
+                linkUpgrader: 1
             };
-        } else if (roomName === 'E29S28') {
+        } else if (roomName === 'W63S28') {
             numberOfCreeps = {
-                harvester: 3,
-                builder: 1,
-                upgrader: 1,
-                repairer: 1,
-                longDistanceHarvester: 2,
-                mineralHarvester: 0
+                harvester: 1,
+                builder: 0,
+                upgrader: 0,
+                repairer: 0,
+                longDistanceHarvester: 0,
+                mineralHarvester: 0,
+                linkHarvester: 1,
+                linkUpgrader: 1
             };
         } else if (roomName === 'E29S27') {
             numberOfCreeps = {
@@ -33,7 +37,7 @@ const config = {
                 builder: 0,
                 upgrader: 1,
                 repairer: 1,
-                rampartRepairer: 1,
+                rampartRepairer: 0,
                 wallRepairer: 0
             };
         }
@@ -51,7 +55,9 @@ const config = {
             signer: require('role.signer'),
             wallRepairer: require('role.wallRepairer'),
             mineralHarvester: require('role.mineralHarvester'),
-            rampartRepairer: require('role.rampartRepairer')
+            rampartRepairer: require('role.rampartRepairer'),
+            linkHarvester: require('role.linkHarvester'),
+            linkUpgrader: require('role.linkUpgrader')
         };
     },
     getRolesArray: function () {
@@ -63,7 +69,9 @@ const config = {
             'longDistanceHarvester',
             'wallRepairer',
             'rampartRepairer',
-            'mineralHarvester'
+            'mineralHarvester',
+            'linkHarvester',
+            'linkUpgrader'
         ];
     },
     getBuildingByFlagColor: function (flag) {

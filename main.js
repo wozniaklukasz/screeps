@@ -4,6 +4,8 @@ require('prototype.creep');
 require('prototype.room');
 require('prototype.spawn');
 require('prototype.tower');
+require('prototype.link');
+const utilsLink = require('utils.link');
 
 module.exports.loop = function () {
     creepMemoryClearing();
@@ -29,7 +31,14 @@ module.exports.loop = function () {
     let towers = _.filter(Game.structures, s => s.structureType === STRUCTURE_TOWER);
     for (let tower of towers) {
         tower.defend();
+        tower.repairStructures();
     }
+
+    // let links = _.filter(Game.structures, s => s.structureType === STRUCTURE_LINK);
+    // for (let link of links) {
+    //     link.test();
+    // }
+    utilsLink.linksTransfers();
 };
 
 function creepMemoryClearing() {

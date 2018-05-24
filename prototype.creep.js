@@ -56,7 +56,10 @@ Creep.prototype.showCreepRole = function () {
         text = 'rampart'
     } else if (this.memory.role === 'mineralHarvester') {
         text = 'mineral'
+    } else if (this.memory.role.includes("link")) {
+        text = '🔷'
     }
+
     this.say(text);
 };
 

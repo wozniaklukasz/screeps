@@ -9,6 +9,8 @@ roleClaimer = {
             let exit = creep.room.findExitTo(creep.memory.targetRoom);
             creep.moveTo(creep.pos.findClosestByRange(exit));
         }
+        
+        // creep.moveTo(new RoomPosition(48, 8, 'W64S28'))
     }
 };
 
