@@ -4,6 +4,7 @@ Creep.prototype.runRole = function () {
   let roles = config.getRoles();
 
   if (this.room.memory.noHarvestersAlert) {
+    // todo: exclude attacker from alert
     roles['harvester'].run(this);
   } else {
     roles[this.memory.role].run(this);
@@ -45,13 +46,15 @@ Creep.prototype.showCreepRole = function () {
   } else if (this.memory.role === 'longDistanceHarvester') {
     text = '🔻';
   } else if (this.memory.role === 'wallRepairer') {
-    text = '🚧'
-  } else if (this.memory.role === 'rampartRepairer') {
-    text = 'rampart'
+    text = '🛡️'
   } else if (this.memory.role === 'mineralHarvester') {
     text = 'mineral'
-  } else if (this.memory.role.includes("link")) {
+  } else if (this.memory.role === 'linkHarvester') {
     text = '🔷'
+  } else if (this.memory.role === 'linkUpgrader') {
+    text = '🔶'
+  } else if (this.memory.role === 'attacker') {
+    text = '⚔️'
   }
 
   this.say(text);

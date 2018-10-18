@@ -6,7 +6,7 @@ module.exports = {
 
     if (creep.memory.working) {
       // care with this constants (CPU limit)
-// todo: rampart max hitpoints 1M, wall 300M
+      // todo: rampart max hitpoints 1M, wall 300M
       const WALL_MAX_HITPOINTS = 1000000;
       const hitpointsIncrementation = 50000;
       let walls = [];
@@ -32,8 +32,9 @@ module.exports = {
         }
 
         if (walls.length) {
+          // todo: (build problem) repair ramparts at 80% - because of decay
           let ramparts = walls.filter(
-            s => s.structureType === STRUCTURE_RAMPART && s.hits < hitsWallToRepair
+            s => s.structureType === STRUCTURE_RAMPART && s.hits < hitsWallToRepair * .8
           );
 
           // build ramparts before walls
