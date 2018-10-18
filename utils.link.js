@@ -6,9 +6,9 @@ module.exports = {
             const tmpRoom = Game.rooms[room];
 
             switch(tmpRoom.name) {
-                case "W64S28":
-                    const linkSource = tmpRoom.lookForAt('structure', 24, 25)[0];
-                    const linkController = tmpRoom.lookForAt('structure', 41, 10)[0];
+                case "W2S19":
+                    const linkSource = tmpRoom.lookForAt('structure', 37, 44)[0];
+                    const linkController = tmpRoom.lookForAt('structure', 18, 9)[0];
                     linkSource.transferEnergy(linkController);
                     tmpRoom.memory.linkSource = linkSource;
                     tmpRoom.memory.linkController = linkController;

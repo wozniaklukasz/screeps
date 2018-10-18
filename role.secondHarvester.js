@@ -1,15 +1,14 @@
 const roleBuilder = require('role.builder');
 
-const roleHarvester = {
+const roleSecondHarvester = {
 
     run: function (creep) {
         creep.isCreepAbleToWork();
 
         if (creep.memory.working) {
             let structure = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-                filter: (s) => (s.structureType === STRUCTURE_SPAWN
-                    || s.structureType === STRUCTURE_EXTENSION
-                    || s.structureType === STRUCTURE_TOWER)
+                filter: (s) => (s.structureType === STRUCTURE_NUKER
+                    || s.structureType === STRUCTURE_STORAGE)
                     && s.energy < s.energyCapacity
             });
 
@@ -27,4 +26,4 @@ const roleHarvester = {
     }
 };
 
-module.exports = roleHarvester;
+module.exports = roleSecondHarvester;

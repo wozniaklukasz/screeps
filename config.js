@@ -7,7 +7,7 @@ const config = {
         let numberOfCreeps = {
             harvester: 4
         };
-        if (roomName === 'W64S28') {
+        if (roomName === 'W2S19') {
             numberOfCreeps = {
                 harvester: 1,
                 builder: 0,
@@ -15,30 +15,46 @@ const config = {
                 repairer: 0,
                 longDistanceHarvester: 0,
                 wallRepairer: 0,
-                rampartRepairer: 0,
                 mineralHarvester: 0,
                 linkHarvester: 1,
-                linkUpgrader: 1
+                linkUpgrader: 1,
+                secondHarvester: 0
             };
-        } else if (roomName === 'W63S28') {
+        } else if (roomName === 'W3S19') {
             numberOfCreeps = {
-                harvester: 1,
+                harvester: 2,
                 builder: 0,
-                upgrader: 0,
+                upgrader: 1,
                 repairer: 0,
                 longDistanceHarvester: 0,
                 mineralHarvester: 0,
-                linkHarvester: 1,
-                linkUpgrader: 1
+                linkHarvester: 0,
+                linkUpgrader: 0,
+                secondHarvester: 0
             };
-        } else if (roomName === 'E29S27') {
+        } else if (roomName === 'W4S18') {
             numberOfCreeps = {
-                harvester: 3,
-                builder: 0,
+                harvester: 1,
                 upgrader: 1,
-                repairer: 1,
-                rampartRepairer: 0,
-                wallRepairer: 0
+                wallRepairer: 1,
+            };
+        } else if (roomName === 'W5S18') {
+            numberOfCreeps = {
+                harvester: 2,
+                upgrader: 1,
+                longDistanceHarvester: 1,
+                wallRepairer: 1
+            };
+        } else if (roomName === 'W1S15') {
+            numberOfCreeps = {
+                harvester: 2,
+                upgrader: 1,
+            };
+        } else if (roomName === 'W2S16') {
+            numberOfCreeps = {
+                harvester: 2,
+                upgrader: 1,
+                wallRepairer: 1,
             };
         }
 
@@ -55,9 +71,9 @@ const config = {
             signer: require('role.signer'),
             wallRepairer: require('role.wallRepairer'),
             mineralHarvester: require('role.mineralHarvester'),
-            rampartRepairer: require('role.rampartRepairer'),
             linkHarvester: require('role.linkHarvester'),
-            linkUpgrader: require('role.linkUpgrader')
+            linkUpgrader: require('role.linkUpgrader'),
+            secondHarvester: require('role.secondHarvester')
         };
     },
     getRolesArray: function () {
@@ -68,10 +84,10 @@ const config = {
             'upgrader',
             'longDistanceHarvester',
             'wallRepairer',
-            'rampartRepairer',
             'mineralHarvester',
             'linkHarvester',
-            'linkUpgrader'
+            'linkUpgrader',
+            'secondHarvester'
         ];
     },
     getBuildingByFlagColor: function (flag) {

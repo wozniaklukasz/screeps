@@ -6,20 +6,27 @@ module.exports = {
 
         if (creep.memory.working) {
             // care with this constants (CPU limit)
-            const WALL_MAX_HITPOINTS = 10000000;
-            const hitpointsIncrementation = 1000000;
+// todo: rampart max hitpoints
+            const WALL_MAX_HITPOINTS = 1000000;
+            const hitpointsIncrementation = 30000;
             let walls = [];
             let hitsWallToRepair = 0;
 
             while (!walls.length && hitsWallToRepair < WALL_MAX_HITPOINTS) {
                 hitsWallToRepair += hitpointsIncrementation;
+
                 walls = creep.room.find(FIND_STRUCTURES, {
-                    filter: (s) => s.structureType === STRUCTURE_WALL && s.hits < hitsWallToRepair
+                    filter: (s) => (s.structureType === STRUCTURE_WALL ||  s.structureType === STRUCTURE_RAMPART) && s.hits < hitsWallToRepair
                 });
             }
 
-            if (walls) {
-                let wall = creep.pos.findClosestByRange(walls);
+            if (walls.length) {
+                let ramparts = walls.filter(
+                  s => s.structureType === STRUCTURE_RAMPART && s.hits < hitsWallToRepair
+                );
+
+                // build ramparts before walls
+                let wall = creep.pos.findClosestByRange(ramparts.length ? ramparts : walls);
 
                 if (creep.repair(wall) === ERR_NOT_IN_RANGE) {
                     creep.moveTo(wall);
