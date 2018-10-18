@@ -1,4 +1,4 @@
 StructureLink.prototype.test =
-    function () {
-        // console.log(this);
-    }
+  function () {
+    // console.log(this);
+  }

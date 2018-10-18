@@ -6,9 +6,9 @@ module.exports = {
 
     if (creep.memory.working) {
       // care with this constants (CPU limit)
-// todo: rampart max hitpoints
+// todo: rampart max hitpoints 1M, wall 300M
       const WALL_MAX_HITPOINTS = 1000000;
-      const hitpointsIncrementation = 30000;
+      const hitpointsIncrementation = 50000;
       let walls = [];
       let hitsWallToRepair = 0;
 

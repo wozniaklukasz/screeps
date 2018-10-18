@@ -1,17 +1,17 @@
 module.exports = {
-    run: function (creep) {
-        if (creep.room.name === creep.memory.targetRoom) {
-            if (creep.room.controller) {
-                if (creep.signController(creep.room.controller, "Na pohybel wszystkim!") === ERR_NOT_IN_RANGE) {
-                    creep.moveTo(creep.room.controller);
-                }
-            }
+  run: function (creep) {
+    if (creep.room.name === creep.memory.targetRoom) {
+      if (creep.room.controller) {
+        if (creep.signController(creep.room.controller, "Na pohybel wszystkim!") === ERR_NOT_IN_RANGE) {
+          creep.moveTo(creep.room.controller);
         }
-        else {
-            let exit = creep.room.findExitTo(creep.memory.targetRoom);
-            creep.moveTo(creep.pos.findClosestByRange(exit));
-        }
+      }
     }
+    else {
+      let exit = creep.room.findExitTo(creep.memory.targetRoom);
+      creep.moveTo(creep.pos.findClosestByRange(exit));
+    }
+  }
 };
 
 /*
