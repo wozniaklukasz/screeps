@@ -21,7 +21,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
               role: role,
               secondRole: null,
               homeRoom: room.name,
-              targetRoom: 'W4S18',
+              targetRoom: 'W2S19',
               working: false
             }
           });

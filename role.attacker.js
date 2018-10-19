@@ -5,7 +5,7 @@ module.exports = {
 
     for (let flag in gFlags) {
       // localize attack flag room
-      if (gFlags[flag].name.includes('attack')) {
+      if (gFlags[flag].name === 'attack') {
         targetRoom = gFlags[flag].pos.roomName;
       }
     }
