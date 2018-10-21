@@ -13,13 +13,21 @@ module.exports = {
           tmpRoom.memory.linkSource = linkSource;
           tmpRoom.memory.linkController = linkController;
           break;
-        case "W63S28":
+        case "W5S18":
           // todo: refactor code
-          const linkSource2 = tmpRoom.lookForAt('structure', 47, 25)[0];
-          const linkController2 = tmpRoom.lookForAt('structure', 37, 11)[0];
+          const linkSource2 = tmpRoom.lookForAt('structure', 33, 21)[0];
+          const linkController2 = tmpRoom.lookForAt('structure', 17, 43)[0];
           linkSource2.transferEnergy(linkController2);
           tmpRoom.memory.linkSource = linkSource2;
           tmpRoom.memory.linkController = linkController2;
+          break;
+      case "W1S15":
+          // todo: refactor code
+          const linkSource3 = tmpRoom.lookForAt('structure', 14, 23)[0];
+          const linkController3 = tmpRoom.lookForAt('structure', 36, 14)[0];
+          linkSource3.transferEnergy(linkController3);
+          tmpRoom.memory.linkSource = linkSource3;
+          tmpRoom.memory.linkController = linkController3;
           break;
       }
     }

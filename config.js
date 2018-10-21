@@ -41,15 +41,19 @@ const config = {
       };
     } else if (roomName === 'W5S18') {
       numberOfCreeps = {
-        harvester: 2,
-        upgrader: 1,
+        harvester: 1,
+        upgrader: 0,
         longDistanceHarvester: 0,
+        linkHarvester: 1,
+        linkUpgrader: 1,
         wallRepairer: 1
       };
     } else if (roomName === 'W1S15') {
       numberOfCreeps = {
-        harvester: 2,
-        upgrader: 1,
+        harvester: 1,
+        linkHarvester: 1,
+        linkUpgrader: 1,
+        upgrader: 0,
       };
     } else if (roomName === 'W2S16') {
       numberOfCreeps = {
