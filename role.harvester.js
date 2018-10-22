@@ -6,7 +6,7 @@ const roleHarvester = {
     creep.isCreepAbleToWork();
 
     if (creep.memory.working) {
-      let structure = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+      const structure = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
         filter: (s) => (s.structureType === STRUCTURE_SPAWN
           || s.structureType === STRUCTURE_EXTENSION
           || s.structureType === STRUCTURE_TOWER)
@@ -18,7 +18,19 @@ const roleHarvester = {
           creep.moveTo(structure);
         }
       } else {
-        roleBuilder.run(creep);
+        const storage = creep.room.storage;
+        const constructions = creep.room.find(FIND_CONSTRUCTION_SITES);
+
+        // todo: storage.store[RESOURCE_ENERGY] only counts energy (not minerals)
+        // todo: storage.storeCapacity is 1M, now condition is set to 100k
+        if (!constructions.length && storage && storage.store[RESOURCE_ENERGY] < 100000) {
+          if (creep.transfer(storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(storage);
+          }
+        }
+        else {
+          roleBuilder.run(creep);
+        }
       }
     }
     else {

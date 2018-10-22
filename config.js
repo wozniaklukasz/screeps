@@ -23,14 +23,14 @@ const config = {
       };
     } else if (roomName === 'W3S19') {
       numberOfCreeps = {
-        harvester: 2,
+        harvester: 1,
         builder: 0,
-        upgrader: 1,
+        upgrader: 0,
         repairer: 0,
-        longDistanceHarvester: 0,
+        longDistanceHarvester: 1,
         mineralHarvester: 0,
-        linkHarvester: 0,
-        linkUpgrader: 0,
+        linkHarvester: 1,
+        linkUpgrader: 1,
         secondHarvester: 0
       };
     } else if (roomName === 'W4S18') {

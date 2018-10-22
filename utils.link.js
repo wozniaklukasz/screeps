@@ -29,6 +29,13 @@ module.exports = {
           tmpRoom.memory.linkSource = linkSource3;
           tmpRoom.memory.linkController = linkController3;
           break;
+        case "W3S19":
+          const linkSource4 = tmpRoom.lookForAt('structure', 7, 44)[0];
+          const linkController4 = tmpRoom.lookForAt('structure', 34, 19)[0];
+          linkSource4.transferEnergy(linkController4);
+          tmpRoom.memory.linkSource = linkSource4;
+          tmpRoom.memory.linkController = linkController4;
+          break;
       }
     }
 
