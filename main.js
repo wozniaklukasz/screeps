@@ -1,4 +1,5 @@
 const config = require('config');
+const globalObjects = require('globalObjects');
 
 require('prototype.creep');
 require('prototype.room');
@@ -10,6 +11,8 @@ const utilsLink = require('utils.link');
 module.exports.loop = function () {
   creepMemoryClearing();
   logGlobalInfo();
+  globalObjects.setMemory();
+  utilsLink.linksTransfers();
 
   for (let creep in Game.creeps) {
     let cr = Game.creeps[creep];
@@ -33,8 +36,6 @@ module.exports.loop = function () {
     tower.defend();
     tower.repairStructures();
   }
-
-  utilsLink.linksTransfers();
 };
 
 function creepMemoryClearing() {
