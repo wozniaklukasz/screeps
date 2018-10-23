@@ -1,7 +1,8 @@
 const config = {
   booleans: {
     enableConsoleLog: true,
-    enableBuildingByFlagsColors: false
+    enableBuildingByFlagsColors: false,
+    enableCpuLog: true
   },
   getNumberOfCreepsToDo: function (roomName) {
     let numberOfCreeps = {

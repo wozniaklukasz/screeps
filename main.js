@@ -1,5 +1,4 @@
 const config = require('config');
-const globalObjects = require('globalObjects');
 
 require('prototype.creep');
 require('prototype.room');
@@ -9,9 +8,10 @@ require('prototype.link');
 const utilsLink = require('utils.link');
 
 module.exports.loop = function () {
+  console.log('main loop');
+
   creepMemoryClearing();
   logGlobalInfo();
-  globalObjects.setMemory();
   utilsLink.linksTransfers();
 
   for (let creep in Game.creeps) {
@@ -52,4 +52,22 @@ function logGlobalInfo() {
     let gcl = Game.gcl;
     console.log('[GCL: ' + gcl.level + ' (xp: ' + Number.parseFloat(gcl.progress * 100 / gcl.progressTotal).toPrecision(3) + '%)]')
   }
+}
+
+function logCpuUsage() {
+  // this fn must be last in main loop
+
+  if (config.booleans.enableCpuLog) {
+    Memory._cpuUsed[Memory._cpuIdx] = Game.cpu.getUsed();
+    Memory._cpuIdx = Memory._cpuIdx + 1;
+
+    console.log('Avg cpu: ', Memory._cpuUsed.reduce(add, 0) / Memory._cpuIdx + 1);
+  } else {
+    Memory._cpuIdx = 0;
+    Memory._cpuUsed = [];
+  }
+}
+
+function add(a, b) {
+  return a + b;
 }
