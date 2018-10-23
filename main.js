@@ -8,8 +8,6 @@ require('prototype.link');
 const utilsLink = require('utils.link');
 
 module.exports.loop = function () {
-  console.log('main loop');
-
   creepMemoryClearing();
   logGlobalInfo();
   utilsLink.linksTransfers();
@@ -36,6 +34,8 @@ module.exports.loop = function () {
     tower.defend();
     tower.repairStructures();
   }
+
+  logCpuUsage();
 };
 
 function creepMemoryClearing() {
@@ -56,18 +56,31 @@ function logGlobalInfo() {
 
 function logCpuUsage() {
   // this fn must be last in main loop
+  const ticksLimit = 1024;
 
   if (config.booleans.enableCpuLog) {
+    if (Memory._cpuIdx === ticksLimit) {
+      Memory._cpuLastCounted = getAvgCpu();
+
+      Memory._cpuUsed = [];
+      Memory._cpuIdx = 0;
+    }
+
     Memory._cpuUsed[Memory._cpuIdx] = Game.cpu.getUsed();
     Memory._cpuIdx = Memory._cpuIdx + 1;
 
-    console.log('Avg cpu: ', Memory._cpuUsed.reduce(add, 0) / Memory._cpuIdx + 1);
+    console.log('[Avg cpu ('  + (Memory._cpuIdx / ticksLimit * 100).toFixed(1) + '%): ' + getAvgCpu() + '][Last avg cpu: ' + Memory._cpuLastCounted + ']');
   } else {
     Memory._cpuIdx = 0;
     Memory._cpuUsed = [];
   }
 }
 
+// todo: lodash
 function add(a, b) {
   return a + b;
+}
+
+function getAvgCpu() {
+  return (Memory._cpuUsed.reduce(add, 0) / Memory._cpuIdx + 1).toFixed(1)
 }

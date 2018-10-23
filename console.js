@@ -35,4 +35,7 @@ function extensionMaintance() {
     pos.map((pos) => Game.rooms["E28S28"].createConstructionSite(pos.x, pos.y, STRUCTURE_EXTENSION));
 }
 
+REPAIR BROKEN MEMORY:
+Memory.rooms = {};
+
  */
