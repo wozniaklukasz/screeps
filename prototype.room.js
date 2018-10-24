@@ -14,7 +14,7 @@ Room.prototype.buildStructuresOnFlags = function () {
 };
 
 Room.prototype.logPopulation = function () {
-  if (config.booleans.enableConsoleLog && this.controller.my) {
+  if (config.booleans.enableConsoleLog && this.controller && this.controller.my) {
     let log = '';
     let creeps = this.getNumberOfCreepsByRoomName(this.name);
     let requiredCreeps = config.getNumberOfCreepsToDo(this.name);

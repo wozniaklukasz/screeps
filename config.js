@@ -21,7 +21,7 @@ const config = {
         linkUpgrader: 1,
         secondHarvester: 0,
         attacker: 0,
-        importerHarvester: 2,
+        importerHarvester: 1,
       };
     } else if (roomName === 'W3S19') {
       numberOfCreeps = {
