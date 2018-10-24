@@ -20,7 +20,8 @@ const config = {
         linkHarvester: 1,
         linkUpgrader: 1,
         secondHarvester: 0,
-        attacker: 0
+        attacker: 0,
+        importerHarvester: 2,
       };
     } else if (roomName === 'W3S19') {
       numberOfCreeps = {
@@ -65,6 +66,7 @@ const config = {
         harvester: 1,
         linkHarvester: 1,
         linkUpgrader: 1,
+        importerHarvester: 2,
       };
     }
 
@@ -84,7 +86,8 @@ const config = {
       linkHarvester: require('role.linkHarvester'),
       linkUpgrader: require('role.linkUpgrader'),
       secondHarvester: require('role.secondHarvester'),
-      attacker: require('role.attacker')
+      attacker: require('role.attacker'),
+      importerHarvester: require('role.importerHarvester'),
     };
   },
   getRolesArray: function () {
@@ -99,7 +102,8 @@ const config = {
       'linkHarvester',
       'linkUpgrader',
       'secondHarvester',
-      'attacker'
+      'attacker',
+      'importerHarvester'
     ];
   },
   getBuildingByFlagColor: function (flag) {
