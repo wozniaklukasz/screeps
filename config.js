@@ -16,7 +16,7 @@ const config = {
         repairer: 0,
         longDistanceHarvester: 0,
         wallRepairer: 0,
-        mineralHarvester: 0,
+        mineralHarvester: 1,
         linkHarvester: 1,
         linkUpgrader: 1,
         secondHarvester: 0,
@@ -48,7 +48,8 @@ const config = {
         linkHarvester: 1,
         linkUpgrader: 1,
         wallRepairer: 0,
-        builder: 0
+        builder: 0,
+        mineralHarvester: 1,
       };
     } else if (roomName === 'W1S15') {
       numberOfCreeps = {

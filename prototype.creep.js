@@ -48,7 +48,7 @@ Creep.prototype.showCreepRole = function () {
   } else if (this.memory.role === 'wallRepairer') {
     text = '🛡️'
   } else if (this.memory.role === 'mineralHarvester') {
-    text = 'mineral'
+    text = '☀️'
   } else if (this.memory.role === 'linkHarvester') {
     text = '🔷'
   } else if (this.memory.role === 'linkUpgrader') {

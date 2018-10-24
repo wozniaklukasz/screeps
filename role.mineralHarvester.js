@@ -2,34 +2,26 @@ const roleHarvester = require('role.harvester');
 
 const roleMineralHarvester = {
   run: function (creep) {
-    creep.isCreepAbleToWork();
+    const mineral = creep.pos.findClosestByRange(FIND_MINERALS);
 
-    if (creep.memory.working) {
-      roleHarvester.run(creep);
+    if (!mineral || creep.carry.energy) {
+      roleHarvester.run(creep)
+    } else {
+      creep.memory.working = _.sum(creep.carry) !== creep.carryCapacity;
 
-      // let structure = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-      //     filter: (s) => (s.structureType === STRUCTURE_LAB && s.mineralAmount < s.mineralCapacity)});
-      //
-      // let labs = creep.room.find(FIND_MY_STRUCTURES, {
-      //     filter: (s) => (s.structureType === STRUCTURE_LAB)});
-      // let lab = labs[0];
-      //
-      // if (structure) {
-      //     if (creep.transfer(structure, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-      //         creep.moveTo(structure);
-      //     }
-      // } else {
-      //     roleHarvester.run(creep);
-      // }
+      if (creep.memory.working) {
+        if (creep.harvest(mineral) === ERR_NOT_IN_RANGE) {
+          creep.moveTo(mineral);
+        }
+      }
 
-    }
-    else {
-      // let minerals = creep.pos.findClosestByPath(creep.room.find(FIND_MINERALS));
-      //
-      // if (creep.harvest(minerals) === ERR_NOT_IN_RANGE) {
-      //     creep.moveTo(minerals);
-      // }
-      creep.getEnergy(false, true);
+      else {
+        const storage = creep.room.storage;
+
+        if (creep.transfer(storage, mineral.mineralType) === ERR_NOT_IN_RANGE) {
+          creep.moveTo(storage);
+        }
+      }
     }
   }
 };
