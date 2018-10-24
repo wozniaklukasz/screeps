@@ -47,7 +47,8 @@ const config = {
         longDistanceHarvester: 0,
         linkHarvester: 1,
         linkUpgrader: 1,
-        wallRepairer: 0
+        wallRepairer: 0,
+        builder: 0
       };
     } else if (roomName === 'W1S15') {
       numberOfCreeps = {
@@ -63,6 +64,7 @@ const config = {
         harvester: 2,
         upgrader: 1,
         wallRepairer: 0,
+        builder: 0,
       };
     }
 
@@ -102,14 +104,16 @@ const config = {
   },
   getBuildingByFlagColor: function (flag) {
     let structure = '';
-    if (flag.color === 10) {
-      structure = STRUCTURE_ROAD // white flag
+    if (flag.color === 9) {
+      structure = STRUCTURE_ROAD // grey flag
     } else if (flag.color === 6) {
       structure = STRUCTURE_EXTENSION // yellow flag
     } else if (flag.color === 1) {
       structure = STRUCTURE_TOWER // red flag
     } else if (flag.color === 2) {
       structure = STRUCTURE_EXTRACTOR // purple flag
+    } else if (flag.color === 3) {
+      structure = STRUCTURE_LINK // blue flag
     }
     return structure;
   }

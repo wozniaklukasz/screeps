@@ -8,6 +8,8 @@ require('prototype.link');
 const utilsLink = require('utils.link');
 
 module.exports.loop = function () {
+  console.log();
+
   creepMemoryClearing();
   logGlobalInfo();
   utilsLink.linksTransfers();
@@ -19,7 +21,7 @@ module.exports.loop = function () {
   }
 
   for (let room in Game.rooms) {
-    //Game.rooms[room].buildStructuresOnFlags();
+    Game.rooms[room].buildStructuresOnFlags();
     Game.rooms[room].logPopulation();
   }
 
@@ -56,20 +58,39 @@ function logGlobalInfo() {
 
 function logCpuUsage() {
   // this fn must be last in main loop
-  const ticksLimit = 1024;
+
+  // todo: refactoring code (duplicate for 1h and min)
+  const ticksLimit = 60;
 
   if (config.booleans.enableCpuLog) {
-    if (Memory._cpuIdx === ticksLimit) {
+    if (Memory._cpuIdx >= ticksLimit) {
       Memory._cpuLastCounted = getAvgCpu();
 
-      Memory._cpuUsed = [];
       Memory._cpuIdx = 0;
+      Memory._cpuUsed = [];
     }
 
-    Memory._cpuUsed[Memory._cpuIdx] = Game.cpu.getUsed();
-    Memory._cpuIdx = Memory._cpuIdx + 1;
+    if (!(Game.time % 30)) {
+      Memory._cpuUsed[Memory._cpuIdx] = Game.cpu.getUsed();
+      Memory._cpuIdx = Memory._cpuIdx + 1;
+    }
 
-    console.log('[Avg cpu ('  + (Memory._cpuIdx / ticksLimit * 100).toFixed(1) + '%): ' + getAvgCpu() + '][Last avg cpu: ' + Memory._cpuLastCounted + ']');
+    if (Memory._cpuIdxShort >= ticksLimit) {
+      Memory._cpuLastCountedShort = getAvgCpuShort();
+
+      Memory._cpuIdxShort = 0;
+      Memory._cpuUsedShort = [];
+    }
+
+    if (!(Game.time % 5)) {
+      Memory._cpuUsedShort[Memory._cpuIdxShort] = Game.cpu.getUsed();
+      Memory._cpuIdxShort = Memory._cpuIdxShort + 1;
+    }
+
+    console.log('[CPU avg 1h][Now ('  + (Memory._cpuIdx / ticksLimit * 100).toFixed(1) + '%): ' + getAvgCpu() + '][Last: ' + Memory._cpuLastCounted + ']'
+    +
+      '[CPU avg 10m][Now ('  + (Memory._cpuIdxShort / ticksLimit * 100).toFixed(1) + '%): ' + getAvgCpuShort() + '][Last: ' + Memory._cpuLastCountedShort + ']');
+
   } else {
     Memory._cpuIdx = 0;
     Memory._cpuUsed = [];
@@ -83,4 +104,8 @@ function add(a, b) {
 
 function getAvgCpu() {
   return (Memory._cpuUsed.reduce(add, 0) / Memory._cpuIdx + 1).toFixed(1)
+}
+
+function getAvgCpuShort() {
+  return (Memory._cpuUsedShort.reduce(add, 0) / Memory._cpuIdxShort + 1).toFixed(1)
 }
