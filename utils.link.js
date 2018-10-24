@@ -1,44 +1,23 @@
 module.exports = {
   linksTransfers: function () {
     for (let room in Game.rooms) {
-      //Game.rooms[room].buildStructuresOnFlags();
-
       const tmpRoom = Game.rooms[room];
 
-      switch (tmpRoom.name) {
-        case "W2S19":
-          const linkSource = tmpRoom.lookForAt('structure', 37, 44)[0];
-          const linkController = tmpRoom.lookForAt('structure', 18, 9)[0];
-          linkSource.transferEnergy(linkController);
-          tmpRoom.memory.linkSource = linkSource;
-          tmpRoom.memory.linkController = linkController;
-          break;
-        case "W5S18":
-          const linkSource2 = tmpRoom.lookForAt('structure', 33, 21)[0];
-          const linkController2 = tmpRoom.lookForAt('structure', 17, 43)[0];
-          linkSource2.transferEnergy(linkController2);
-          tmpRoom.memory.linkSource = linkSource2;
-          tmpRoom.memory.linkController = linkController2;
-          break;
-      case "W1S15":
-          const linkSource3 = tmpRoom.lookForAt('structure', 14, 23)[0];
-          const linkController3 = tmpRoom.lookForAt('structure', 36, 14)[0];
-          linkSource3.transferEnergy(linkController3);
-          tmpRoom.memory.linkSource = linkSource3;
-          tmpRoom.memory.linkController = linkController3;
-          break;
-        case "W3S19":
-          const linkSource4 = tmpRoom.lookForAt('structure', 7, 44)[0];
-          const linkController4 = tmpRoom.lookForAt('structure', 34, 19)[0];
-          linkSource4.transferEnergy(linkController4);
-          tmpRoom.memory.linkSource = linkSource4;
-          tmpRoom.memory.linkController = linkController4;
-          break;
-      }
+      setLinkConnection(tmpRoom, "W2S19", 37, 44, 18, 9);
+      setLinkConnection(tmpRoom, "W5S18", 33, 21, 17, 43);
+      setLinkConnection(tmpRoom, "W1S15", 14, 23, 36, 14);
+      setLinkConnection(tmpRoom, "W3S19", 7, 44, 34, 19);
+      setLinkConnection(tmpRoom, "W2S16", 12, 24, 42, 19);
     }
 
-    function test() {
-      // console.log(1)
+    function setLinkConnection(tmpRoom, roomName, sourceX, sourceY, controllerX, controllerY) {
+      if (tmpRoom.name === roomName) {
+        const linkSource = tmpRoom.lookForAt('structure', sourceX, sourceY)[0];
+        const linkController = tmpRoom.lookForAt('structure', controllerX, controllerY)[0];
+        linkSource.transferEnergy(linkController);
+        tmpRoom.memory.linkSourceId = linkSource.id;
+        tmpRoom.memory.linkControllerId = linkController.id;
+      }
     }
   }
 };

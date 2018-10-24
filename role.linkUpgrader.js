@@ -18,7 +18,7 @@ module.exports = {
       }
       else {
         //todo: change link logic
-        let link = Game.getObjectById(creep.room.memory.linkController.id);
+        let link = Game.getObjectById(creep.room.memory.linkControllerId);
         if (creep.withdraw(link, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
           creep.moveTo(link);
         }

@@ -16,7 +16,7 @@ const roleLinkHarvester = {
         // let structure = false;
         // linkSource from utils.link.js
         // todo: refactor link logic here:
-        let structure = Game.getObjectById(creep.room.memory.linkSource.id);
+        let structure = Game.getObjectById(creep.room.memory.linkSourceId);
 
         if (structure) {
           if (creep.transfer(structure, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {

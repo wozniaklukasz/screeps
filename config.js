@@ -61,10 +61,9 @@ const config = {
       };
     } else if (roomName === 'W2S16') {
       numberOfCreeps = {
-        harvester: 2,
-        upgrader: 1,
-        wallRepairer: 0,
-        builder: 0,
+        harvester: 1,
+        linkHarvester: 1,
+        linkUpgrader: 1,
       };
     }
 
