@@ -8,37 +8,36 @@ const logs = {
     const ticksLimit = 60;
 
     if (config.booleans.enableCpuLog) {
-      if (Memory._cpuIdx >= ticksLimit) {
-        Memory._cpuLastCounted = getAvgCpu();
+      if (Memory.cpu.cpuIdx >= ticksLimit) {
+        Memory.cpu.cpuLastCounted = getAvgCpu();
 
-        Memory._cpuIdx = 0;
-        Memory._cpuUsed = [];
+        Memory.cpu.cpuIdx = 0;
+        Memory.cpu.cpuUsed = [];
       }
 
       if (!(Game.time % 30)) {
-        Memory._cpuUsed[Memory._cpuIdx] = Game.cpu.getUsed();
-        Memory._cpuIdx = Memory._cpuIdx + 1;
+        Memory.cpu.cpuUsed[Memory.cpu.cpuIdx] = Game.cpu.getUsed();
+        Memory.cpu.cpuIdx = Memory.cpu.cpuIdx + 1;
       }
 
-      if (Memory._cpuIdxShort >= ticksLimit) {
-        Memory._cpuLastCountedShort = getAvgCpuShort();
+      if (Memory.cpu.cpuIdxShort >= ticksLimit) {
+        Memory.cpu.cpuLastCountedShort = getAvgCpuShort();
 
-        Memory._cpuIdxShort = 0;
-        Memory._cpuUsedShort = [];
+        Memory.cpu.cpuIdxShort = 0;
+        Memory.cpu.cpuUsedShort = [];
       }
 
       if (!(Game.time % 5)) {
-        Memory._cpuUsedShort[Memory._cpuIdxShort] = Game.cpu.getUsed();
-        Memory._cpuIdxShort = Memory._cpuIdxShort + 1;
+        Memory.cpu.cpuUsedShort[Memory.cpu.cpuIdxShort] = Game.cpu.getUsed();
+        Memory.cpu.cpuIdxShort = Memory.cpu.cpuIdxShort + 1;
       }
 
-      console.log('[CPU avg 1h][Now (' + (Memory._cpuIdx / ticksLimit * 100).toFixed(1) + '%): ' + getAvgCpu() + '][Last: ' + Memory._cpuLastCounted + ']'
+      console.log('[CPU avg 1h][Now (' + (Memory.cpu.cpuIdx / ticksLimit * 100).toFixed(1) + '%): ' + getAvgCpu() + '][Last: ' + Memory.cpu.cpuLastCounted + ']'
         +
-        '[CPU avg 10m][Now (' + (Memory._cpuIdxShort / ticksLimit * 100).toFixed(1) + '%): ' + getAvgCpuShort() + '][Last: ' + Memory._cpuLastCountedShort + ']');
+        '[CPU avg 10m][Now (' + (Memory.cpu.cpuIdxShort / ticksLimit * 100).toFixed(1) + '%): ' + getAvgCpuShort() + '][Last: ' + Memory.cpu.cpuLastCountedShort + ']');
 
     } else {
-      Memory._cpuIdx = 0;
-      Memory._cpuUsed = [];
+      resetCpuMemory();
     }
   },
 
@@ -50,16 +49,24 @@ const logs = {
   }
 };
 
+function resetCpuMemory() {
+  Memory.cpu = {};
+  Memory.cpu.cpuIdx = 0;
+  Memory.cpu.cpuUsed = [];
+  Memory.cpu.cpuIdxShort = 0;
+  Memory.cpu.cpuUsedShort = [];
+}
+
 function add(a, b) {
   return a + b;
 }
 
 function getAvgCpu() {
-  return (Memory._cpuUsed.reduce(add, 0) / Memory._cpuIdx + 1).toFixed(1)
+  return (Memory.cpu.cpuUsed.reduce(add, 0) / Memory.cpu.cpuIdx + 1).toFixed(1)
 }
 
 function getAvgCpuShort() {
-  return (Memory._cpuUsedShort.reduce(add, 0) / Memory._cpuIdxShort + 1).toFixed(1)
+  return (Memory.cpu.cpuUsedShort.reduce(add, 0) / Memory.cpu.cpuIdxShort + 1).toFixed(1)
 }
 
 module.exports = logs;
