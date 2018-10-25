@@ -1,6 +1,6 @@
 const config = {
   booleans: {
-    enableConsoleLog: true,
+    enableConsoleLog: false,
     enableBuildingByFlagsColors: false,
     enableCpuLog: true
   },

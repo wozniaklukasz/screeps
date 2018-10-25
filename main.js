@@ -11,6 +11,8 @@ module.exports.loop = function () {
   console.log();
 
   creepMemoryClearing();
+  roomMemoryClearing();
+
   logGlobalInfo();
   utilsLink.linksTransfers();
 
@@ -45,6 +47,15 @@ function creepMemoryClearing() {
     if (!Game.creeps[name]) {
       delete Memory.creeps[name];
       console.log('Clearing non-existing creep memory:', name);
+    }
+  }
+}
+
+function roomMemoryClearing() {
+  for (let room in Memory.rooms) {
+    if (_.isEmpty(Memory.rooms[room])) {
+      delete Memory.rooms[room];
+      // console.log('Clearing empty room memory:', room);
     }
   }
 }
