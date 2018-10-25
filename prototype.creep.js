@@ -74,6 +74,12 @@ Creep.prototype.isCreepAbleToWork = function () {
 };
 
 Creep.prototype.moveCreepToExit = function (target) {
-  let exit = this.room.findExitTo(target);
+  const exit = this.room.findExitTo(target);
   this.moveTo(this.pos.findClosestByRange(exit));
+};
+
+Creep.prototype.buildConstruction = function (construction) {
+  if (this.build(construction) === ERR_NOT_IN_RANGE) {
+    this.moveTo(construction);
+  }
 };

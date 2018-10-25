@@ -31,9 +31,7 @@ module.exports = {
 
         // import energy if no roads to build
         if (constructionRoad) {
-          if (creep.build(constructionRoad) === ERR_NOT_IN_RANGE) {
-            creep.moveTo(constructionRoad);
-          }
+          creep.buildConstruction(constructionRoad);
         }
         else {
           const homeRoom = creep.memory.homeRoom;

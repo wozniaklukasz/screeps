@@ -15,9 +15,7 @@ module.exports = {
       });
 
       if (constructionSite) {
-        if (creep.build(constructionSite) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(constructionSite);
-        }
+        creep.buildConstruction(constructionSite);
       }
       else {
         roleUpgrader.run(creep);

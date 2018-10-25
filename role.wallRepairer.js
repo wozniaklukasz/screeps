@@ -12,14 +12,12 @@ module.exports = {
       let walls = [];
       let hitsWallToRepair = 0;
 
-      const wallsToBuild = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
+      const wallToBuild = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
         filter: (s) => s.structureType === STRUCTURE_WALL || s.structureType === STRUCTURE_RAMPART
       });
 
-      if (wallsToBuild) {
-        if (creep.build(wallsToBuild) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(wallsToBuild);
-        }
+      if (wallToBuild) {
+        creep.buildConstruction(wallToBuild);
       } else {
 
         while (!walls.length && hitsWallToRepair < WALL_MAX_HITPOINTS) {
