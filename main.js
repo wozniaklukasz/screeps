@@ -6,17 +6,14 @@ require('prototype.link');
 
 const logs = require('logs');
 const memoryClearing = require('memory.clearing');
-const cachedData = require('cachedData');
 const utilsLink = require('utils.link');
 
 module.exports.loop = function () {
   console.log();
+  logs.logGlobalInfo();
 
   memoryClearing.creepMemoryClearing();
   memoryClearing.roomMemoryClearing();
-
-  cachedData.cacheData();
-  cachedData.initData();
 
   utilsLink.linksTransfers();
 
@@ -43,6 +40,5 @@ module.exports.loop = function () {
     tower.repairStructures();
   }
 
-  logs.logGlobalInfo();
   logs.logCpuUsage();
 };

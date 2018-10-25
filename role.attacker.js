@@ -1,8 +1,6 @@
-const cachedData = require('cachedData');
-
 module.exports = {
   run: function (creep) {
-    const gFlags = cachedData.getFlags();
+    const gFlags = Game.flags;
     let targetRoom;
 
     for (let flag in gFlags) {
