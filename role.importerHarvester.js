@@ -21,8 +21,7 @@ module.exports = {
         roleHarvester.run(creep);
       }
       else {
-        let exit = creep.room.findExitTo(homeRoom);
-        creep.moveTo(creep.pos.findClosestByRange(exit));
+        creep.moveCreepToExit(homeRoom);
       }
     } else {
       if (creep.memory.working) {
@@ -42,8 +41,7 @@ module.exports = {
             roleHarvester.run(creep);
           }
           else {
-            let exit = creep.room.findExitTo(homeRoom);
-            creep.moveTo(creep.pos.findClosestByRange(exit));
+            creep.moveCreepToExit(homeRoom);
           }
         }
       } else {
@@ -51,8 +49,7 @@ module.exports = {
           creep.getEnergy(false, true);
         }
         else {
-          let exit = creep.room.findExitTo(targetRoom);
-          creep.moveTo(creep.pos.findClosestByRange(exit));
+          creep.moveCreepToExit(targetRoom);
         }
       }
     }

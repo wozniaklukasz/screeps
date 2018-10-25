@@ -38,8 +38,7 @@ module.exports = {
     }
     else {
       // move to flag
-      let exit = creep.room.findExitTo(targetRoom);
-      creep.moveTo(creep.pos.findClosestByRange(exit));
+      creep.moveCreepToExit(targetRoom);
     }
   }
 };

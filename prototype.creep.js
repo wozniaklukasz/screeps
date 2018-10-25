@@ -72,3 +72,8 @@ Creep.prototype.isCreepAbleToWork = function () {
     this.memory.working = true;
   }
 };
+
+Creep.prototype.moveCreepToExit = function (target) {
+  let exit = this.room.findExitTo(target);
+  this.moveTo(this.pos.findClosestByRange(exit));
+};

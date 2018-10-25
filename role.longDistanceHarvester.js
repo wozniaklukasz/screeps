@@ -16,8 +16,7 @@ module.exports = {
         roleHarvester.run(creep);
       }
       else {
-        let exit = creep.room.findExitTo(creep.memory.targetRoom);
-        creep.moveTo(creep.pos.findClosestByRange(exit));
+        creep.moveCreepToExit(creep.memory.targetRoom);
       }
     }
     else {
@@ -25,8 +24,7 @@ module.exports = {
         creep.getEnergy(false, true);
       }
       else {
-        let exit = creep.room.findExitTo(creep.memory.targetRoom);
-        creep.moveTo(creep.pos.findClosestByRange(exit));
+        creep.moveCreepToExit(creep.memory.targetRoom);
       }
     }
   }
