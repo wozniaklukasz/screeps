@@ -83,3 +83,15 @@ Creep.prototype.buildConstruction = function (construction) {
     this.moveTo(construction);
   }
 };
+
+Creep.prototype.attackTarget = function (target) {
+  if(this.attack(target) === ERR_NOT_IN_RANGE) {
+    this.moveTo(target);
+  }
+};
+
+Creep.prototype.rangeAttackTarget = function (target) {
+  if(this.rangedAttack(target) === ERR_NOT_IN_RANGE) {
+    this.moveTo(target);
+  }
+};

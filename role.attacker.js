@@ -15,14 +15,10 @@ module.exports = {
       const target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
       if(target) {
         if(creep.memory.role === 'attackerRange') {
-          if(creep.rangedAttack(target) === ERR_NOT_IN_RANGE) {
-            creep.moveTo(target);
-          }
+          creep.rangeAttackTarget(target);
         }
         if(creep.memory.role === 'attacker') {
-          if(creep.attack(target) === ERR_NOT_IN_RANGE) {
-            creep.moveTo(target);
-          }
+          creep.attackTarget(target);
         }
       } else {
         // todo: destroy towers -> spawn -> other buildings
@@ -30,9 +26,7 @@ module.exports = {
             filter: (s) => s.structureType !== STRUCTURE_CONTROLLER});
 
         if(targetStructures) {
-          if(creep.attack(targetStructures) === ERR_NOT_IN_RANGE) {
-            creep.moveTo(targetStructures);
-          }
+          creep.attackTarget(targetStructures);
         }
       }
     }
