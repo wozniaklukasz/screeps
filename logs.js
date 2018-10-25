@@ -36,8 +36,6 @@ const logs = {
         +
         '[CPU avg 10m][Now (' + (Memory.cpu.cpuIdxShort / ticksLimit * 100).toFixed(1) + '%): ' + getAvgCpuShort() + '][Last: ' + Memory.cpu.cpuLastCountedShort + ']');
 
-    } else {
-      resetCpuMemory();
     }
   },
 

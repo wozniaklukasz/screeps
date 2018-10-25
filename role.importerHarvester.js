@@ -1,3 +1,4 @@
+const cachedData = require('cachedData');
 const roleHarvester = require('role.upgrader');
 // upgrader instead of harvest???
 module.exports = {
@@ -5,7 +6,7 @@ module.exports = {
     creep.isCreepAbleToWork();
 
     // find flag
-    const gFlags = Game.flags;
+    const gFlags = cachedData.getFlags();
     let targetRoom;
 
     for (let flag in gFlags) {
