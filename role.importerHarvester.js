@@ -1,5 +1,5 @@
-const roleHarvester = require('role.harvester');
-
+const roleHarvester = require('role.upgrader');
+// upgrader instead of harvest???
 module.exports = {
   run: function (creep) {
     creep.isCreepAbleToWork();

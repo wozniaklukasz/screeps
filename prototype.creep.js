@@ -57,6 +57,8 @@ Creep.prototype.showCreepRole = function () {
     text = '⚔️'
   } else if (this.memory.role === 'importerHarvester') {
     text = '☀️'
+  } else if (this.memory.role === 'attackerRange') {
+    text = '🏹'
   }
 
   this.say(text);
