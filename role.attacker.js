@@ -1,4 +1,4 @@
-const flags = require('flags');
+const flags = require('game.flags');
 
 module.exports = {
   run: function (creep) {

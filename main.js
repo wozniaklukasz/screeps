@@ -7,7 +7,7 @@ require('prototype.link');
 const logs = require('logs');
 const memoryClearing = require('memory.clearing');
 const utilsLink = require('utils.link');
-const flags = require('flags');
+const flags = require('game.flags');
 
 module.exports.loop = function () {
   console.log();

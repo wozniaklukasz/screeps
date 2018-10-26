@@ -1,5 +1,4 @@
-
-const flags = {
+const gameFlags = {
   _flags: {},
 
   setFlags: function () {
@@ -47,4 +46,4 @@ const flags = {
   // }
 };
 
-module.exports = flags;
+module.exports = gameFlags;
