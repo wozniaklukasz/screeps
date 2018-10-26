@@ -22,22 +22,29 @@ const flags = {
     // }
   },
 
-  getFlags: function () {
-    return this._flags;
-  },
+  // getFlags: function () {
+  //   return this._flags;
+  // },
 
   getFlagByName: function (name) {
     for (let flag in this._flags) {
-      if (flag.toString() === name) {
+      if (flag.toString().toLowerCase() === name.toLowerCase()) {
         return this._flags[flag];
       }
     }
     return null;
   },
 
-  getFlagsByNameContains: function (partOfFlagName) {
-
-  }
+  // getFlagsByNameContains: function (partOfFlagName) {
+  //   // CARE, high CPU usage :(
+  //   let result = [];
+  //   for (let flag in this._flags) {
+  //     if (flag.toString().toLowerCase().includes(partOfFlagName.toLowerCase())) {
+  //       result.push(this._flags[flag]);
+  //     }
+  //   }
+  //   return result;
+  // }
 };
 
 module.exports = flags;

@@ -39,3 +39,9 @@ REPAIR BROKEN MEMORY:
 Memory.rooms = {};
 
  */
+//
+// BROKEN CREEPS LAST HELP MEMORY
+// for (let creep in Memory.creeps) {
+//   Memory.creeps[creep].role = 'harvester';
+//   Memory.creeps[creep].working = false;
+// }
