@@ -1,14 +1,9 @@
+const flags = require('flags');
+
 module.exports = {
   run: function (creep) {
-    const gFlags = Game.flags;
-    let targetRoom;
-
-    for (let flag in gFlags) {
-      // localize attack flag room
-      if (gFlags[flag].name === 'attack') {
-        targetRoom = gFlags[flag].pos.roomName;
-      }
-    }
+    const targetFlag = flags.getFlagByName('attack');
+    const targetRoom = targetFlag ? targetFlag.roomName : null;
 
     if (targetRoom && creep.room.name === targetRoom) {
       // attack

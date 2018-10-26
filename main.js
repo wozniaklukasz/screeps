@@ -7,6 +7,7 @@ require('prototype.link');
 const logs = require('logs');
 const memoryClearing = require('memory.clearing');
 const utilsLink = require('utils.link');
+const flags = require('flags');
 
 module.exports.loop = function () {
   console.log();
@@ -14,6 +15,8 @@ module.exports.loop = function () {
 
   memoryClearing.creepMemoryClearing();
   memoryClearing.roomMemoryClearing();
+
+  flags.setFlags();
 
   utilsLink.linksTransfers();
 

@@ -1,18 +1,13 @@
-const roleHarvester = require('role.upgrader');
+const roleHarvester = require('role.builder');
+const flags = require('flags');
+
 // upgrader instead of harvest???
 module.exports = {
   run: function (creep) {
     creep.isCreepAbleToWork();
 
-    // find flag
-    const gFlags = Game.flags;
-    let targetRoom;
-
-    for (let flag in gFlags) {
-      if (gFlags[flag].name === 'importerHarvester' + creep.memory.homeRoom) {
-        targetRoom = gFlags[flag].pos.roomName;
-      }
-    }
+    const targetFlag = flags.getFlagByName('importerHarvester' + creep.memory.homeRoom);
+    const targetRoom = targetFlag ? targetFlag.roomName : null;
 
     // no flag = harvester
     if (!targetRoom) {
