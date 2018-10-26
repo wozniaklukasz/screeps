@@ -39,7 +39,7 @@ module.exports = {
           let wall = creep.pos.findClosestByRange(ramparts.length ? ramparts : walls);
 
           if (creep.repair(wall) === ERR_NOT_IN_RANGE) {
-            creep.moveTo(wall);
+            creep.myMoveTo(wall);
           }
         }
         else {

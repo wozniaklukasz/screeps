@@ -3,7 +3,7 @@ module.exports = {
     if (creep.room.name === creep.memory.targetRoom) {
       if (creep.room.controller) {
         if (creep.signController(creep.room.controller, "Na pohybel!") === ERR_NOT_IN_RANGE) {
-          creep.moveTo(creep.room.controller);
+          creep.myMoveTo(creep.room.controller);
         }
       }
     }

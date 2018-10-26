@@ -14,7 +14,7 @@ const roleSecondHarvester = {
 
       if (structure) {
         if (creep.transfer(structure, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(structure);
+          creep.myMoveTo(structure);
         }
       } else {
         roleBuilder.run(creep);

@@ -2,7 +2,7 @@ roleClaimer = {
   run: function (creep) {
     if (creep.room.name === creep.memory.targetRoom) {
       if (creep.claimController(creep.room.controller) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(creep.room.controller);
+        creep.myMoveTo(creep.room.controller);
       }
     }
     else {

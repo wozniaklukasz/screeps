@@ -15,7 +15,7 @@ const roleHarvester = {
 
       if (structure) {
         if (creep.transfer(structure, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(structure);
+          creep.myMoveTo(structure);
         }
       } else {
         const storage = creep.room.storage;
@@ -25,7 +25,7 @@ const roleHarvester = {
         // todo: storage.storeCapacity is 1M, now condition is set to 100k
         if (!constructions.length && storage && storage.store[RESOURCE_ENERGY] < 100000) {
           if (creep.transfer(storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-            creep.moveTo(storage);
+            creep.myMoveTo(storage);
           }
         }
         else {

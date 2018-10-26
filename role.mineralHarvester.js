@@ -11,7 +11,7 @@ const roleMineralHarvester = {
 
       if (creep.memory.working) {
         if (creep.harvest(mineral) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(mineral);
+          creep.myMoveTo(mineral);
         }
       }
 
@@ -19,7 +19,7 @@ const roleMineralHarvester = {
         const storage = creep.room.storage;
 
         if (creep.transfer(storage, mineral.mineralType) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(storage);
+          creep.myMoveTo(storage);
         }
       }
     }

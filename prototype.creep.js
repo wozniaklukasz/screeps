@@ -11,6 +11,10 @@ Creep.prototype.runRole = function () {
   }
 };
 
+Creep.prototype.myMoveTo = function(target) {
+  this.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
+};
+
 Creep.prototype.getEnergy = function (useContainer, useSource) {
 //   let container;
 //   if (useContainer) {
@@ -20,7 +24,7 @@ Creep.prototype.getEnergy = function (useContainer, useSource) {
 //     });
 //     if (!container) {
 //       if (this.withdraw(container, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-//         this.moveTo(container);
+//         this.myMoveTo(container);
 //       }
 //     }
 //   }
@@ -28,7 +32,7 @@ Creep.prototype.getEnergy = function (useContainer, useSource) {
     let source = this.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
 
     if (this.harvest(source) === ERR_NOT_IN_RANGE) {
-      this.moveTo(source);
+      this.myMoveTo(source);
     }
 //   }
 };
@@ -75,23 +79,23 @@ Creep.prototype.isCreepAbleToWork = function () {
 
 Creep.prototype.moveCreepToExit = function (target) {
   const exit = this.room.findExitTo(target);
-  this.moveTo(this.pos.findClosestByRange(exit));
+  this.myMoveTo(this.pos.findClosestByRange(exit));
 };
 
 Creep.prototype.buildConstruction = function (construction) {
   if (this.build(construction) === ERR_NOT_IN_RANGE) {
-    this.moveTo(construction);
+    this.myMoveTo(construction);
   }
 };
 
 Creep.prototype.attackTarget = function (target) {
   if(this.attack(target) === ERR_NOT_IN_RANGE) {
-    this.moveTo(target);
+    this.myMoveTo(target);
   }
 };
 
 Creep.prototype.rangeAttackTarget = function (target) {
   if(this.rangedAttack(target) === ERR_NOT_IN_RANGE) {
-    this.moveTo(target);
+    this.myMoveTo(target);
   }
 };

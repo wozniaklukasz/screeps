@@ -3,7 +3,7 @@
 Game.spawns['Thor'].spawnCreep( [WORK, WORK, WORK, WORK, WORK, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY], 'harvester844848',
     { memory: { role: 'harvester', targetRoom: "E28S28", working: false } } );
 
-    
+
 Game.spawns['Spawn1'].room.controller.activateSafeMode();
 
 Game.spawns['Spawn1'].room.createConstructionSite( 23, 22, STRUCTURE_TOWER );
@@ -16,7 +16,7 @@ Game.rooms["E32S12"].createConstructionSite(30, 36, STRUCTURE_ROAD);
 
 if(creep.room.controller) {
     if(creep.signController(creep.room.controller, "I'm going to claim this room in a few days. I warned ya!") == ERR_NOT_IN_RANGE) {
-        creep.moveTo(creep.room.controller);
+        creep.myMoveTo(creep.room.controller);
     }
 }
 

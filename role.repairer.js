@@ -13,7 +13,7 @@ module.exports = {
 
       if (structure) {
         if (creep.repair(structure) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(structure);
+          creep.myMoveTo(structure);
         }
       }
       else {

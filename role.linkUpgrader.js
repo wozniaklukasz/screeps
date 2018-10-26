@@ -13,14 +13,14 @@ module.exports = {
 
       if (creep.memory.working) {
         if (creep.upgradeController(creep.room.controller) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(creep.room.controller);
+          creep.myMoveTo(creep.room.controller);
         }
       }
       else {
         //todo: change link logic
         let link = Game.getObjectById(creep.room.memory.linkControllerId);
         if (creep.withdraw(link, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(link);
+          creep.myMoveTo(link);
         }
       }
     }
