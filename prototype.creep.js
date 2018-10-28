@@ -3,7 +3,7 @@ const config = require('config');
 Creep.prototype.runRole = function () {
   let roles = config.getRoles();
 
-  if (this.room.memory.noHarvestersAlert) {
+  if (this.room.memory.noHarvestersAlert && this.memory.role !== 'attacker') {
     // todo: exclude attacker from alert
     roles['harvester'].run(this);
   } else {

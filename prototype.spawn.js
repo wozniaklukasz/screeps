@@ -36,7 +36,6 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
     } else {
       this.room.memory.noHarvestersAlert = false;
     }
-
   };
 
 StructureSpawn.prototype.spawningInfo =

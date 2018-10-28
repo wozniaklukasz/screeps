@@ -16,13 +16,13 @@ const config = {
         repairer: 0,
         longDistanceHarvester: 0,
         wallRepairer: 0,
-        mineralHarvester: 1,
+        mineralHarvester: 0,
         linkHarvester: 1,
         linkUpgrader: 1,
         secondHarvester: 0,
         attacker: 0,
         attackerRange: 0,
-        importerHarvester: 1,
+        importerHarvester: 2,
       };
     } else if (roomName === 'W3S19') {
       numberOfCreeps = {
@@ -30,17 +30,19 @@ const config = {
         builder: 0,
         upgrader: 0,
         repairer: 0,
-        longDistanceHarvester: 1,
+        longDistanceHarvester: 0,
         mineralHarvester: 0,
         linkHarvester: 1,
         linkUpgrader: 1,
-        secondHarvester: 0
+        secondHarvester: 0,
+        attacker: 0
       };
     } else if (roomName === 'W4S18') {
       numberOfCreeps = {
         harvester: 2,
         upgrader: 1,
         wallRepairer: 0,
+        builder: 0,
         importerHarvester: 2,
       };
     } else if (roomName === 'W5S18') {
