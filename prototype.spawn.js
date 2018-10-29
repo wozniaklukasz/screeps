@@ -4,8 +4,9 @@ const utilsSpawn = require('utils.spawn');
 StructureSpawn.prototype.spawnCreepsIfNecessary =
   function () {
     let room = this.room;
+
     let numberOfCreepsLiving = room.getNumberOfCreepsByRoomName();
-    let numberOfCreepsToDo = config.getNumberOfCreepsToDo(room.name);
+    let numberOfCreepsToDo = config.getNumberOfCreepsToDo(room);
 
     numberOfCreepsLiving.forEach(creepsLiving => {
       let role = creepsLiving.role;
@@ -35,6 +36,31 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
       this.room.memory.noHarvestersAlert = true;
     } else {
       this.room.memory.noHarvestersAlert = false;
+    }
+
+    if (config.booleans.enableConsoleLog && room.controller && room.controller.my) {
+      let log = '';
+      let storageInfo = '';
+
+      if (config.booleans.storageAmountLog && !_.isEmpty(room.storage)) {
+        storageInfo += '[Storage: ';
+        const storageStore = room.storage.store;
+        for (let mineral in storageStore) {
+          storageInfo += '(' + mineral + ': ' + storageStore[mineral] + ')';
+        }
+        storageInfo += ']';
+      }
+
+      log += '[' + room.name + ': (lvl: ' + room.controller.level + ')(xp: ' + Number.parseFloat(room.controller.progress * 100 / room.controller.progressTotal).toPrecision(3) + '%)(ene: ' + room.energyAvailable + '/' + room.energyCapacityAvailable + ')][Creeps: ';
+
+      numberOfCreepsLiving.map(c => {
+          if (numberOfCreepsToDo[c.role]) {
+            log += '(' + c.role + ':' + c.number + '/' + numberOfCreepsToDo[c.role] + ')'
+          }
+        }
+      );
+      log += ']' + storageInfo;
+      console.log(log);
     }
   };
 

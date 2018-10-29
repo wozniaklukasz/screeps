@@ -13,25 +13,6 @@ Room.prototype.buildStructuresOnFlags = function () {
   })
 };
 
-Room.prototype.logPopulation = function () {
-  if (config.booleans.enableConsoleLog && this.controller && this.controller.my) {
-    let log = '';
-    let creeps = this.getNumberOfCreepsByRoomName(this.name);
-    let requiredCreeps = config.getNumberOfCreepsToDo(this.name);
-
-    log += '[' + this.name + ': (lvl: ' + this.controller.level + ')(xp: ' + Number.parseFloat(this.controller.progress * 100 / this.controller.progressTotal).toPrecision(3) + '%)(ene: ' + this.energyAvailable + '/' + this.energyCapacityAvailable + ')][Creeps: ';
-
-    creeps.map(c => {
-        if (requiredCreeps[c.role]) {
-          log += '(' + c.role + ':' + c.number + '/' + requiredCreeps[c.role] + ')'
-        }
-      }
-    );
-    log += ']';
-    console.log(log);
-  }
-};
-
 Room.prototype.getNumberOfCreepsByRoomName = function () {
   let roleCounter = [];
   config.getRolesArray().map(role => {

@@ -28,7 +28,6 @@ module.exports.loop = function () {
 
   for (let room in Game.rooms) {
     Game.rooms[room].buildStructuresOnFlags();
-    Game.rooms[room].logPopulation();
   }
 
   for (let spawn in Game.spawns) {

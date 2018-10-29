@@ -1,79 +1,58 @@
 const config = {
   booleans: {
     enableConsoleLog: true,
+    storageAmountLog: false,
     enableBuildingByFlagsColors: false,
     enableCpuLog: true
   },
-  getNumberOfCreepsToDo: function (roomName) {
-    let numberOfCreeps = {
-      harvester: 4
-    };
+  getNumberOfCreepsToDo: function (room) {
+    const roomName = room.name;
+    let numberOfCreeps = {};
+
     if (roomName === 'W2S19') {
-      numberOfCreeps = {
-        harvester: 1,
-        builder: 0,
-        upgrader: 0,
-        repairer: 0,
-        longDistanceHarvester: 0,
-        wallRepairer: 0,
-        mineralHarvester: 0,
-        linkHarvester: 1,
-        linkUpgrader: 1,
-        secondHarvester: 0,
-        attacker: 0,
-        attackerRange: 0,
-        importerHarvester: 2,
-      };
+      numberOfCreeps.harvester = 1;
+      numberOfCreeps.linkHarvester = 1;
+      numberOfCreeps.linkUpgrader = 1;
+      numberOfCreeps.importerHarvester = 2;
     } else if (roomName === 'W3S19') {
-      numberOfCreeps = {
-        harvester: 1,
-        builder: 0,
-        upgrader: 0,
-        repairer: 0,
-        longDistanceHarvester: 0,
-        mineralHarvester: 0,
-        linkHarvester: 1,
-        linkUpgrader: 1,
-        secondHarvester: 0,
-        attacker: 0
-      };
+      numberOfCreeps.harvester = 1;
+      numberOfCreeps.linkHarvester = 1;
+      numberOfCreeps.linkUpgrader = 1;
     } else if (roomName === 'W4S18') {
-      numberOfCreeps = {
-        harvester: 2,
-        upgrader: 1,
-        wallRepairer: 0,
-        builder: 0,
-        importerHarvester: 2,
-      };
+      numberOfCreeps.harvester = 1;
+      numberOfCreeps.linkHarvester = 1;
+      numberOfCreeps.linkUpgrader = 1;
+      numberOfCreeps.importerHarvester = 2;
     } else if (roomName === 'W5S18') {
-      numberOfCreeps = {
-        harvester: 1,
-        upgrader: 0,
-        longDistanceHarvester: 0,
-        linkHarvester: 1,
-        linkUpgrader: 1,
-        wallRepairer: 0,
-        builder: 0,
-        mineralHarvester: 0,
-        attackerRange: 0,
-      };
+      numberOfCreeps.harvester = 1;
+      numberOfCreeps.linkHarvester = 1;
+      numberOfCreeps.linkUpgrader = 1;
     } else if (roomName === 'W1S15') {
-      numberOfCreeps = {
-        harvester: 1,
-        linkHarvester: 1,
-        linkUpgrader: 1,
-        upgrader: 0,
-        attacker: 0,
-        wallRepairer: 0,
-        builder: 0
-      };
+      numberOfCreeps.harvester = 1;
+      numberOfCreeps.linkHarvester = 1;
+      numberOfCreeps.linkUpgrader = 1;
     } else if (roomName === 'W2S16') {
-      numberOfCreeps = {
-        harvester: 1,
-        linkHarvester: 1,
-        linkUpgrader: 1,
-        importerHarvester: 2,
-      };
+      numberOfCreeps.harvester = 1;
+      numberOfCreeps.linkHarvester = 1;
+      numberOfCreeps.linkUpgrader = 1;
+      numberOfCreeps.importerHarvester = 2;
+    }
+
+    // add builder if constructions
+    // todo: refactoring with builder creep logic
+    // one method returns construction sites with getter
+    if (room.find(FIND_CONSTRUCTION_SITES).length > 0) {
+      numberOfCreeps.builder = 1
+    }
+
+    const myStructures = room.find(FIND_MY_STRUCTURES);
+
+    // todo: spawn mineral harvester as room bool and call from memory (?)
+    const extractor = _.filter(myStructures, s => s.structureType === STRUCTURE_EXTRACTOR);
+    const mineralAmount = room.find(FIND_MINERALS)[0].mineralAmount;
+    const mineralStored = _.sum(room.storage.store) - room.storage.store[RESOURCE_ENERGY];
+    if (!_.isEmpty(extractor) && mineralAmount > 0 && mineralStored < 100000) {
+      numberOfCreeps.mineralHarvester = 1
     }
 
     return numberOfCreeps;

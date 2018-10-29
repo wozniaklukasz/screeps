@@ -8,6 +8,7 @@ module.exports = {
       setLinkConnection(tmpRoom, "W1S15", 14, 23, 36, 14);
       setLinkConnection(tmpRoom, "W3S19", 7, 44, 34, 19);
       setLinkConnection(tmpRoom, "W2S16", 12, 24, 42, 19);
+      setLinkConnection(tmpRoom, "W4S18", 35, 37, 13, 11);
     }
 
     function setLinkConnection(tmpRoom, roomName, sourceX, sourceY, controllerX, controllerY) {
