@@ -13,19 +13,27 @@ Creep.prototype.runRole = function () {
 };
 
 Creep.prototype.myMoveTo = function (target) {
-  this.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
+  this.moveTo(target, {visualizePathStyle: {
+      fill: 'transparent',
+      stroke: '#0f0',
+      lineStyle: 'dashed',
+      strokeWidth: .1,
+      opacity: 1
+    }});
 };
 
 Creep.prototype.getEnergy = function (useContainer, useSource) {
   let source = this.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
-
+// console.log(this.pos.find(FIND_SOURCES_ACTIVE))
   if (source) {
     if (this.harvest(source) === ERR_NOT_IN_RANGE) {
       this.myMoveTo(source);
     }
   } else {
-    if(this.withdraw(this.room.storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-      this.moveTo(this.room.storage);
+    const storage = this.room.storage;
+
+    if(!_.isEmpty(storage) && this.withdraw(storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+      this.myMoveTo(storage);
     }
   }
 };

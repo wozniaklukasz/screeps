@@ -13,32 +13,34 @@ const config = {
       numberOfCreeps.harvester = 1;
       numberOfCreeps.linkHarvester = 1;
       numberOfCreeps.linkUpgrader = 1;
-      numberOfCreeps.importerHarvester = 2;
+      numberOfCreeps.importerHarvester = 1;
+      // numberOfCreeps.attacker = 1;
     } else if (roomName === 'W3S19') {
       numberOfCreeps.harvester = 1;
       numberOfCreeps.linkHarvester = 1;
       numberOfCreeps.linkUpgrader = 1;
-      numberOfCreeps.importerHarvester = 2;
+      // numberOfCreeps.importerHarvester = 2;
     } else if (roomName === 'W4S18') {
       numberOfCreeps.harvester = 1;
       numberOfCreeps.linkHarvester = 1;
       numberOfCreeps.linkUpgrader = 1;
-      numberOfCreeps.importerHarvester = 2;
+      // numberOfCreeps.importerHarvester = 2;
     } else if (roomName === 'W5S18') {
       numberOfCreeps.harvester = 1;
       numberOfCreeps.linkHarvester = 1;
       numberOfCreeps.linkUpgrader = 1;
-      numberOfCreeps.importerHarvester = 2;
+      // numberOfCreeps.importerHarvester = 2;
     } else if (roomName === 'W1S15') {
       numberOfCreeps.harvester = 1;
       numberOfCreeps.linkHarvester = 1;
       numberOfCreeps.linkUpgrader = 1;
-      numberOfCreeps.importerHarvester = 2;
+      // numberOfCreeps.importerHarvester = 2;
     } else if (roomName === 'W2S16') {
       numberOfCreeps.harvester = 1;
       numberOfCreeps.linkHarvester = 1;
       numberOfCreeps.linkUpgrader = 1;
-      numberOfCreeps.importerHarvester = 2;
+      numberOfCreeps.importerHarvester = 1;
+      // numberOfCreeps.attacker = 1;
     }
 
     // add builder if constructions

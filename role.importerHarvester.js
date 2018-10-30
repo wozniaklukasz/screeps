@@ -27,8 +27,7 @@ module.exports = {
         // import energy if no roads to build
         if (constructionRoad) {
           creep.buildConstruction(constructionRoad);
-        }
-        else {
+        } else {
           const homeRoom = creep.memory.homeRoom;
           if (creep.room.name === homeRoom) {
             roleHarvester.run(creep);
