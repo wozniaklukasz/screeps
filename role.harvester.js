@@ -23,7 +23,7 @@ const roleHarvester = {
 
         // todo: storage.store[RESOURCE_ENERGY] only counts energy (not minerals)
         // todo: storage.storeCapacity is 1M, now condition is set to 200k
-        if (!constructions.length && storage && storage.store[RESOURCE_ENERGY] < 200000) {
+        if (!constructions.length && storage && storage.store[RESOURCE_ENERGY] < 500000) {
           if (creep.transfer(storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
             creep.myMoveTo(storage);
           }

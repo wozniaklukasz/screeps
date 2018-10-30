@@ -68,7 +68,7 @@ function logCreepsInfo(room, numberOfCreepsLiving, numberOfCreepsToDo) {
       storageInfo += ']';
     }
 
-    log += '[' + room.name + ': (🆙 ' + room.controller.level + ' (' + Number.parseFloat(room.controller.progress * 100 / room.controller.progressTotal).toPrecision(3) + '%))(⚡ ' + room.energyAvailable + '/' + room.energyCapacityAvailable + ')][Creeps: ';
+    log += '[' + room.name + ': (〽️' + room.controller.level + ' (' + Number.parseFloat(room.controller.progress * 100 / room.controller.progressTotal).toPrecision(3) + '%))(⚡' + room.energyAvailable + '/' + room.energyCapacityAvailable + ')][Creeps: ';
 
     numberOfCreepsLiving.map(c => {
         if (numberOfCreepsToDo[c.role]) {

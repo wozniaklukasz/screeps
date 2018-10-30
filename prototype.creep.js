@@ -19,8 +19,14 @@ Creep.prototype.myMoveTo = function (target) {
 Creep.prototype.getEnergy = function (useContainer, useSource) {
   let source = this.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
 
-  if (this.harvest(source) === ERR_NOT_IN_RANGE) {
-    this.myMoveTo(source);
+  if (source) {
+    if (this.harvest(source) === ERR_NOT_IN_RANGE) {
+      this.myMoveTo(source);
+    }
+  } else {
+    if(this.withdraw(this.room.storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+      this.moveTo(this.room.storage);
+    }
   }
 };
 
