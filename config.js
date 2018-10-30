@@ -19,7 +19,7 @@ const config = {
     } else if (roomName === 'W5S18') {
       // numberOfCreeps.importerHarvester = 2;
     } else if (roomName === 'W1S15') {
-      // numberOfCreeps.importerHarvester = 2;
+      // numberOfCreeps.attacker = 2;
     } else if (roomName === 'W2S16') {
       // numberOfCreeps.importerHarvester = 1;
       // numberOfCreeps.attacker = 1;
@@ -38,7 +38,7 @@ const config = {
     const extractor = _.filter(myStructures, s => s.structureType === STRUCTURE_EXTRACTOR);
     const mineralAmount = room.find(FIND_MINERALS)[0].mineralAmount;
     const mineralStored = _.sum(room.storage.store) - room.storage.store[RESOURCE_ENERGY];
-    if (!_.isEmpty(extractor) && mineralAmount > 0 && mineralStored < 100000) {
+    if (!_.isEmpty(extractor) && mineralAmount > 0 && mineralStored < 50000) {
       numberOfCreeps.mineralHarvester = 1
     }
 

@@ -1,22 +1,27 @@
+const flags = require('game.flags');
+
 module.exports = {
   run: function (creep) {
-    if (creep.room.name === creep.memory.targetRoom) {
-      if (creep.room.controller) {
-        if (creep.signController(creep.room.controller, "Na pohybel!") === ERR_NOT_IN_RANGE) {
-          creep.myMoveTo(creep.room.controller);
-        }
+    const targetFlag = flags.getFlagByName('sign');
+    const targetRoom = targetFlag ? targetFlag.roomName : null;
+
+    const room = creep.room;
+
+    if (room.name === targetRoom && room.controller) {
+      if (creep.signController(room.controller, "Na pohybel!") === ERR_NOT_IN_RANGE) {
+        creep.myMoveTo(room.controller);
       }
     }
     else {
-      creep.moveCreepToExit(creep.memory.targetRoom);
+      creep.moveCreepToExit(targetRoom);
     }
   }
 };
 
 /*
-// to spawn creep enter target room name
+// to spawn creep set 'sign' flag
 
 Game.spawns['Thor'].spawnCreep([MOVE, MOVE, MOVE, MOVE, MOVE, MOVE],
     'signer',
-    { memory: { role: 'signer', targetRoom: '' } } );
+    { memory: { role: 'signer'} } );
 */
