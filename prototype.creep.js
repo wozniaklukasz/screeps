@@ -1,4 +1,5 @@
 const config = require('config');
+const utilsCreep = require('utils.creep');
 
 Creep.prototype.runRole = function () {
   let roles = config.getRoles();
@@ -24,34 +25,7 @@ Creep.prototype.getEnergy = function (useContainer, useSource) {
 };
 
 Creep.prototype.showCreepRole = function () {
-  let text = '';
-  if (this.memory.role === 'harvester') {
-    text = '♻️';
-  } else if (this.memory.role === 'builder') {
-    text = '⚙️'
-  } else if (this.memory.role === 'upgrader') {
-    text = '⚡';
-  } else if (this.memory.role === 'repairer') {
-    text = '🛠️';
-  } else if (this.memory.role === 'longDistanceHarvester') {
-    text = '🔻';
-  } else if (this.memory.role === 'wallRepairer') {
-    text = '🛡️'
-  } else if (this.memory.role === 'mineralHarvester') {
-    text = '⛏️'
-  } else if (this.memory.role === 'linkHarvester') {
-    text = '🔷'
-  } else if (this.memory.role === 'linkUpgrader') {
-    text = '🔶'
-  } else if (this.memory.role === 'attacker') {
-    text = '⚔️'
-  } else if (this.memory.role === 'importerHarvester') {
-    text = '☀️'
-  } else if (this.memory.role === 'attackerRange') {
-    text = '🏹'
-  }
-
-  this.say(text);
+  this.say(utilsCreep.changeRoleToSymbol(this.memory.role));
 };
 
 Creep.prototype.isCreepAbleToWork = function () {

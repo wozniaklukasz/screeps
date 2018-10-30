@@ -1,7 +1,7 @@
 const config = {
   booleans: {
     enableConsoleLog: true,
-    storageAmountLog: false,
+    storageAmountLog: true,
     enableBuildingByFlagsColors: false,
     enableCpuLog: true
   },
@@ -54,6 +54,11 @@ const config = {
     if (!_.isEmpty(extractor) && mineralAmount > 0 && mineralStored < 100000) {
       numberOfCreeps.mineralHarvester = 1
     }
+
+    // const links = _.filter(myStructures, s => s.structureType === STRUCTURE_LINK);
+    // if (links.length === 2) {
+    //   // todo: spawn linkers? add condition if id in memory
+    // }
 
     return numberOfCreeps;
   },
