@@ -30,12 +30,31 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
           {
             memory: {
               role: role,
-              // secondRole: null,
               homeRoom: room.name,
-              // targetRoom: 'W4S18',
               working: false
             }
           });
+        if (creepsLiving.number === 0) {
+          const bodyParts = parseInt(room.energyAvailable / 200)
+
+          let bodyH = [];
+
+          for (let i = 1; i < bodyParts; i++) {
+            bodyH.push(WORK);
+            bodyH.push(MOVE);
+            bodyH.push(CARRY);
+          }
+
+          this.spawnCreep(bodyH, name,
+            {
+              memory: {
+                role: 'harvester',
+                homeRoom: room.name,
+                working: false
+              }
+            })
+        }
+
       }
     });
 
@@ -63,7 +82,7 @@ function logCreepsInfo(room, numberOfCreepsLiving, numberOfCreepsToDo) {
       storageInfo += '[Storage: ';
       const storageStore = room.storage.store;
       for (let mineral in storageStore) {
-        storageInfo += '(' + mineral + ': ' + (storageStore[mineral]/1000).toFixed(0) + 'k)';
+        storageInfo += '(' + mineral + ': ' + (storageStore[mineral] / 1000).toFixed(0) + 'k)';
       }
       storageInfo += ']';
     }
