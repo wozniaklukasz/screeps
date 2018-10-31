@@ -34,7 +34,8 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
               working: false
             }
           });
-        if (creepsLiving.number === 0) {
+
+        if (creepsLiving.number === 0 && role === 'harvester') {
           const bodyParts = parseInt(room.energyAvailable / 200)
 
           let bodyH = [];
