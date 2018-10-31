@@ -7,23 +7,7 @@ const gameFlags = {
     for (let flag in gFlags) {
       this._flags[gFlags[flag].name] = gFlags[flag].pos;
     }
-
-    // if (!(Game.time % 10)) {
-    //   for (let flag in gFlags) {
-    //     Memory.flags[gFlags[flag].name] = JSON.stringify(gFlags[flag].pos);
-    //     console.log('flag cache')
-    //   }
-    // }
-    //
-    //
-    // for (let flag in Memory.flags) {
-    //   console.log('read', JSON.parse(Memory.flags[flag]).x)
-    // }
   },
-
-  // getFlags: function () {
-  //   return this._flags;
-  // },
 
   getFlagByName: function (name) {
     for (let flag in this._flags) {
@@ -33,6 +17,10 @@ const gameFlags = {
     }
     return null;
   },
+
+  getFlags() {
+    return this._flags;
+  }
 
   // getFlagsByNameContains: function (partOfFlagName) {
   //   // CARE, high CPU usage :(

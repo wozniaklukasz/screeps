@@ -3,7 +3,8 @@ const config = {
     enableConsoleLog: true,
     storageAmountLog: true,
     enableBuildingByFlagsColors: false,
-    enableCpuLog: true
+    enableCpuLog: true,
+    enableFlagsLog: true,
   },
   getNumberOfCreepsToDo: function (room) {
     const roomName = room.name;

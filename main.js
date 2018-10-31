@@ -42,5 +42,6 @@ module.exports.loop = function () {
     tower.repairStructures();
   }
 
+  logs.logFlags();
   logs.logCpuUsage();
 };
