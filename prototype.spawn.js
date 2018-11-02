@@ -12,7 +12,9 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
     let numberOfHarvesters = numberOfCreepsLiving.filter(creep => creep.role === 'harvester').map(creep => creep.number);
 
     if (numberOfHarvesters < 1) {
-      console.log('*** Harvesters alert - room: ' + this.room.name + '!');
+      if (config.booleans.enableConsoleLog) {
+        console.log('*** Harvesters alert - room: ' + this.room.name + '!');
+      }
       this.room.memory.noHarvestersAlert = true;
     } else {
       this.room.memory.noHarvestersAlert = false;
@@ -40,7 +42,7 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
 
           let bodyH = [];
 
-          for (let i = 1; i < bodyParts; i++) {
+          for (let i = 0; i < bodyParts; i++) {
             bodyH.push(WORK);
             bodyH.push(MOVE);
             bodyH.push(CARRY);

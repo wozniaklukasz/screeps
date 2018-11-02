@@ -2,6 +2,7 @@ const gameFlags = {
   _flags: {},
 
   setFlags: function () {
+    this._flags = {};
     const gFlags = Game.flags;
 
     for (let flag in gFlags) {

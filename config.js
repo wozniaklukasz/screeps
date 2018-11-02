@@ -1,8 +1,8 @@
 const config = {
   booleans: {
+    enableBuildingByFlagsColors: false,
     enableConsoleLog: true,
     storageAmountLog: true,
-    enableBuildingByFlagsColors: false,
     enableCpuLog: true,
     enableFlagsLog: true,
   },
@@ -11,7 +11,7 @@ const config = {
     let numberOfCreeps = {};
 
     if (roomName === 'W2S19') {
-      // numberOfCreeps.importerHarvester = 1;
+      numberOfCreeps.importerHarvester = 2;
       // numberOfCreeps.attacker = 1;
     } else if (roomName === 'W3S19') {
       // numberOfCreeps.importerHarvester = 2;
@@ -22,7 +22,7 @@ const config = {
     } else if (roomName === 'W1S15') {
       // numberOfCreeps.attacker = 2;
     } else if (roomName === 'W2S16') {
-      // numberOfCreeps.importerHarvester = 1;
+      numberOfCreeps.importerHarvester = 2;
       // numberOfCreeps.attacker = 1;
     }
 

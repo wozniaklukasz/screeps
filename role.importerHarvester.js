@@ -28,12 +28,24 @@ module.exports = {
         if (constructionRoad) {
           creep.buildConstruction(constructionRoad);
         } else {
-          const homeRoom = creep.memory.homeRoom;
-          if (creep.room.name === homeRoom) {
-            roleHarvester.run(creep);
-          }
-          else {
-            creep.moveCreepToExit(homeRoom);
+          const extensions = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+            filter: (s) => (s.structureType === STRUCTURE_SPAWN
+              || s.structureType === STRUCTURE_EXTENSION)
+              && s.energy < s.energyCapacity
+          });
+
+          if (extensions) {
+            if (creep.transfer(extensions, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+              creep.myMoveTo(extensions);
+            }
+          } else {
+            const homeRoom = creep.memory.homeRoom;
+            if (creep.room.name === homeRoom) {
+              roleHarvester.run(creep);
+            }
+            else {
+              creep.moveCreepToExit(homeRoom);
+            }
           }
         }
       } else {
