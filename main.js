@@ -8,6 +8,7 @@ const logs = require('logs');
 const memoryClearing = require('memory.clearing');
 const utilsLink = require('utils.link');
 const flags = require('game.flags');
+const creeps = require('game.creeps');
 
 module.exports.loop = function () {
   console.log();
@@ -17,11 +18,14 @@ module.exports.loop = function () {
   memoryClearing.roomMemoryClearing();
 
   flags.setFlags();
+  creeps.setCreeps();
 
   utilsLink.linksTransfers();
 
-  for (let creep in Game.creeps) {
-    let cr = Game.creeps[creep];
+  const gCreeps = creeps.getCreeps();
+
+  for (let creep in gCreeps) {
+    let cr = gCreeps[creep];
     cr.runRole();
     cr.showCreepRole();
   }

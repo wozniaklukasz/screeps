@@ -24,6 +24,10 @@ const utilsCreep = {
       return '☀️'
     } else if (role === 'attackerRange') {
       return '🏹'
+    } else if (role === 'reserver') {
+      return '🏴'
+    } else if (role === 'importerRepairer') {
+      return '⚫'
     }
     return role;
   }

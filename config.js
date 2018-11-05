@@ -1,6 +1,6 @@
 const config = {
   booleans: {
-    enableBuildingByFlagsColors: false,
+    enableBuildingByFlagsColors: true,
     enableConsoleLog: true,
     storageAmountLog: true,
     enableCpuLog: true,
@@ -12,6 +12,8 @@ const config = {
 
     if (roomName === 'W2S19') {
       numberOfCreeps.importerHarvester = 2;
+      numberOfCreeps.reserver = 1;
+      numberOfCreeps.importerRepairer = 1;
       // numberOfCreeps.attacker = 1;
     } else if (roomName === 'W3S19') {
       // numberOfCreeps.importerHarvester = 2;
@@ -20,9 +22,11 @@ const config = {
     } else if (roomName === 'W5S18') {
       // numberOfCreeps.importerHarvester = 2;
     } else if (roomName === 'W1S15') {
-      // numberOfCreeps.attacker = 2;
+      numberOfCreeps.attacker = 0;
     } else if (roomName === 'W2S16') {
-      numberOfCreeps.importerHarvester = 2;
+      numberOfCreeps.importerHarvester = 3;
+      numberOfCreeps.reserver = 1;
+      numberOfCreeps.importerRepairer = 1;
       // numberOfCreeps.attacker = 1;
     }
 
@@ -61,6 +65,7 @@ const config = {
       longDistanceHarvester: require('role.longDistanceHarvester'),
       claimer: require('role.claimer'),
       signer: require('role.signer'),
+      reserver: require('role.reserver'),
       wallRepairer: require('role.wallRepairer'),
       mineralHarvester: require('role.mineralHarvester'),
       linkHarvester: require('role.linkHarvester'),
@@ -69,6 +74,7 @@ const config = {
       attacker: require('role.attacker'),
       attackerRange: require('role.attackerRange'),
       importerHarvester: require('role.importerHarvester'),
+      importerRepairer: require('role.importerRepairer'),
     };
   },
   getRolesArray: function () {
@@ -85,7 +91,9 @@ const config = {
       'secondHarvester',
       'attacker',
       'attackerRange',
-      'importerHarvester'
+      'importerHarvester',
+      'reserver',
+      'importerRepairer'
     ];
   },
   getBuildingByFlagColor: function (flag) {

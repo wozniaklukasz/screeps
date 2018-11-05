@@ -29,6 +29,14 @@ module.exports = {
       body = [TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, MOVE, MOVE, RANGED_ATTACK, MOVE, MOVE, RANGED_ATTACK, MOVE, MOVE, RANGED_ATTACK, MOVE, MOVE, RANGED_ATTACK, MOVE, MOVE, RANGED_ATTACK, MOVE, MOVE, RANGED_ATTACK, MOVE, MOVE, RANGED_ATTACK, MOVE, MOVE, RANGED_ATTACK]
     }
 
+    if (role === 'reserver') {
+      body = [MOVE, MOVE, CLAIM, CLAIM];
+    }
+
+    if (role === 'importerRepairer') {
+      body = [MOVE, MOVE, WORK, CARRY, CARRY];
+    }
+
     return body;
   }
 };

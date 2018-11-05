@@ -1,6 +1,7 @@
 const config = require('config');
 const logs = require('logs');
 const utilsSpawn = require('utils.spawn');
+const creeps = require('game.creeps');
 
 StructureSpawn.prototype.spawnCreepsIfNecessary =
   function () {
@@ -67,7 +68,9 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
 StructureSpawn.prototype.spawningInfo =
   function () {
     if (this.spawning) {
-      let spawningCreep = Game.creeps[this.spawning.name];
+      const gCreeps = creeps.getCreeps();
+
+      let spawningCreep = gCreeps[this.spawning.name];
       this.room.visual.text(
         '🛠️' + spawningCreep.memory.role,
         this.pos.x + 1,
