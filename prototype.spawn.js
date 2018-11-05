@@ -62,7 +62,10 @@ StructureSpawn.prototype.spawnCreepsIfNecessary =
       }
     });
 
-    logs.logCreepsInfo(room, numberOfCreepsLiving, numberOfCreepsToDo);
+    // disable double console log if more than 1 spawn
+    if (room.find(FIND_MY_STRUCTURES, {filter: (s) => (s.structureType === STRUCTURE_SPAWN)})[0] === this) {
+      logs.logCreepsInfo(room, numberOfCreepsLiving, numberOfCreepsToDo);
+    }
   };
 
 StructureSpawn.prototype.spawningInfo =
