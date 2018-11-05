@@ -6,10 +6,11 @@ module.exports = {
     const targetRoom = targetFlag ? targetFlag.roomName : null;
 
     const room = creep.room;
+    const controller = room.controller;
 
-    if (room.name === targetRoom && room.controller) {
-      if (creep.reserveController(room.controller) === ERR_NOT_IN_RANGE) {
-        creep.myMoveTo(room.controller);
+    if (room.name === targetRoom && controller) {
+      if (creep.reserveController(controller) === ERR_NOT_IN_RANGE) {
+        creep.myMoveTo(controller);
       }
     }
     else {

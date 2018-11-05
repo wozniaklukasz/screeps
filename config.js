@@ -107,7 +107,7 @@ const config = {
     } else if (flag.color === 2) {
       structure = STRUCTURE_EXTRACTOR // purple flag
     } else if (flag.color === 3) {
-      structure = STRUCTURE_LINK // blue flag
+      structure = STRUCTURE_SPAWN // blue flag
     }
     return structure;
   }

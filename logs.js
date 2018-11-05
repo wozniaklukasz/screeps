@@ -3,6 +3,12 @@ const utilsCreep = require('utils.creep');
 const gFlags = require('game.flags');
 
 const logs = {
+  _cpuIdx: 0,
+  _cpuLastCounted: 0,
+  _cpuUsed: [],
+  _cpuIdxShort: 0,
+  _cpuUsedShort: [],
+
   logCpuUsage: function () {
     // this fn must be last in main loop
 
@@ -10,33 +16,33 @@ const logs = {
     const ticksLimit = 60;
 
     if (config.booleans.enableCpuLog) {
-      if (Memory.cpu.cpuIdx >= ticksLimit) {
-        Memory.cpu.cpuLastCounted = getAvgCpu();
+      const cpuUsed = Game.cpu.getUsed();
 
-        Memory.cpu.cpuIdx = 0;
-        Memory.cpu.cpuUsed = [];
+      // ~1 h
+      if (this._cpuIdx >= 1800) {
+        Memory.cpu.cpuLastCounted = getAvgCpu(this._cpuUsed, this._cpuIdx);
+
+        this._cpuIdx = 0;
+        this._cpuUsed = [];
       }
 
-      if (!(Game.time % 30)) {
-        Memory.cpu.cpuUsed[Memory.cpu.cpuIdx] = Game.cpu.getUsed();
-        Memory.cpu.cpuIdx = Memory.cpu.cpuIdx + 1;
+      this._cpuUsed[this._cpuIdx] = cpuUsed;
+      this._cpuIdx = this._cpuIdx + 1;
+
+      // ~5 min
+      if (this._cpuIdxShort >= 150) {
+        Memory.cpu.cpuLastCountedShort = getAvgCpu(this._cpuUsedShort, this._cpuIdxShort);
+
+        this._cpuIdxShort = 0;
+        this._cpuUsedShort = [];
       }
 
-      if (Memory.cpu.cpuIdxShort >= ticksLimit) {
-        Memory.cpu.cpuLastCountedShort = getAvgCpuShort();
+      this._cpuUsedShort[this._cpuIdxShort] = cpuUsed;
+      this._cpuIdxShort = this._cpuIdxShort + 1;
 
-        Memory.cpu.cpuIdxShort = 0;
-        Memory.cpu.cpuUsedShort = [];
-      }
-
-      if (!(Game.time % 5)) {
-        Memory.cpu.cpuUsedShort[Memory.cpu.cpuIdxShort] = Game.cpu.getUsed();
-        Memory.cpu.cpuIdxShort = Memory.cpu.cpuIdxShort + 1;
-      }
-
-      console.log('[CPU avg 1h][Now (' + (Memory.cpu.cpuIdx / ticksLimit * 100).toFixed(1) + '%): ' + getAvgCpu() + '][Last: ' + Memory.cpu.cpuLastCounted + ']'
+      console.log('[CPU avg 1h][Now (' + (this._cpuIdx / 1800 * 100).toFixed(1) + '%): ' + getAvgCpu(this._cpuUsed, this._cpuIdx) + '][Last: ' + Memory.cpu.cpuLastCounted + ']'
         +
-        '[CPU avg 10m][Now (' + (Memory.cpu.cpuIdxShort / ticksLimit * 100).toFixed(1) + '%): ' + getAvgCpuShort() + '][Last: ' + Memory.cpu.cpuLastCountedShort + ']');
+        '[CPU avg 5m][Now (' + (this._cpuIdxShort / 150 * 100).toFixed(1) + '%): ' + getAvgCpu(this._cpuUsedShort, this._cpuIdxShort) + '][Last: ' + Memory.cpu.cpuLastCountedShort + ']');
 
     }
   },
@@ -95,24 +101,12 @@ const logs = {
   }
 };
 
-function resetCpuMemory() {
-  Memory.cpu = {};
-  Memory.cpu.cpuIdx = 0;
-  Memory.cpu.cpuUsed = [];
-  Memory.cpu.cpuIdxShort = 0;
-  Memory.cpu.cpuUsedShort = [];
-}
-
 function add(a, b) {
   return a + b;
 }
 
-function getAvgCpu() {
-  return (Memory.cpu.cpuUsed.reduce(add, 0) / Memory.cpu.cpuIdx + 1).toFixed(1)
-}
-
-function getAvgCpuShort() {
-  return (Memory.cpu.cpuUsedShort.reduce(add, 0) / Memory.cpu.cpuIdxShort + 1).toFixed(1)
+function getAvgCpu(cpuUsed, cpuIdx) {
+  return (cpuUsed.reduce(add, 0) / cpuIdx + 1).toFixed(1)
 }
 
 module.exports = logs;
