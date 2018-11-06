@@ -5,7 +5,7 @@ var roleBuilder = require('role.builder');
 module.exports = {
   run: function (creep) {
     creep.isCreepAbleToWork();
-    const targetFlag = flags.getFlagByName('importerHarvester' + creep.memory.homeRoom);
+    const targetFlag = flags.getFlagByName('reserved' + creep.memory.homeRoom);
     const targetRoom = targetFlag ? targetFlag.roomName : null;
 
     // no flag = harvester

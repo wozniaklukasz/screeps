@@ -1,7 +1,11 @@
+const rooms = require('game.rooms');
+
 module.exports = {
   linksTransfers: function () {
-    for (let room in Game.rooms) {
-      const tmpRoom = Game.rooms[room];
+    const gRooms = rooms.getRooms();
+
+    for (let room in gRooms) {
+      const tmpRoom = gRooms[room];
 
       setLinkConnection(tmpRoom, "W2S19", 37, 44, 18, 9);
       setLinkConnection(tmpRoom, "W5S18", 33, 21, 17, 43);

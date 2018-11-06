@@ -2,7 +2,7 @@ const flags = require('game.flags');
 
 module.exports = {
   run: function (creep) {
-    const targetFlag = flags.getFlagByName('importerHarvester' + creep.memory.homeRoom);
+    const targetFlag = flags.getFlagByName('reserved' + creep.memory.homeRoom);
     const targetRoom = targetFlag ? targetFlag.roomName : null;
 
     const room = creep.room;
