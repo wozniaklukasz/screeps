@@ -6,9 +6,12 @@ const creeps = require('game.creeps');
 StructureSpawn.prototype.spawnCreepsIfNecessary =
   function () {
     let room = this.room;
+    let numberOfCreepsToDo = {};
 
     let numberOfCreepsLiving = room.getNumberOfCreepsByRoomName();
-    let numberOfCreepsToDo = config.getNumberOfCreepsToDo(room);
+    numberOfCreepsToDo = utilsSpawn.spawnCreepByCondition(numberOfCreepsToDo, room);
+    numberOfCreepsToDo = config.getNumberOfCreepsToDo(numberOfCreepsToDo, room);
+
 
     let numberOfHarvesters = numberOfCreepsLiving.filter(creep => creep.role === 'harvester').map(creep => creep.number);
 
