@@ -15,7 +15,10 @@ Room.prototype.buildStructuresOnFlags = function () {
 
 Room.prototype.getNumberOfCreepsByRoomName = function () {
   let roleCounter = [];
-  config.getRolesArray().map(role => {
+
+  const roles = config.getRoles();
+
+  Object.keys(roles).map(role => {
     roleCounter.push({
       role: role,
       number: _(Memory.creeps).filter({role: role, homeRoom: this.name}).size()

@@ -77,25 +77,6 @@ const config = {
       importerRepairer: require('role.importerRepairer'),
     };
   },
-  getRolesArray: function () {
-    return [
-      'harvester',
-      'builder',
-      'repairer',
-      'upgrader',
-      'longDistanceHarvester',
-      'wallRepairer',
-      'mineralHarvester',
-      'linkHarvester',
-      'linkUpgrader',
-      'secondHarvester',
-      'attacker',
-      'attackerRange',
-      'importerHarvester',
-      'reserver',
-      'importerRepairer'
-    ];
-  },
   getBuildingByFlagColor: function (flag) {
     let structure = '';
     if (flag.color === 9) {
