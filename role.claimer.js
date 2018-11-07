@@ -1,12 +1,17 @@
+const flags = require('game.flags');
+
 roleClaimer = {
   run: function (creep) {
-    if (creep.room.name === creep.memory.targetRoom) {
+    const targetFlag = flags.getFlagByName('claim');
+    const targetRoom = targetFlag ? targetFlag.roomName : null;
+
+    if (creep.room.name === targetRoom) {
       if (creep.claimController(creep.room.controller) === ERR_NOT_IN_RANGE) {
         creep.myMoveTo(creep.room.controller);
       }
     }
     else {
-      creep.moveCreepToExit(creep.memory.targetRoom);
+      creep.moveCreepToExit(targetRoom);
     }
   }
 };

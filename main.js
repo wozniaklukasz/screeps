@@ -39,7 +39,9 @@ module.exports.loop = function () {
 
   for (let spawn in Game.spawns) {
     let sp = Game.spawns[spawn];
-    sp.spawnCreepsIfNecessary();
+    // if (!(Game.time % 5)) {
+      sp.spawnCreepsIfNecessary();
+    // }
     sp.spawningInfo();
   }
 

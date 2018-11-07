@@ -1,3 +1,6 @@
+const flags = require('game.flags');
+const rooms = require('game.rooms');
+
 module.exports = {
   getSpawnedCreepBody: function (energy, role) {
     let body = [WORK, WORK, CARRY, MOVE];
@@ -41,21 +44,19 @@ module.exports = {
   },
   spawnCreepByCondition: function (numberOfCreeps, room) {
 
-    // add builder if constructions
-    // todo: refactoring with builder creep logic
-    // one method returns construction sites with getter
     if (room.find(FIND_CONSTRUCTION_SITES).length > 0) {
       numberOfCreeps.builder = 1
     }
 
     const myStructures = room.find(FIND_MY_STRUCTURES);
-
-    // todo: spawn mineral harvester as room bool and call from memory (?)
     const extractor = _.filter(myStructures, s => s.structureType === STRUCTURE_EXTRACTOR);
     const mineralAmount = room.find(FIND_MINERALS)[0].mineralAmount;
-    const mineralStored = _.sum(room.storage.store) - room.storage.store[RESOURCE_ENERGY];
-    if (!_.isEmpty(extractor) && mineralAmount > 0 && mineralStored < 50000) {
-      numberOfCreeps.mineralHarvester = 1
+    const storage = room.storage;
+    if (storage) {
+      const mineralStored = _.sum(room.storage.store) - room.storage.store[RESOURCE_ENERGY];
+      if (!_.isEmpty(extractor) && mineralAmount > 0 && mineralStored < 51000) {
+        numberOfCreeps.mineralHarvester = 1
+      }
     }
 
     const roomMemory = Memory.rooms[room.name];
@@ -63,12 +64,33 @@ module.exports = {
       numberOfCreeps.harvester = 1;
       numberOfCreeps.linkHarvester = 1;
       numberOfCreeps.linkUpgrader = 1;
+    } else {
+      numberOfCreeps.harvester = 2;
+      numberOfCreeps.upgrader = 1;
     }
+
+//     const targetFlag = flags.getFlagByName('reserved' + room.name);
+//     if (targetFlag) {
+//       const roomWithFlag = Game.rooms[targetFlag.pos.roomName];
+// console.log(roomWithFlag)
+//       if (!_.isEmpty(roomWithFlag)) {
+//         const enemy = roomWithFlag.find(FIND_HOSTILE_CREEPS);
+//         console.log(room.name)
+//
+//         // doesnt work if override val in config :( - todo
+//         if (enemy.length === 0) {
+//           console.log(1)
+//           if (roomWithFlag.controller.reservation.ticksToEnd < 4000) {
+//             numberOfCreeps.reserver = 1;
+//           }
+//
+//           numberOfCreeps.importerHarvester = 2;
+//           numberOfCreeps.importerRepairer = 1;
+//         }
+//
+//       }
+//     }
 
     return numberOfCreeps;
   }
 };
-
-function sumObjFiled(filedVal, value) {
-  return filedVal ? filedVal + value : value
-}

@@ -8,7 +8,7 @@ const utilsCreep = {
       return '⚡';
     } else if (role === 'repairer') {
       return '🛠️';
-    } else if (role === 'longDistanceHarvester') {
+    } else if (role === 'exportHarvester') {
       return '🔻';
     } else if (role === 'wallRepairer') {
       return '🛡️'

@@ -11,44 +11,46 @@ const config = {
 
     if (roomName === 'W2S19') {
       numberOfCreeps.importerHarvester = 2;
-      numberOfCreeps.reserver = 1;
       numberOfCreeps.importerRepairer = 1;
+      numberOfCreeps.reserver = 1;
       // numberOfCreeps.attacker = 1;
     } else if (roomName === 'W3S19') {
       // numberOfCreeps.harvester = 2;
     } else if (roomName === 'W4S18') {
-      // numberOfCreeps.importerHarvester = 2;
+      // numberOfCreeps.linkHarvester = 0;
     } else if (roomName === 'W5S18') {
       // numberOfCreeps.importerHarvester = 2;
     } else if (roomName === 'W1S15') {
       // numberOfCreeps.attacker = 1;
+      numberOfCreeps.exportHarvester = 2;
     } else if (roomName === 'W2S16') {
       numberOfCreeps.importerHarvester = 3;
-      numberOfCreeps.reserver = 1;
       numberOfCreeps.importerRepairer = 1;
-      // numberOfCreeps.attacker = 1;
+      numberOfCreeps.reserver = 1;
+    } else if (roomName === 'W1S13') {
+      numberOfCreeps.harvester = 1;
     }
     return numberOfCreeps;
   },
   getRoles: function () {
     return {
-      harvester: require('role.harvester'),
-      builder: require('role.builder'),
       repairer: require('role.repairer'),
-      upgrader: require('role.upgrader'),
-      longDistanceHarvester: require('role.longDistanceHarvester'),
+      exportHarvester: require('role.exportHarvester'),
       claimer: require('role.claimer'),
       signer: require('role.signer'),
-      reserver: require('role.reserver'),
       wallRepairer: require('role.wallRepairer'),
-      mineralHarvester: require('role.mineralHarvester'),
-      linkHarvester: require('role.linkHarvester'),
-      linkUpgrader: require('role.linkUpgrader'),
       secondHarvester: require('role.secondHarvester'),
-      attacker: require('role.attacker'),
       attackerRange: require('role.attackerRange'),
-      importerHarvester: require('role.importerHarvester'),
+      reserver: require('role.reserver'),
       importerRepairer: require('role.importerRepairer'),
+      importerHarvester: require('role.importerHarvester'),
+      mineralHarvester: require('role.mineralHarvester'),
+      attacker: require('role.attacker'),
+      builder: require('role.builder'),
+      upgrader: require('role.upgrader'),
+      linkUpgrader: require('role.linkUpgrader'),
+      linkHarvester: require('role.linkHarvester'),
+      harvester: require('role.harvester'),
     };
   },
   getBuildingByFlagColor: function (flag) {
