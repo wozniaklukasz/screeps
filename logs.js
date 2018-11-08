@@ -57,16 +57,6 @@ const logs = {
   logCreepsInfo: function (room, numberOfCreepsLiving, numberOfCreepsToDo) {
     if (config.booleans.enableConsoleLog && room.controller && room.controller.my) {
       let log = '';
-      let storageInfo = '';
-
-      if (config.booleans.storageAmountLog && !_.isEmpty(room.storage)) {
-        storageInfo += '[Storage: ';
-        const storageStore = room.storage.store;
-        for (let mineral in storageStore) {
-          storageInfo += '(' + mineral + ': ' + (storageStore[mineral] / 1000).toFixed(0) + 'k)';
-        }
-        storageInfo += ']';
-      }
 
       const hrefLink = "#!/room/shard3/" + room.name;
       const link = "<a href=" + hrefLink + ">" + room.name + "</a>";
@@ -79,9 +69,24 @@ const logs = {
           }
         }
       );
-      log += ']' + storageInfo;
+      log += ']' + this.logStorageInfo(room);
       console.log(log);
     }
+  },
+
+  logStorageInfo: function(room) {
+    let storageInfo = '';
+
+    if (config.booleans.storageAmountLog && !_.isEmpty(room.storage)) {
+      storageInfo += '[Storage: ';
+      const storageStore = room.storage.store;
+      for (let mineral in storageStore) {
+        storageInfo += '(' + convertMineralTypeToString(mineral) + ': ' + (storageStore[mineral] / 1000).toFixed(0) + 'k)';
+      }
+      storageInfo += ']';
+    }
+
+    return storageInfo;
   },
 
   logFlags: function () {
@@ -107,6 +112,25 @@ function add(a, b) {
 
 function getAvgCpu(cpuUsed, cpuIdx) {
   return (cpuUsed.reduce(add, 0) / cpuIdx + 1).toFixed(1)
+}
+
+function convertMineralTypeToString(mineral) {
+  if (mineral === 'energy') {
+    return '⚡';
+  }
+  let color = '#afafaf';
+  if (mineral === 'X') {
+    color = '#fc7776';
+  } else if (mineral === 'U') {
+    color = '#3db7d9'
+  } else if (mineral === 'K') {
+    color = '#a071fb'
+  } else if (mineral === 'L') {
+    color = '#23a470'
+  } else if (mineral === 'Z') {
+    color = '#fdd388'
+  }
+  return '<font color='+color+' type="highlight">' + mineral + "</font>";
 }
 
 module.exports = logs;
