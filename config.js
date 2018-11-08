@@ -1,6 +1,6 @@
 const config = {
   booleans: {
-    enableBuildingByFlagsColors: false,
+    enableBuildingByFlagsColors: true,
     enableConsoleLog: true,
     storageAmountLog: true,
     enableCpuLog: true,
@@ -29,12 +29,14 @@ const config = {
       numberOfCreeps.reserver = 1;
     } else if (roomName === 'W1S13') {
       numberOfCreeps.harvester = 1;
+      numberOfCreeps.upgrader = 0;
     }
     return numberOfCreeps;
   },
   getRoles: function () {
     return {
       repairer: require('role.repairer'),
+      rampartRepairer: require('role.rampartRepairer'),
       exportHarvester: require('role.exportHarvester'),
       claimer: require('role.claimer'),
       signer: require('role.signer'),

@@ -21,5 +21,5 @@ module.exports = {
 /*
 // to spawn creep set 'sign' flag
 
-Game.spawns['Odin'].spawnCreep([MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, CLAIM, CLAIM], 'signer', { memory: { role: 'signer'} } );
+Game.spawns['Hades'].spawnCreep([MOVE], 'signer', { memory: { role: 'signer'} } );
 */

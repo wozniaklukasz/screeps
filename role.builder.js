@@ -10,8 +10,8 @@ module.exports = {
 
     if (creep.memory.working) {
 
-      var constructionSite = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
-        filter: (s) => s.structureType !== STRUCTURE_WALL || s.structureType !== STRUCTURE_RAMPART
+      const constructionSite = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
+        filter: (s) => s.structureType !== STRUCTURE_WALL && s.structureType !== STRUCTURE_RAMPART
       });
 
       if (constructionSite) {

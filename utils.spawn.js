@@ -43,8 +43,9 @@ module.exports = {
     return body;
   },
   spawnCreepByCondition: function (numberOfCreeps, room) {
-
-    if (room.find(FIND_CONSTRUCTION_SITES).length > 0) {
+    if (room.find(FIND_CONSTRUCTION_SITES, {
+      filter: (s) => s.structureType !== STRUCTURE_WALL && s.structureType !== STRUCTURE_RAMPART
+    }).length > 0) {
       numberOfCreeps.builder = 1
     }
 
@@ -69,6 +70,17 @@ module.exports = {
       numberOfCreeps.upgrader = 1;
     }
 
+    const RAMPART_MAX_HITPOINTS = 1000000;
+    const rampartsToBuild = room.find(FIND_CONSTRUCTION_SITES, {
+      filter: (s) => s.structureType === STRUCTURE_RAMPART
+    });
+    const rampartsToMaintain = room.find(FIND_STRUCTURES, {
+      filter: (s) => (s.structureType === STRUCTURE_RAMPART) && s.hits < RAMPART_MAX_HITPOINTS
+    });
+
+    if (rampartsToBuild.length || rampartsToMaintain.length) {
+      numberOfCreeps.rampartRepairer = 1;
+    }
 //     const targetFlag = flags.getFlagByName('reserved' + room.name);
 //     if (targetFlag) {
 //       const roomWithFlag = Game.rooms[targetFlag.pos.roomName];

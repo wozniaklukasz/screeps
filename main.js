@@ -39,9 +39,7 @@ module.exports.loop = function () {
 
   for (let spawn in Game.spawns) {
     let sp = Game.spawns[spawn];
-    // if (!(Game.time % 5)) {
-      sp.spawnCreepsIfNecessary();
-    // }
+    sp.spawnCreepsIfNecessary();
     sp.spawningInfo();
   }
 
@@ -51,6 +49,22 @@ module.exports.loop = function () {
     tower.repairStructures();
   }
 
+  // testRoadCreation()
+
   logs.logFlags();
   logs.logCpuUsage();
 };
+
+function testRoadCreation() {
+  // todo: build road on source - bug
+  const spawn = Game.spawns['Gaia'];
+  if (spawn) {
+    const sources = spawn.room.find(FIND_SOURCES);
+    for (let j = 0; j < sources.length; j++) {
+      const chemin = spawn.pos.findPathTo(sources[j].pos);
+      for (let i = 0; i < chemin.length; i++) {
+        spawn.room.createConstructionSite(chemin[i].x, chemin[i].y, STRUCTURE_ROAD);
+      }
+    }
+  }
+}

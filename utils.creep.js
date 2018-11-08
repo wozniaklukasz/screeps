@@ -10,7 +10,7 @@ const utilsCreep = {
       return '🛠️';
     } else if (role === 'exportHarvester') {
       return '🔻';
-    } else if (role === 'wallRepairer') {
+    } else if (role === 'wallRepairer' || role === 'rampartRepairer') {
       return '🛡️'
     } else if (role === 'mineralHarvester') {
       return '⛏️'
