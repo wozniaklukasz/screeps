@@ -29,7 +29,7 @@ const config = {
     } else if (roomName === 'W2S16') {
       numberOfCreeps.importerHarvester = 3;
       numberOfCreeps.importerRepairer = 1;
-      numberOfCreeps.reserver = 1;
+      numberOfCreeps.importerReserver = 1;
     } else if (roomName === 'W1S13') {
       numberOfCreeps.harvester = 1;
       numberOfCreeps.upgrader = 0;
@@ -44,9 +44,8 @@ const config = {
       claimer: require('role.claimer'),
       signer: require('role.signer'),
       wallRepairer: require('role.wallRepairer'),
-      secondHarvester: require('role.secondHarvester'),
       attackerRange: require('role.attackerRange'),
-      reserver: require('role.reserver'),
+      importerReserver: require('role.importerReserver'),
       importerRepairer: require('role.importerRepairer'),
       importerHarvester: require('role.importerHarvester'),
       mineralHarvester: require('role.mineralHarvester'),

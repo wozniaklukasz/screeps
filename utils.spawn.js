@@ -31,7 +31,7 @@ module.exports = {
       body = [TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, MOVE, MOVE, RANGED_ATTACK, MOVE, MOVE, RANGED_ATTACK, MOVE, MOVE, RANGED_ATTACK, MOVE, MOVE, RANGED_ATTACK, MOVE, MOVE, RANGED_ATTACK, MOVE, MOVE, RANGED_ATTACK, MOVE, MOVE, RANGED_ATTACK, MOVE, MOVE, RANGED_ATTACK]
     }
 
-    if (role === 'reserver') {
+    if (role === 'importerReserver') {
       body = [MOVE, MOVE, CLAIM, CLAIM];
     }
 
@@ -42,6 +42,7 @@ module.exports = {
     return body;
   },
   spawnCreepByCondition: function (numberOfCreeps, room) {
+    // todo: big refactoring!!!
     if (room.find(FIND_CONSTRUCTION_SITES, {
       filter: (s) => s.structureType !== STRUCTURE_WALL && s.structureType !== STRUCTURE_RAMPART
     }).length > 0) {
