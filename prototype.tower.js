@@ -1,3 +1,5 @@
+const config = require('config');
+
 StructureTower.prototype.defend =
   function () {
     let target = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
@@ -12,7 +14,13 @@ StructureTower.prototype.repairStructures = function () {
   });
   if (structure) {
     this.repair(structure)
+  } else {
+    // experimental ramparts
+    let rampart = this.pos.findClosestByRange(FIND_STRUCTURES, {
+      filter: (s) => s.hits < config.constans.RAMPART_MAX_HITS && s.structureType === STRUCTURE_RAMPART
+    });
+    this.repair(rampart);
   }
-}
+};
 
 //todo: heal creeps before repairStructures

@@ -1,6 +1,9 @@
 const config = {
+  constans: {
+    RAMPART_MAX_HITS: 50000
+  },
   booleans: {
-    enableBuildingByFlagsColors: true,
+    enableBuildingByFlagsColors: false,
     enableConsoleLog: true,
     storageAmountLog: true,
     enableCpuLog: true,
@@ -10,9 +13,9 @@ const config = {
     const roomName = room.name;
 
     if (roomName === 'W2S19') {
-      numberOfCreeps.importerHarvester = 2;
-      numberOfCreeps.importerRepairer = 1;
-      numberOfCreeps.reserver = 1;
+      // numberOfCreeps.importerHarvester = 2;
+      // numberOfCreeps.importerRepairer = 1;
+      // numberOfCreeps.reserver = 1;
       // numberOfCreeps.attacker = 1;
     } else if (roomName === 'W3S19') {
       // numberOfCreeps.harvester = 2;

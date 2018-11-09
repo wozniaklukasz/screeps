@@ -1,5 +1,5 @@
 const flags = require('game.flags');
-var roleBuilder = require('role.builder');
+const roleBuilder = require('role.builder');
 
 // REPAIRER -> BUILDER
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
     if (!targetRoom) {
       const homeRoom = creep.memory.homeRoom;
       if (creep.room.name === homeRoom) {
-        roleHarvester.run(creep);
+        roleBuilder.run(creep);
       }
       else {
         creep.moveCreepToExit(homeRoom);

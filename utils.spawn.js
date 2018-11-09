@@ -1,5 +1,4 @@
-const flags = require('game.flags');
-const rooms = require('game.rooms');
+const config = require('config');
 
 module.exports = {
   getSpawnedCreepBody: function (energy, role) {
@@ -70,12 +69,12 @@ module.exports = {
       numberOfCreeps.upgrader = 1;
     }
 
-    const RAMPART_MAX_HITPOINTS = 1000000;
+    // spawn rampartRepairer (helper) if ramparts are at 95%
     const rampartsToBuild = room.find(FIND_CONSTRUCTION_SITES, {
       filter: (s) => s.structureType === STRUCTURE_RAMPART
     });
     const rampartsToMaintain = room.find(FIND_STRUCTURES, {
-      filter: (s) => (s.structureType === STRUCTURE_RAMPART) && s.hits < RAMPART_MAX_HITPOINTS
+      filter: (s) => (s.structureType === STRUCTURE_RAMPART) && s.hits < (config.constans.RAMPART_MAX_HITS * 0.95)
     });
 
     if (rampartsToBuild.length || rampartsToMaintain.length) {

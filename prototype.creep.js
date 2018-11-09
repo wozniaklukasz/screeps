@@ -13,13 +13,17 @@ Creep.prototype.runRole = function () {
 };
 
 Creep.prototype.myMoveTo = function (target) {
-  this.moveTo(target, {visualizePathStyle: {
-      fill: 'transparent',
-      stroke: '#0f0',
-      lineStyle: 'dashed',
-      strokeWidth: .1,
-      opacity: 1
-    }});
+  this.moveTo(target, {
+      // todo: experimental
+      reusePath: 15, // default: 5
+      visualizePathStyle: {
+          fill: 'transparent',
+          stroke: '#0f0',
+          lineStyle: 'dashed',
+          strokeWidth: .1,
+          opacity: 1
+        }
+    });
 };
 
 Creep.prototype.getEnergy = function (useContainer, useSource) {
