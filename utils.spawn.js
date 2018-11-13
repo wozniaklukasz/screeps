@@ -42,26 +42,21 @@ module.exports = {
     return body;
   },
   spawnCreepByCondition: function (numberOfCreeps, room) {
-    // todo: big refactoring!!!
-    if (room.find(FIND_CONSTRUCTION_SITES, {
-      filter: (s) => s.structureType !== STRUCTURE_WALL && s.structureType !== STRUCTURE_RAMPART
-    }).length > 0) {
+    const roomMemory = Memory.rooms[room.name];
+
+    if (roomMemory.spawnBuilder) {
       numberOfCreeps.builder = 1
     }
 
-    const myStructures = room.find(FIND_MY_STRUCTURES);
-    const extractor = _.filter(myStructures, s => s.structureType === STRUCTURE_EXTRACTOR);
-    const mineralAmount = room.find(FIND_MINERALS)[0].mineralAmount;
-    const storage = room.storage;
-    if (storage) {
-      const mineralStored = _.sum(room.storage.store) - room.storage.store[RESOURCE_ENERGY];
-      if (!_.isEmpty(extractor) && mineralAmount > 0 && mineralStored < 51000) {
-        numberOfCreeps.mineralHarvester = 1
-      }
+    if (roomMemory.spawnMineralHarvester) {
+      numberOfCreeps.mineralHarvester = 1
     }
 
-    const roomMemory = Memory.rooms[room.name];
-    if (roomMemory.linkSourceId && roomMemory.linkControllerId) {
+    if (roomMemory.spawnRampartRepairer) {
+      numberOfCreeps.rampartRepairer = 1;
+    }
+
+    if (roomMemory.spawnLinkUpgraders) {
       numberOfCreeps.harvester = 1;
       numberOfCreeps.linkHarvester = 1;
       numberOfCreeps.linkUpgrader = 1;
@@ -70,17 +65,6 @@ module.exports = {
       numberOfCreeps.upgrader = 1;
     }
 
-    // spawn rampartRepairer (helper) if ramparts are at 95%
-    const rampartsToBuild = room.find(FIND_CONSTRUCTION_SITES, {
-      filter: (s) => s.structureType === STRUCTURE_RAMPART
-    });
-    const rampartsToMaintain = room.find(FIND_STRUCTURES, {
-      filter: (s) => (s.structureType === STRUCTURE_RAMPART) && s.hits < (config.constans.RAMPART_MAX_HITS * 0.95)
-    });
-
-    if (rampartsToBuild.length || rampartsToMaintain.length) {
-      numberOfCreeps.rampartRepairer = 1;
-    }
 //     const targetFlag = flags.getFlagByName('reserved' + room.name);
 //     if (targetFlag) {
 //       const roomWithFlag = Game.rooms[targetFlag.pos.roomName];

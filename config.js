@@ -28,12 +28,12 @@ const config = {
       // numberOfCreeps.exportHarvester = 2;
       // numberOfCreeps.builder = 2
     } else if (roomName === 'W2S16') {
-        // numberOfCreeps.importerHarvester = 3;
-        // numberOfCreeps.importerRepairer = 1;
-        // numberOfCreeps.importerReserver = 1;
+      numberOfCreeps.importerHarvester = 3;
+      numberOfCreeps.importerRepairer = 1;
+      numberOfCreeps.importerReserver = 1;
     } else if (roomName === 'W1S13') {
-    //   numberOfCreeps.harvester = 1;
-    //   numberOfCreeps.exportHarvester = 3;
+      //   numberOfCreeps.harvester = 1;
+      //   numberOfCreeps.exportHarvester = 3;
       //numberOfCreeps.builder = 2;
     }
     return numberOfCreeps;
@@ -73,6 +73,54 @@ const config = {
       structure = STRUCTURE_SPAWN // blue flag
     }
     return structure;
+  },
+  getLinkConnections: function (roomName) {
+    if (roomName === "W2S19") {
+      return {
+        linkSource: {x: 37, y: 44},
+        linkController: {x: 18, y: 9}
+      }
+    } else if (roomName === "W5S18") {
+      return {
+        linkSource: {x: 33, y: 21},
+        linkController: {x: 17, y: 43}
+      }
+    } else if (roomName === "W1S15") {
+      return {
+        linkSource: {x: 14, y: 23},
+        linkController: {x: 36, y: 14}
+      }
+    } else if (roomName === "W3S19") {
+      return {
+        linkSource: {x: 7, y: 44},
+        linkController: {x: 34, y: 19}
+      }
+    } else if (roomName === "W2S16") {
+      return {
+        linkSource: {x: 12, y: 24},
+        linkController: {x: 42, y: 19}
+      }
+    } else if (roomName === "W4S18") {
+      return {
+        linkSource: {x: 35, y: 37},
+        linkController: {x: 13, y: 11}
+      }
+    } else if (roomName === "W1S13") {
+      return {
+        linkSource: {x: 3, y: 23},
+        linkController: {x: 25, y: 6}
+      }
+    }
+    // const linkSource = tmpRoom.lookForAt('structure', sourceX, sourceY)[0];
+    // const linkController = tmpRoom.lookForAt('structure', controllerX, controllerY)[0];
+    // if (linkSource && linkController) {
+    //   linkSource.transferEnergy(linkController);
+    //   tmpRoom.memory.linkSourceId = linkSource.id;
+    //   tmpRoom.memory.linkControllerId = linkController.id;
+    // } else {
+    //   tmpRoom.memory.linkSourceId = null;
+    //   tmpRoom.memory.linkControllerId = null;
+    // }
   }
 };
 

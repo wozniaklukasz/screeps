@@ -6,7 +6,6 @@ require('prototype.link');
 
 const logs = require('logs');
 const memoryClearing = require('memory.clearing');
-const utilsLink = require('utils.link');
 const flags = require('game.flags');
 const creeps = require('game.creeps');
 const rooms = require('game.rooms');
@@ -21,8 +20,6 @@ module.exports.loop = function () {
   flags.setFlags();
   creeps.setCreeps();
   rooms.setRooms();
-
-  utilsLink.linksTransfers();
 
   const gCreeps = creeps.getCreeps();
   const gRooms = rooms.getRooms();

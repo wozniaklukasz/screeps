@@ -10,15 +10,6 @@ const gameCreeps = {
     }
   },
 
-  getCreepByName: function (name) {
-    for (let creep in this._creeps) {
-      if (creep.toString().toLowerCase() === name.toLowerCase()) {
-        return this._creeps[creep];
-      }
-    }
-    return null;
-  },
-
   getCreeps() {
     return this._creeps;
   }
