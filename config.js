@@ -3,7 +3,7 @@ const config = {
     RAMPART_MAX_HITS: 50000
   },
   booleans: {
-    enableBuildingByFlagsColors: false,
+    enableBuildingByFlagsColors: true,
     enableConsoleLog: true,
     storageAmountLog: true,
     enableCpuLog: true,
@@ -25,14 +25,16 @@ const config = {
       // numberOfCreeps.importerHarvester = 2;
     } else if (roomName === 'W1S15') {
       // numberOfCreeps.attacker = 1;
-      numberOfCreeps.exportHarvester = 2;
+      // numberOfCreeps.exportHarvester = 2;
+      // numberOfCreeps.builder = 2
     } else if (roomName === 'W2S16') {
-      numberOfCreeps.importerHarvester = 3;
-      numberOfCreeps.importerRepairer = 1;
-      numberOfCreeps.importerReserver = 1;
+        // numberOfCreeps.importerHarvester = 3;
+        // numberOfCreeps.importerRepairer = 1;
+        // numberOfCreeps.importerReserver = 1;
     } else if (roomName === 'W1S13') {
-      numberOfCreeps.harvester = 1;
-      numberOfCreeps.upgrader = 0;
+    //   numberOfCreeps.harvester = 1;
+    //   numberOfCreeps.exportHarvester = 3;
+      //numberOfCreeps.builder = 2;
     }
     return numberOfCreeps;
   },
@@ -66,7 +68,7 @@ const config = {
     } else if (flag.color === 1) {
       structure = STRUCTURE_TOWER // red flag
     } else if (flag.color === 2) {
-      structure = STRUCTURE_EXTRACTOR // purple flag
+      structure = STRUCTURE_LINK // purple flag
     } else if (flag.color === 3) {
       structure = STRUCTURE_SPAWN // blue flag
     }
