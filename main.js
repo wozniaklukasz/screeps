@@ -19,10 +19,14 @@ module.exports.loop = function () {
 
   flags.setFlags();
   creeps.setCreeps();
+  let x = Game.cpu.getUsed()
   rooms.setRooms();
+  let y = Game.cpu.getUsed();
+
 
   const gCreeps = creeps.getCreeps();
   const gRooms = rooms.getRooms();
+
 
   for (let creep in gCreeps) {
     let cr = gCreeps[creep];
@@ -40,13 +44,16 @@ module.exports.loop = function () {
     sp.spawningInfo();
   }
 
+  // let x = Game.cpu.getUsed()
   let towers = _.filter(Game.structures, s => s.structureType === STRUCTURE_TOWER);
   for (let tower of towers) {
     tower.defend();
     tower.repairStructures();
   }
+  // let y = Game.cpu.getUsed();
 
   // testRoadCreation()
+  console.log(y - x)
 
   logs.logFlags();
   logs.logCpuUsage();

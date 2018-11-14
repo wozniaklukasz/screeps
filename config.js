@@ -1,6 +1,6 @@
 const config = {
   constans: {
-    RAMPART_MAX_HITS: 50000
+    RAMPART_MAX_HITS: 20000
   },
   booleans: {
     enableBuildingByFlagsColors: true,
@@ -8,6 +8,7 @@ const config = {
     storageAmountLog: true,
     enableCpuLog: true,
     enableFlagsLog: true,
+    autoBuildRamparts: true
   },
   getNumberOfCreepsToDo: function (numberOfCreeps, room) {
     const roomName = room.name;

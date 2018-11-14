@@ -9,17 +9,16 @@ StructureTower.prototype.defend =
   };
 
 StructureTower.prototype.repairStructures = function () {
-  let structure = this.pos.findClosestByRange(FIND_STRUCTURES, {
-    filter: (s) => s.hits < s.hitsMax && s.structureType !== STRUCTURE_WALL && s.structureType !== STRUCTURE_RAMPART
-  });
-  if (structure) {
-    this.repair(structure)
+  const structureToRepairId = Memory.rooms[this.room.name].structureToRepair;
+
+  if (structureToRepairId) {
+    this.repair(Game.getObjectById(structureToRepairId))
   } else {
-    // experimental ramparts
-    let rampart = this.pos.findClosestByRange(FIND_STRUCTURES, {
-      filter: (s) => s.hits < config.constans.RAMPART_MAX_HITS && s.structureType === STRUCTURE_RAMPART
-    });
-    this.repair(rampart);
+    const rampartToRepairId = Memory.rooms[this.room.name].rampartToRepair;
+
+    if (rampartToRepairId) {
+      this.repair(Game.getObjectById(rampartToRepairId))
+    }
   }
 };
 

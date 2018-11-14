@@ -1,5 +1,3 @@
-const config = require('config');
-
 module.exports = {
   getSpawnedCreepBody: function (energy, role) {
     let body = [WORK, WORK, CARRY, MOVE];
