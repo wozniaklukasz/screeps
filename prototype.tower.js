@@ -8,6 +8,14 @@ StructureTower.prototype.defend =
     }
   };
 
+StructureTower.prototype.healCreeps =
+  function (targets) {
+    let target = this.pos.findClosestByRange(targets);
+    if (target) {
+      this.heal(target);
+    }
+  };
+
 StructureTower.prototype.repairStructures = function () {
   const structureToRepairId = Memory.rooms[this.room.name].structureToRepair;
 

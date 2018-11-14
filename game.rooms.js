@@ -25,6 +25,8 @@ const gameRooms = {
 
             const hostileCreeps = room.find(FIND_HOSTILE_CREEPS);
 
+            const myCreeps = room.find(FIND_MY_CREEPS);
+
             const isRoomUnderAttack = !_.isEmpty(hostileCreeps);
 
             for (let tower of towers) {
@@ -33,6 +35,8 @@ const gameRooms = {
               } else {
                 tower.repairStructures();
               }
+
+              tower.healCreeps(myCreeps.filter((c) => c.hits < c.hitsMax));
             }
 
             const constructionSites = room.find(FIND_CONSTRUCTION_SITES);
