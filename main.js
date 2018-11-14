@@ -31,20 +31,10 @@ module.exports.loop = function () {
     cr.showCreepRole();
   }
 
-  for (let room in gRooms) {
-    gRooms[room].buildStructuresOnFlags();
-  }
-
   for (let spawn in Game.spawns) {
     let sp = Game.spawns[spawn];
     sp.spawnCreepsIfNecessary();
     sp.spawningInfo();
-  }
-
-  let towers = _.filter(Game.structures, s => s.structureType === STRUCTURE_TOWER);
-  for (let tower of towers) {
-    tower.defend();
-    tower.repairStructures();
   }
 
   // testRoadCreation()

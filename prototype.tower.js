@@ -1,8 +1,8 @@
 const config = require('config');
 
 StructureTower.prototype.defend =
-  function () {
-    let target = this.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+  function (targets) {
+    let target = this.pos.findClosestByRange(targets);
     if (target) {
       this.attack(target);
     }

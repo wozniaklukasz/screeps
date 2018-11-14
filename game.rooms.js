@@ -21,6 +21,20 @@ const gameRooms = {
           if (controller.my) {
             const structures = room.find(FIND_STRUCTURES);
 
+            const towers = structures.filter(s => s.structureType === STRUCTURE_TOWER);
+
+            const hostileCreeps = room.find(FIND_HOSTILE_CREEPS);
+
+            const isRoomUnderAttack = !_.isEmpty(hostileCreeps);
+
+            for (let tower of towers) {
+              if (isRoomUnderAttack) {
+                tower.defend(hostileCreeps);
+              } else {
+                tower.repairStructures();
+              }
+            }
+
             const constructionSites = room.find(FIND_CONSTRUCTION_SITES);
 
             const constructionSitesWithoutWallsAndRamparts = constructionSites.filter(s => s.structureType !== STRUCTURE_WALL && s.structureType !== STRUCTURE_RAMPART);
@@ -106,6 +120,15 @@ const gameRooms = {
               roomMemoryToWrite[room.name].structureToRepair = structureToRepair.id;
             } else {
               roomMemoryToWrite[room.name].structureToRepair = null;
+            }
+
+            if (config.booleans.enableBuildingByFlagsColors) {
+              room.find(FIND_FLAGS).map(f => {
+                let structure = config.getBuildingByFlagColor(f);
+                if (structure) {
+                  room.createConstructionSite(f.pos.x, f.pos.y, structure);
+                }
+              });
             }
           } // eo controller.my
         } // eo controller
