@@ -65,7 +65,7 @@ const gameRooms = {
 
             if (storage) {
               const mineralStored = _.sum(room.storage.store) - room.storage.store[RESOURCE_ENERGY];
-              if (!_.isEmpty(extractor) && mineralAmount > 0 && mineralStored < 51000) {
+              if (!_.isEmpty(extractor) && mineralAmount > 0 && mineralStored < config.constans.STORAGE_MINERAL) {
                 roomMemoryToWrite[room.name].spawnMineralHarvester = true;
               } else {
                 roomMemoryToWrite[room.name].spawnMineralHarvester = false;

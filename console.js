@@ -1,6 +1,6 @@
 /*
 
-Game.spawns['Thor'].spawnCreep( [WORK, WORK, WORK, WORK, WORK, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY], 'harvester844848',
+Game.spawns['Thor'].spawnCreep( [WORK, MOVE, MOVE, CARRY, CARRY], 'harvester844848',
     { memory: { role: 'harvester', targetRoom: "E28S28", working: false } } );
 
 

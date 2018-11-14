@@ -1,6 +1,8 @@
 const config = {
   constans: {
-    RAMPART_MAX_HITS: 50000
+    RAMPART_MAX_HITS: 50000,
+    STORAGE_ENERGY: 500000,
+    STORAGE_MINERAL: 51000
   },
   booleans: {
     enableBuildingByFlagsColors: true,
@@ -62,9 +64,7 @@ const config = {
   },
   getBuildingByFlagColor: function (flag) {
     let structure = '';
-    if (flag.color === 9) {
-      structure = STRUCTURE_ROAD // grey flag
-    } else if (flag.color === 6) {
+    if (flag.color === 6) {
       structure = STRUCTURE_EXTENSION // yellow flag
     } else if (flag.color === 1) {
       structure = STRUCTURE_TOWER // red flag
@@ -72,6 +72,8 @@ const config = {
       structure = STRUCTURE_LINK // purple flag
     } else if (flag.color === 3) {
       structure = STRUCTURE_SPAWN // blue flag
+    } else if (flag.color === 7) {
+      structure = STRUCTURE_EXTRACTOR // orange flag
     }
     return structure;
   },
