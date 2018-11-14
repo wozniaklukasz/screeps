@@ -27,7 +27,7 @@ const gameRooms = {
 
             const rampartsToBuild = constructionSites.filter((s) => s.structureType === STRUCTURE_RAMPART);
 
-            const rampartsToMaintain = room.find((s) => (s.structureType === STRUCTURE_RAMPART) && s.hits < (config.constans.RAMPART_MAX_HITS * 0.95));
+            const rampartsToMaintain = structures.find((s) => (s.structureType === STRUCTURE_RAMPART) && s.hits < (config.constans.RAMPART_MAX_HITS * 0.95));
 
             const extractor = structures.filter(s => s.structureType === STRUCTURE_EXTRACTOR);
 
@@ -45,8 +45,12 @@ const gameRooms = {
               if (linkSource && linkController) {
                 roomMemoryToWrite[room.name].spawnLinkUpgraders = true;
                 linkSource.transferEnergy(linkController);
+                roomMemoryToWrite[room.name].linkSourceId = linkSource.id;
+                roomMemoryToWrite[room.name].linkControllerId = linkController.id;
               } else {
                 roomMemoryToWrite[room.name].spawnLinkUpgraders = false;
+                roomMemoryToWrite[room.name].linkSourceId = null;
+                roomMemoryToWrite[room.name].linkControllerId = null;
               }
             } else {
               roomMemoryToWrite[room.name].spawnLinkUpgraders = false;
@@ -70,7 +74,7 @@ const gameRooms = {
               roomMemoryToWrite[room.name].spawnMineralHarvester = false;
             }
 
-            if (rampartsToBuild.length || rampartsToMaintain.length) {
+            if (rampartsToBuild.length || !_.isEmpty(rampartsToMaintain)) {
               roomMemoryToWrite[room.name].spawnRampartRepairer = true;
             } else {
               roomMemoryToWrite[room.name].spawnRampartRepairer = false;
