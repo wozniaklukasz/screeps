@@ -2,7 +2,7 @@ const config = {
   constans: {
     RAMPART_MAX_HITS: 50000,
     STORAGE_ENERGY: 500000,
-    STORAGE_MINERAL: 51000
+    STORAGE_MINERAL: 50000
   },
   booleans: {
     enableBuildingByFlagsColors: true,

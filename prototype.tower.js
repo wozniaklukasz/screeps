@@ -16,17 +16,9 @@ StructureTower.prototype.healCreeps =
     }
   };
 
-StructureTower.prototype.repairStructures = function () {
-  const structureToRepairId = Memory.rooms[this.room.name].structureToRepair;
-
-  if (structureToRepairId) {
-    this.repair(Game.getObjectById(structureToRepairId))
-  } else {
-    const rampartToRepairId = Memory.rooms[this.room.name].rampartToRepair;
-
-    if (rampartToRepairId) {
-      this.repair(Game.getObjectById(rampartToRepairId))
-    }
+StructureTower.prototype.repairStructure = function (structure) {
+  if (structure) {
+    this.repair(structure)
   }
 };
 

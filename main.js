@@ -22,8 +22,6 @@ module.exports.loop = function () {
   rooms.setRooms();
 
   const gCreeps = creeps.getCreeps();
-  const gRooms = rooms.getRooms();
-
 
   for (let creep in gCreeps) {
     let cr = gCreeps[creep];

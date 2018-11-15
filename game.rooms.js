@@ -29,14 +29,23 @@ const gameRooms = {
 
             const isRoomUnderAttack = !_.isEmpty(hostileCreeps);
 
+            const structureToRepair = structures.filter((s) => s.hits < s.hitsMax && s.structureType !== STRUCTURE_WALL && s.structureType !== STRUCTURE_RAMPART
+            )[0];
+
+            const rampartToRepair = structures.filter((s) => s.structureType === STRUCTURE_RAMPART && s.hits < config.constans.RAMPART_MAX_HITS)[0];
+
             for (let tower of towers) {
               if (isRoomUnderAttack) {
                 tower.defend(hostileCreeps);
               } else {
-                tower.repairStructures();
-              }
+                tower.healCreeps(myCreeps.filter((c) => c.hits < c.hitsMax));
 
-              tower.healCreeps(myCreeps.filter((c) => c.hits < c.hitsMax));
+                if (structureToRepair) {
+                  tower.repairStructure(structureToRepair);
+                } else if (rampartToRepair) {
+                  tower.repairStructure(rampartToRepair);
+                }
+              }
             }
 
             const constructionSites = room.find(FIND_CONSTRUCTION_SITES);
@@ -92,39 +101,15 @@ const gameRooms = {
               roomMemoryToWrite[room.name].spawnMineralHarvester = false;
             }
 
-            if (rampartsToBuild.length || !_.isEmpty(rampartsToMaintain)) {
+            const lowEnergyTowers = towers.filter((t) => t.energy < t.energyCapacity * 0.2);
+
+            if (rampartsToBuild.length || !_.isEmpty(rampartsToMaintain) || !_.isEmpty(lowEnergyTowers)) {
               roomMemoryToWrite[room.name].spawnRampartRepairer = true;
             } else {
               roomMemoryToWrite[room.name].spawnRampartRepairer = false;
             }
 
             const structuresWithoutRamparts = structures.filter((s) => s.structureType !== STRUCTURE_RAMPART);
-
-            const rampartToRepair = structures.filter((s) => s.structureType === STRUCTURE_RAMPART && s.hits < config.constans.RAMPART_MAX_HITS)[0];
-
-            if (rampartToRepair) {
-              roomMemoryToWrite[room.name].rampartToRepair = rampartToRepair.id;
-            } else {
-              roomMemoryToWrite[room.name].rampartToRepair = null;
-            }
-
-
-            // console.log(structuresWithoutRamparts[0].pos)
-            // for (let str in structuresWithoutRamparts) {
-            //
-            //   const structure = structuresWithoutRamparts[str];
-            //
-            //   // room.createConstructionSite(structure.pos, STRUCTURE_RAMPART);
-            // }
-
-            const structureToRepair = structures.filter((s) => s.hits < s.hitsMax && s.structureType !== STRUCTURE_WALL && s.structureType !== STRUCTURE_RAMPART
-            )[0];
-
-            if (structureToRepair) {
-              roomMemoryToWrite[room.name].structureToRepair = structureToRepair.id;
-            } else {
-              roomMemoryToWrite[room.name].structureToRepair = null;
-            }
 
             if (config.booleans.enableBuildingByFlagsColors) {
               room.find(FIND_FLAGS).map(f => {
