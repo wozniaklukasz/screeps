@@ -30,10 +30,13 @@ const config = {
       // numberOfCreeps.attacker = 1;
       // numberOfCreeps.exportHarvester = 2;
       // numberOfCreeps.builder = 2
+      // numberOfCreeps.linkHarvester = 0;
+      // numberOfCreeps.linkUpgrader = 0;
+      // numberOfCreeps.builder = 3;
     } else if (roomName === 'W2S16') {
-      // numberOfCreeps.importerHarvester = 3;
-      // numberOfCreeps.importerRepairer = 1;
-      // numberOfCreeps.importerReserver = 1;
+      // numberOfCreeps.importerHarvester = 1;
+      // numberOfCreeps.importerRepairer = 0;
+      // numberOfCreeps.importerReserver = 0;
     } else if (roomName === 'W1S13') {
       //   numberOfCreeps.harvester = 1;
       //   numberOfCreeps.exportHarvester = 3;

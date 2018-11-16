@@ -101,15 +101,13 @@ const gameRooms = {
               roomMemoryToWrite[room.name].spawnMineralHarvester = false;
             }
 
-            const lowEnergyTowers = towers.filter((t) => t.energy < t.energyCapacity * 0.2);
+            const lowEnergyTowers = towers.filter((t) => t.energy < t.energyCapacity * 0.3);
 
             if (rampartsToBuild.length || !_.isEmpty(rampartsToMaintain) || !_.isEmpty(lowEnergyTowers)) {
               roomMemoryToWrite[room.name].spawnRampartRepairer = true;
             } else {
               roomMemoryToWrite[room.name].spawnRampartRepairer = false;
             }
-
-            const structuresWithoutRamparts = structures.filter((s) => s.structureType !== STRUCTURE_RAMPART);
 
             if (config.booleans.enableBuildingByFlagsColors) {
               room.find(FIND_FLAGS).map(f => {
@@ -121,7 +119,7 @@ const gameRooms = {
             }
           } // eo controller.my
         } // eo controller
-      }
+      } // eo rooms loop
 
       Memory.rooms = roomMemoryToWrite;
     },
