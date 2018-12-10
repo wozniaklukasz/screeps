@@ -10,7 +10,7 @@ const roleHarvester = {
     if (creep.memory.working) {
       const structure = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
         filter: (s) => (s.structureType === STRUCTURE_SPAWN
-          || s.structureType === STRUCTURE_EXTENSION || s.structureType === STRUCTURE_TOWER)
+          || s.structureType === STRUCTURE_EXTENSION)
           && s.energy < s.energyCapacity
       });
 
@@ -19,18 +19,28 @@ const roleHarvester = {
           creep.myMoveTo(structure);
         }
       } else {
-        const storage = creep.room.storage;
-        const constructions = creep.room.find(FIND_CONSTRUCTION_SITES);
+        const tower = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+          filter: (s) => (s.structureType === STRUCTURE_TOWER && s.energy < s.energyCapacity)
+        });
 
-        // todo: storage.store[RESOURCE_ENERGY] only counts energy (not minerals)
-        // todo: storage.storeCapacity is 1M, now condition is set to 200k
-        if (!constructions.length && storage && storage.store[RESOURCE_ENERGY] < config.constans.STORAGE_ENERGY) {
-          if (creep.transfer(storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-            creep.myMoveTo(storage);
+        if (tower) {
+          if (creep.transfer(tower, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+            creep.myMoveTo(tower);
           }
-        }
-        else {
-          roleBuilder.run(creep);
+        } else {
+          const storage = creep.room.storage;
+          const constructions = creep.room.find(FIND_CONSTRUCTION_SITES);
+
+          // todo: storage.store[RESOURCE_ENERGY] only counts energy (not minerals)
+          // todo: storage.storeCapacity is 1M, now condition is set to 200k
+          if (!constructions.length && storage && storage.store[RESOURCE_ENERGY] < config.constans.STORAGE_ENERGY) {
+            if (creep.transfer(storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+              creep.myMoveTo(storage);
+            }
+          }
+          else {
+            roleBuilder.run(creep);
+          }
         }
       }
     }

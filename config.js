@@ -1,8 +1,8 @@
 const config = {
   constans: {
-    RAMPART_MAX_HITS: 50000,
+    RAMPART_MAX_HITS: 100000,
     STORAGE_ENERGY: 500000,
-    STORAGE_MINERAL: 50000
+    STORAGE_MINERAL: 40000
   },
   booleans: {
     enableBuildingByFlagsColors: true,
@@ -24,10 +24,11 @@ const config = {
       // numberOfCreeps.harvester = 2;
     } else if (roomName === 'W4S18') {
       // numberOfCreeps.linkHarvester = 0;
+    //   numberOfCreeps.attacker = 0;
     } else if (roomName === 'W5S18') {
       // numberOfCreeps.importerHarvester = 2;
     } else if (roomName === 'W1S15') {
-      // numberOfCreeps.attacker = 1;
+    //   numberOfCreeps.attacker = 1;
       // numberOfCreeps.exportHarvester = 2;
       // numberOfCreeps.builder = 2
       // numberOfCreeps.linkHarvester = 0;

@@ -8,7 +8,7 @@ module.exports = {
     const room = creep.room;
 
     if (room.name === targetRoom && room.controller) {
-      if (creep.signController(room.controller, 'Na pohybel!') === ERR_NOT_IN_RANGE) {
+      if (creep.signController(room.controller, 'RESERVATION!!!') === ERR_NOT_IN_RANGE) {
         creep.myMoveTo(room.controller);
       }
     }

@@ -101,7 +101,7 @@ const gameRooms = {
               roomMemoryToWrite[room.name].spawnMineralHarvester = false;
             }
 
-            const lowEnergyTowers = towers.filter((t) => t.energy < t.energyCapacity * 0.3);
+            const lowEnergyTowers = towers.filter((t) => t.energy < t.energyCapacity * 0.2);
 
             if (rampartsToBuild.length || !_.isEmpty(rampartsToMaintain) || !_.isEmpty(lowEnergyTowers)) {
               roomMemoryToWrite[room.name].spawnRampartRepairer = true;

@@ -20,6 +20,10 @@ module.exports = {
         filter: (s) => s.structureType !== STRUCTURE_CONTROLLER
       });
 
+      // const targetWalls = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES,  {filter: {structureType: STRUCTURE_WALL}});
+      //
+      // console.log('wa;s', targetStructures)
+
       if (targetStructures) {
         creep.attackTarget(targetStructures);
       } else {
