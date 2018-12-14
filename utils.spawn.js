@@ -54,6 +54,11 @@ module.exports = {
       numberOfCreeps.rampartRepairer = 1;
     }
 
+    // TODO autospawn wall
+    // if (roomMemory.spawnWallRepairer) {
+    //   numberOfCreeps.spawnWallRepairer = 1
+    // }
+
     if (roomMemory.spawnLinkUpgraders) {
       numberOfCreeps.harvester = 1;
       numberOfCreeps.linkHarvester = 1;

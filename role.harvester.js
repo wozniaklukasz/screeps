@@ -28,18 +28,26 @@ const roleHarvester = {
             creep.myMoveTo(tower);
           }
         } else {
-          const storage = creep.room.storage;
-          const constructions = creep.room.find(FIND_CONSTRUCTION_SITES);
+          const nuker = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+            filter: (s) => (s.structureType === STRUCTURE_NUKER && s.energy < s.energyCapacity)
+          });
 
-          // todo: storage.store[RESOURCE_ENERGY] only counts energy (not minerals)
-          // todo: storage.storeCapacity is 1M, now condition is set to 200k
-          if (!constructions.length && storage && storage.store[RESOURCE_ENERGY] < config.constans.STORAGE_ENERGY) {
-            if (creep.transfer(storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-              creep.myMoveTo(storage);
+          if (nuker) {
+            if (creep.transfer(nuker, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+              creep.myMoveTo(nuker);
             }
-          }
-          else {
-            roleBuilder.run(creep);
+          } else {
+            const storage = creep.room.storage;
+            const constructions = creep.room.find(FIND_CONSTRUCTION_SITES);
+
+            if (!constructions.length && storage && storage.store[RESOURCE_ENERGY] < config.constans.STORAGE_ENERGY) {
+              if (creep.transfer(storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+                creep.myMoveTo(storage);
+              }
+            }
+            else {
+              roleBuilder.run(creep);
+            }
           }
         }
       }

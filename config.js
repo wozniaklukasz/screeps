@@ -1,6 +1,7 @@
 const config = {
   constans: {
     RAMPART_MAX_HITS: 100000,
+    WALL_MAX_HITS: 1000000,
     STORAGE_ENERGY: 500000,
     STORAGE_MINERAL: 40000
   },
@@ -27,6 +28,8 @@ const config = {
     //   numberOfCreeps.attacker = 0;
     } else if (roomName === 'W5S18') {
       // numberOfCreeps.importerHarvester = 2;
+        numberOfCreeps.attacker = 1;
+        numberOfCreeps.wallRepairer = 1;
     } else if (roomName === 'W1S15') {
     //   numberOfCreeps.attacker = 1;
       // numberOfCreeps.exportHarvester = 2;
@@ -34,6 +37,7 @@ const config = {
       // numberOfCreeps.linkHarvester = 0;
       // numberOfCreeps.linkUpgrader = 0;
       // numberOfCreeps.builder = 3;
+      numberOfCreeps.wallRepairer = 1;
     } else if (roomName === 'W2S16') {
       // numberOfCreeps.importerHarvester = 1;
       // numberOfCreeps.importerRepairer = 0;

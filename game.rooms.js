@@ -109,6 +109,15 @@ const gameRooms = {
               roomMemoryToWrite[room.name].spawnRampartRepairer = false;
             }
 
+            // TODO autospawn wall
+            // console.log(wallsToBuild)
+            // if (!_.isEmpty(wallsToMaintain) || !_.isEmpty(wallsToBuild)) {
+            //   roomMemoryToWrite[room.name].spawnWallRepairer = true;
+            // } else {
+            //   roomMemoryToWrite[room.name].spawnWallRepairer = false;
+            // }
+
+
             if (config.booleans.enableBuildingByFlagsColors) {
               room.find(FIND_FLAGS).map(f => {
                 let structure = config.getBuildingByFlagColor(f);

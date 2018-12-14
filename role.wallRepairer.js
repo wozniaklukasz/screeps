@@ -1,4 +1,5 @@
 const roleBuilder = require('role.builder');
+const config = require('config');
 
 module.exports = {
   run: function (creep) {
@@ -7,43 +8,49 @@ module.exports = {
     if (creep.memory.working) {
       // care with this constants (CPU limit)
       // todo: rampart max hitpoints 1M, wall 300M
-      const WALL_MAX_HITPOINTS = 1000000;
       const hitpointsIncrementation = 50000;
       let walls = [];
       let hitsWallToRepair = 0;
 
       const wallToBuild = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
-        filter: (s) => s.structureType === STRUCTURE_WALL || s.structureType === STRUCTURE_RAMPART
+        filter: (s) => s.structureType === STRUCTURE_WALL
       });
 
       if (wallToBuild) {
         creep.buildConstruction(wallToBuild);
       } else {
+        const newWalls = creep.room.find(FIND_STRUCTURES, {
+          filter: (s) => (s.structureType === STRUCTURE_WALL) && s.hits < 10
+        });
 
-        while (!walls.length && hitsWallToRepair < WALL_MAX_HITPOINTS) {
-          hitsWallToRepair += hitpointsIncrementation;
-
-          walls = creep.room.find(FIND_STRUCTURES, {
-            filter: (s) => (s.structureType === STRUCTURE_WALL || s.structureType === STRUCTURE_RAMPART) && s.hits < hitsWallToRepair
-          });
-
-        }
-
-        if (walls.length) {
-          // todo: (build problem) repair ramparts at 80% - because of decay
-          let ramparts = walls.filter(
-            s => s.structureType === STRUCTURE_RAMPART && s.hits < hitsWallToRepair * .8
-          );
-
-          // build ramparts before walls
-          let wall = creep.pos.findClosestByRange(ramparts.length ? ramparts : walls);
+        if (newWalls.length) {
+          let wall = creep.pos.findClosestByRange(newWalls);
 
           if (creep.repair(wall) === ERR_NOT_IN_RANGE) {
             creep.myMoveTo(wall);
           }
-        }
-        else {
-          roleBuilder.run(creep);
+        } else {
+          while (!walls.length && hitsWallToRepair < config.constans.WALL_MAX_HITS) {
+            hitsWallToRepair += hitpointsIncrementation;
+
+            walls = creep.room.find(FIND_STRUCTURES, {
+              filter: (s) => (s.structureType === STRUCTURE_WALL) && s.hits < hitsWallToRepair
+            });
+
+          }
+
+          if (walls.length) {
+
+            // build ramparts before walls
+            let wall = creep.pos.findClosestByRange(walls);
+
+            if (creep.repair(wall) === ERR_NOT_IN_RANGE) {
+              creep.myMoveTo(wall);
+            }
+          }
+          else {
+            roleBuilder.run(creep);
+          }
         }
       }
     }
