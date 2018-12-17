@@ -21,15 +21,18 @@ const config = {
       // numberOfCreeps.importerRepairer = 1;
       // numberOfCreeps.reserver = 1;
       // numberOfCreeps.attacker = 1;
+      //numberOfCreeps.wallRepairer = 1;
     } else if (roomName === 'W3S19') {
       // numberOfCreeps.harvester = 2;
+      numberOfCreeps.wallRepairer = 1;
     } else if (roomName === 'W4S18') {
       // numberOfCreeps.linkHarvester = 0;
     //   numberOfCreeps.attacker = 0;
+    //numberOfCreeps.wallRepairer = 1;
     } else if (roomName === 'W5S18') {
-      // numberOfCreeps.importerHarvester = 2;
-        numberOfCreeps.attacker = 1;
-        numberOfCreeps.wallRepairer = 1;
+       //numberOfCreeps.importerReserver = 1;
+        //numberOfCreeps.attacker = 1;
+        //numberOfCreeps.wallRepairer = 1;
     } else if (roomName === 'W1S15') {
     //   numberOfCreeps.attacker = 1;
       // numberOfCreeps.exportHarvester = 2;
@@ -37,15 +40,16 @@ const config = {
       // numberOfCreeps.linkHarvester = 0;
       // numberOfCreeps.linkUpgrader = 0;
       // numberOfCreeps.builder = 3;
-      numberOfCreeps.wallRepairer = 1;
+      //numberOfCreeps.wallRepairer = 1;
     } else if (roomName === 'W2S16') {
-      // numberOfCreeps.importerHarvester = 1;
+     //numberOfCreeps.importerHarvester = 2;
       // numberOfCreeps.importerRepairer = 0;
-      // numberOfCreeps.importerReserver = 0;
+      //numberOfCreeps.importerReserver = 1;
     } else if (roomName === 'W1S13') {
       //   numberOfCreeps.harvester = 1;
       //   numberOfCreeps.exportHarvester = 3;
       //numberOfCreeps.builder = 2;
+            //numberOfCreeps.wallRepairer = 1;
     }
     return numberOfCreeps;
   },

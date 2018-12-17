@@ -1,4 +1,4 @@
-const roleHarvester = require('role.builder');
+const roleHarvester = require('role.upgrader');
 const flags = require('game.flags');
 
 // upgrader instead of harvest???

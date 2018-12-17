@@ -15,7 +15,7 @@ Creep.prototype.runRole = function () {
 Creep.prototype.myMoveTo = function (target) {
   this.moveTo(target, {
       // todo: experimental
-      reusePath: 15, // default: 5
+      reusePath: 30, // default: 5
       visualizePathStyle: {
           fill: 'transparent',
           stroke: '#0f0',
